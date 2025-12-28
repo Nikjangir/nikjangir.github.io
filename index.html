@@ -4,74 +4,63 @@
 <meta charset="UTF-8">
 <title>Nikhil Jangir | Machine Repair & Automation Engineer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:'Poppins',sans-serif;background:#f4f6fb;color:#222}
+body{margin:0;font-family:'Poppins',sans-serif;background:#eef2f7;color:#222}
 
-/* HERO */
-.hero{
-background:linear-gradient(135deg,#071a33,#0a2540);
-color:#fff;padding:90px 20px
-}
+/* NAVY THEME */
+.hero{background:linear-gradient(135deg,#081c34,#0a2a52);color:#fff;padding:90px 20px}
 .hero-inner{
 max-width:1200px;margin:auto;
 display:flex;gap:50px;align-items:center
 }
-.hero-photo{flex:0 0 300px}
+
+/* PHOTO LEFT */
 .hero-photo img{
 width:280px;height:280px;border-radius:50%;
 border:6px solid rgba(255,255,255,.25);
 object-fit:cover
 }
-.hero-content{flex:1}
+
 .hero h1{font-size:44px;margin:0}
-.hero h2{font-weight:400;margin:12px 0;color:#cfe0ff}
+.hero h2{font-weight:400;margin:12px 0;color:#d6e4ff}
 .hero p{font-size:16px;line-height:1.75;max-width:560px}
-.hero .info{margin-top:18px;font-size:14px;color:#cddcff}
+.hero .info{margin-top:18px;font-size:14px;color:#c7d8ff}
 
-/* SECTIONS */
 .section{max-width:1200px;margin:80px auto;padding:0 20px}
-.section h3{font-size:32px;margin-bottom:25px;color:#071a33}
+.section h3{font-size:32px;margin-bottom:25px;color:#081c34}
 
-/* CARDS */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px}
-.card{
-background:#fff;padding:32px;border-radius:18px;
-box-shadow:0 12px 35px rgba(0,0,0,.08)
-}
-.card h4{margin-top:0;color:#071a33}
+.card{background:#fff;padding:32px;border-radius:18px;box-shadow:0 12px 35px rgba(0,0,0,.08)}
+.card h4{margin-top:0;color:#081c34}
 .card p{font-size:15.5px;line-height:1.8}
 
-/* EXPERIENCE */
 .timeline{display:grid;gap:40px}
-.job{
-background:#fff;padding:38px;border-radius:18px;
-box-shadow:0 12px 35px rgba(0,0,0,.08)
-}
-.job h4{margin:0;font-size:24px;color:#071a33}
+.job{background:#fff;padding:38px;border-radius:18px;box-shadow:0 12px 35px rgba(0,0,0,.08)}
+.job h4{margin:0;font-size:24px;color:#081c34}
 .job span{font-size:14px;color:#666}
 .job p{margin-top:18px;line-height:1.9}
 
-/* TAGS */
 .tags{display:flex;flex-wrap:wrap;gap:12px}
-.tag{
-background:#e6ecf7;padding:10px 16px;
-border-radius:30px;font-size:14px
-}
+.tag{background:#e4ecf8;padding:10px 16px;border-radius:30px;font-size:14px}
 
-/* FOOTER */
-footer{
-background:#071a33;color:#cfd9ff;
-text-align:center;padding:35px 20px;font-size:14px
-}
+footer{background:#081c34;color:#cfd9ff;text-align:center;padding:35px 20px;font-size:14px}
 
-/* MOBILE */
+/* FLOATING ICONS */
+.float-btn{
+position:fixed;right:20px;
+width:55px;height:55px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+font-size:26px;color:#fff;text-decoration:none;
+box-shadow:0 8px 20px rgba(0,0,0,.35);z-index:999
+}
+.whatsapp{bottom:20px;background:#25D366}
+.linkedin{bottom:85px;background:#0A66C2}
+
 @media(max-width:900px){
 .hero-inner{flex-direction:column;text-align:center}
-.hero-photo{text-align:center}
 }
 </style>
 </head>
@@ -80,30 +69,28 @@ text-align:center;padding:35px 20px;font-size:14px
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
+<div class="hero-inner">
 
-    <!-- PHOTO LEFT -->
-    <div class="hero-photo">
-      <img src="profile.jpg.png" alt="Nikhil Jangir">
-    </div>
+<div class="hero-photo">
+<img src="profile.jpg.png" alt="Nikhil Jangir">
+</div>
 
-    <!-- CONTENT RIGHT -->
-    <div class="hero-content">
-      <h1>Nikhil Jangir</h1>
-      <h2>Machine Repair & Automation Engineer | Team Leader</h2>
-      <p>
-        Hands-on Machine Repair Engineer with strong shop-floor experience across
-        mobile manufacturing, automation-based assembly lines, testing systems
-        and electrical infrastructure. Currently leading machine modification
-        and reliability improvement activities at DBG India Technology Pvt Ltd.
-      </p>
-      <div class="info">
-        📍 Village Dancholi, Narnaul, Mahendragarh, Haryana – 123001<br>
-        📧 Nikhilkishanpura@gmail.com | 📞 +91 8447107097
-      </div>
-    </div>
+<div>
+<h1>Nikhil Jangir</h1>
+<h2>Machine Repair & Automation Engineer | Team Leader</h2>
+<p>
+Hands-on Machine Repair Engineer with strong shop-floor experience across
+mobile manufacturing, automation-based assembly lines, testing systems
+and electrical infrastructure. Currently leading machine modification
+and reliability improvement activities at DBG India Technology Pvt Ltd.
+</p>
+<div class="info">
+📍 Village Dancholi, Narnaul, Mahendragarh, Haryana – 123001<br>
+📧 Nikhilkishanpura@gmail.com | 📞 +91 8447107097
+</div>
+</div>
 
-  </div>
+</div>
 </section>
 
 <!-- WHAT I DO -->
@@ -113,32 +100,50 @@ text-align:center;padding:35px 20px;font-size:14px
 
 <div class="card">
 <h4>Pressing & Assembly Machines</h4>
-<p>Back cover, lens, camera deco and touch panel pressing with calibration and fixture alignment.</p>
+<p>
+Back cover pressing, lens pressing, camera deco pressing and touch panel
+assembly with press force calibration and fixture alignment.
+</p>
 </div>
 
 <div class="card">
 <h4>Online Glue Dispensing Systems</h4>
-<p>Path calibration, timing optimisation, nozzle alignment and defect control.</p>
+<p>
+Path calibration, dispensing accuracy optimisation, nozzle alignment
+and defect control during continuous production.
+</p>
 </div>
 
 <div class="card">
-<h4>Plasma Cleaning Machines</h4>
-<p>Plasma controller repair, parameter tuning and interlock verification.</p>
+<h4>Plasma Cleaning Machines & Controllers</h4>
+<p>
+Plasma controller repair, parameter tuning, interlock validation
+and bonding quality stabilisation.
+</p>
 </div>
 
 <div class="card">
 <h4>RF Antenna Testing</h4>
-<p>CMW100 / CMW500 testing with Eragon & HQ software for 4G / 5G validation.</p>
+<p>
+CMW100 & CMW500 testing using Eragon and HQ software,
+antenna alignment and 4G/5G band validation.
+</p>
 </div>
 
 <div class="card">
 <h4>Axis-Controlled Automation</h4>
-<p>Robotic arms and Cartesian systems with homing and accuracy correction.</p>
+<p>
+Multi-axis machines, robotic arms and Cartesian systems
+with homing accuracy and sensor feedback correction.
+</p>
 </div>
 
 <div class="card">
-<h4>Machine Modification</h4>
-<p>Machine modification reports, fixture optimisation and new model readiness.</p>
+<h4>Machine Modification & Documentation</h4>
+<p>
+Machine modification execution, fixture optimisation,
+PCN/ECN documentation and new model readiness.
+</p>
 </div>
 
 </div>
@@ -153,28 +158,37 @@ text-align:center;padding:35px 20px;font-size:14px
 <h4>DBG India Technology Pvt Ltd, Bawal</h4>
 <span>Machine Repair Engineer (L4.2) – Team Leader | July 2023 – Present</span>
 <p>
-Handling breakdowns, MTTR/MTBF improvement, OEE enhancement, pressing machines,
-plasma cleaning controllers, online glue dispensing, RF antenna testing,
-axis machines and PLC/HMI stabilisation using FPWIN GR7 & Weinview.
+Leading breakdown handling, MTTR reduction, MTBF improvement and OEE enhancement.
+Hands-on with pressing machines, plasma cleaning controllers, online glue
+dispensing, RF antenna testing, axis machines and PLC/HMI stabilisation.
 </p>
 </div>
 
 <div class="job">
 <h4>Senstek India Pvt Ltd, Manesar</h4>
 <span>Machine Repair Engineer | Nov 2022 – July 2023</span>
-<p>Maintenance support for mobile camera manufacturing lines.</p>
+<p>
+Maintenance support for mobile camera manufacturing lines
+with high precision assembly and quality focus.
+</p>
 </div>
 
 <div class="job">
 <h4>TXD (India) Technology Pvt Ltd, Bawal</h4>
 <span>Graduate Engineer Trainee | Jan 2020 – Oct 2022</span>
-<p>Training in mobile display manufacturing and preventive maintenance.</p>
+<p>
+Training in mobile display manufacturing, production equipment
+and preventive maintenance systems.
+</p>
 </div>
 
 <div class="job">
 <h4>Adani Power, Pokhran</h4>
 <span>Supervisor – 33/132kV Substation | Aug 2019 – Jan 2020</span>
-<p>High-voltage substation operations and electrical safety.</p>
+<p>
+Supervised high-voltage operations, electrical safety
+and power distribution systems.
+</p>
 </div>
 
 </div>
@@ -184,51 +198,39 @@ axis machines and PLC/HMI stabilisation using FPWIN GR7 & Weinview.
 <section class="section">
 <h3>Machines & Systems</h3>
 <div class="tags">
-<span class="tag">Pressing & Assembly Machines</span>
-<span class="tag">BRT Machines</span>
+<span class="tag">Pressing & Assembly</span>
+<span class="tag">Battery Rolling (BRT)</span>
 <span class="tag">BTB Pressing</span>
-<span class="tag">Axis-Controlled Machines</span>
-<span class="tag">Online Glue Dispensing</span>
-<span class="tag">Plasma Cleaning Controllers</span>
-<span class="tag">RF Antenna Testing</span>
+<span class="tag">Axis Automation</span>
+<span class="tag">Glue Dispensing</span>
+<span class="tag">Plasma Cleaning</span>
+<span class="tag">RF Testing</span>
 <span class="tag">CMW100 / CMW500</span>
-<span class="tag">CCD Vision Systems</span>
-<span class="tag">PLC & HMI Automation</span>
+<span class="tag">Idle Current Testers</span>
+<span class="tag">CCD Vision</span>
+<span class="tag">Robotic Arms</span>
+<span class="tag">PLC / HMI</span>
 </div>
 </section>
 
-<!-- QR ONLY -->
+<!-- QR -->
 <section class="section" style="text-align:center">
 <h3>Scan My Website</h3>
-
-<img
-src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://nikjangir.github.io"
-alt="Website QR Code"
-style="display:block;margin:25px auto">
-
-<p style="margin-top:15px;font-size:14px;color:#444">
-Resume available on this website – View or Download (DOCX)
-</p>
-
-<p style="margin-top:10px;font-size:14px;color:#444">
-LinkedIn Profile:
-<a href="https://www.linkedin.com/in/nikhil-jangir-40296a18b"
-   target="_blank"
-   style="color:#071a33;font-weight:600;text-decoration:none">
-linkedin.com/in/nikhil-jangir-40296a18b
-</a>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://nikjangir.github.io"
+alt="Website QR" style="margin:25px auto;display:block">
+<p>
+<a href="Nikhil_Jangir_Resume.docx" download>⬇ Download Resume</a> |
+<a href="Nikhil_Jangir_Resume.docx" target="_blank">👁 View Resume</a>
 </p>
 </section>
 
 <footer>
-© 2025 Nikhil Jangir · Professional Engineering Portfolio<br><br>
-🔗 LinkedIn:
-<a href="https://www.linkedin.com/in/nikhil-jangir-40296a18b"
-   target="_blank"
-   style="color:#cfd9ff;text-decoration:none">
-linkedin.com/in/nikhil-jangir-40296a18b
-</a>
+© 2025 Nikhil Jangir · Professional Engineering Portfolio
 </footer>
 
+<!-- FLOATING ICONS -->
+<a class="float-btn whatsapp" href="https://wa.me/918447107097" target="_blank">🟢</a>
+<a class="float-btn linkedin" href="https://www.linkedin.com/in/nikhil-jangir-40296a18b" target="_blank">in</a>
+
 </body>
-  </html>
+                                    </html>
