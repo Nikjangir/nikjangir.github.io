@@ -2,77 +2,152 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Nikhil Jangir | Manufacturing & Automation Engineer</title>
+<title>Nikhil Jangir | Manufacturing Machine & Automation Engineer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- TOP 1% FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+
+<!-- ICONS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
+:root{
+--navy:#0A2540;
+--steel:#133B6F;
+--accent:#3B82F6;
+--bg:#F5F7FB;
+--text:#111827;
+--muted:#6B7280;
+}
+
 *{box-sizing:border-box}
-body{margin:0;font-family:'Poppins',sans-serif;background:#f4f7fb;color:#222}
-a{text-decoration:none}
+body{
+margin:0;
+font-family:'IBM Plex Sans',sans-serif;
+background:var(--bg);
+color:var(--text);
+line-height:1.85;
+}
+
+h1,h2,h3,h4{
+font-family:'Inter',sans-serif;
+color:var(--navy);
+}
+
+section{
+padding:110px 20px;
+}
+
+.container{
+max-width:1250px;
+margin:auto;
+}
 
 .hero{
-background:linear-gradient(135deg,#061b33,#0a2d55);
-color:#fff;padding:90px 20px
-}
-.hero-inner{
-max-width:1200px;margin:auto;
-display:grid;grid-template-columns:320px 1fr;
-gap:60px;align-items:center
-}
-.hero img{
-width:280px;height:280px;border-radius:50%;
-border:6px solid rgba(255,255,255,.25);
-object-fit:cover
-}
-.hero h1{font-size:44px;margin:0}
-.hero h2{font-weight:400;margin:10px 0;color:#cfe0ff}
-.hero p{font-size:16px;line-height:1.8;max-width:650px}
-.hero .info{margin-top:15px;font-size:14px;color:#dbe6ff}
-
-.social a{
-display:inline-block;margin:12px 10px 0 0;
-color:#fff;font-size:15px
+background:linear-gradient(135deg,var(--navy),var(--steel));
+color:#fff;
 }
 
-.section{max-width:1200px;margin:80px auto;padding:0 20px}
-.section h3{font-size:32px;margin-bottom:30px;color:#061b33}
-
-.cards{
+.hero-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:30px
+grid-template-columns:320px 1fr;
+gap:70px;
+align-items:center;
 }
+
+.hero img{
+width:300px;
+height:300px;
+border-radius:50%;
+border:6px solid rgba(255,255,255,.25);
+object-fit:cover;
+}
+
+.hero h1{
+font-family:'Space Grotesk',sans-serif;
+font-size:46px;
+margin:0;
+color:#fff;
+}
+
+.hero h2{
+font-weight:400;
+color:#dbe6ff;
+margin:12px 0;
+}
+
+.hero p{
+max-width:720px;
+font-size:17px;
+}
+
+.hero-links a{
+display:inline-block;
+margin:10px 14px 0 0;
+color:#fff;
+font-size:18px;
+}
+
+.card-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:40px;
+}
+
 .card{
-background:#fff;padding:32px;border-radius:18px;
-box-shadow:0 12px 35px rgba(0,0,0,.08)
+background:#fff;
+padding:40px;
+border-radius:20px;
+box-shadow:0 18px 40px rgba(0,0,0,.08);
 }
-.card h4{margin-top:0;color:#061b33}
-.card p{line-height:1.85;font-size:15.5px}
 
-.timeline{display:grid;gap:40px}
-.job{
-background:#fff;padding:38px;border-radius:18px;
-box-shadow:0 12px 35px rgba(0,0,0,.08)
+.card i{
+font-size:26px;
+color:var(--accent);
+margin-bottom:14px;
 }
-.job h4{margin:0;font-size:24px;color:#061b33}
-.job span{font-size:14px;color:#666}
-.job p{margin-top:18px;line-height:1.9}
 
-.tags{display:flex;flex-wrap:wrap;gap:12px}
+.timeline .job{
+background:#fff;
+padding:45px;
+border-radius:20px;
+box-shadow:0 18px 40px rgba(0,0,0,.08);
+margin-bottom:45px;
+}
+
+.tags{
+display:flex;
+flex-wrap:wrap;
+gap:14px;
+}
+
 .tag{
-background:#e3ecfb;padding:10px 16px;
-border-radius:30px;font-size:14px
+background:#e9effa;
+padding:12px 18px;
+border-radius:30px;
+font-size:14px;
+}
+
+.cta a{
+background:var(--navy);
+color:#fff;
+padding:16px 30px;
+border-radius:40px;
+display:inline-block;
+margin:10px;
+font-size:15px;
 }
 
 footer{
-background:#061b33;color:#cfdcff;
-text-align:center;padding:35px 20px;font-size:14px
+background:var(--navy);
+color:#cfd9ff;
+text-align:center;
+padding:40px 20px;
 }
 
 @media(max-width:900px){
-.hero-inner{grid-template-columns:1fr;text-align:center}
+.hero-grid{grid-template-columns:1fr;text-align:center}
 .hero img{margin:auto}
 }
 </style>
@@ -82,177 +157,155 @@ text-align:center;padding:35px 20px;font-size:14px
 
 <!-- HERO -->
 <section class="hero">
-<div class="hero-inner">
-
+<div class="container hero-grid">
 <img src="profile.jpg.png" alt="Nikhil Jangir">
-
 <div>
 <h1>Nikhil Jangir</h1>
-<h2>Manufacturing & Automation Engineer | Team Leader</h2>
+<h2>Manufacturing Machine Repair & Automation Engineer | Team Leader</h2>
 
 <p>
-Manufacturing engineer with 6+ years of hands-on experience in machine repair,
-modification and production reliability improvement. Strong exposure to quality
-control tools, process stabilisation and continuous improvement in high-volume
-manufacturing environments.
+Manufacturing-focused Machine Engineering professional with 6+ years of hands-on experience
+in machine repair, modification, automation troubleshooting and reliability improvement.
+Currently working as a Team Leader at DBG India Technology Pvt Ltd, driving MTTR reduction,
+MTBF improvement, OEE enhancement and process stability across high-volume production lines.
 </p>
 
-<div class="info">
-📍 Dancholi, Narnaul, Mahendragarh, Haryana – India<br>
-📧 Nikhilkishanpura@gmail.com | 📞 +91 8447107097
+<div class="hero-links">
+<a href="https://wa.me/918447107097" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+<a href="https://www.linkedin.com/in/nikhil-jangir-40296a18b" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+<a href="https://www.instagram.com/nik_jangir" target="_blank"><i class="fa-brands fa-instagram"></i></a>
 </div>
 
-<div class="social">
-<a href="https://wa.me/918447107097" target="_blank">WhatsApp</a>
-<a href="https://www.linkedin.com/in/nikhil-jangir-40296a18b" target="_blank">LinkedIn</a>
-<a href="https://www.instagram.com/nik_jangir?igsh=d2w5bXQyMmg5dXNh" target="_blank">Instagram</a>
-</div>
-
+<p style="margin-top:18px;font-size:14px;color:#cddcff">
+📍 Narnaul, Haryana | 📧 Nikhilkishanpura@gmail.com | 📞 +91 8447107097
+</p>
 </div>
 </div>
 </section>
 
-<!-- WHAT I DO -->
-<section class="section">
-<h3>What I Do on the Shop Floor</h3>
-<div class="cards">
+<!-- CORE EXPERTISE -->
+<section>
+<div class="container">
+<h3>Core Manufacturing Expertise</h3>
+<div class="card-grid">
 
 <div class="card">
-<h4>Machine Reliability & Modification</h4>
+<i class="fa-solid fa-gears"></i>
+<h4>Machine Repair & Modification</h4>
 <p>
-Hands-on machine repair, troubleshooting and modification to improve reliability,
-reduce breakdown recurrence and ensure stable long-term operation.
-</p>
-</div>
-
-<div class="card">
-<h4>Automation & Precision Control</h4>
-<p>
-Worked on axis-controlled and automation-based machines ensuring accuracy,
-repeatability and precise control of critical process parameters.
+Hands-on repair and modification of pressing machines, axis-controlled systems,
+plasma machines and glue dispensing equipment with focus on uptime and safety.
 </p>
 </div>
 
 <div class="card">
-<h4>Quality Control & Process Stability</h4>
+<i class="fa-solid fa-chart-line"></i>
+<h4>Reliability & KPI Improvement</h4>
 <p>
-Active involvement in quality control activities, non-conformity handling
-and continuous process improvement using standard quality tools.
+MTTR reduction, MTBF improvement, OEE enhancement, bottleneck elimination,
+process stabilization and loss analysis in mass production environments.
+</p>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-industry"></i>
+<h4>Manufacturing Quality Control</h4>
+<p>
+LAR (Lot Acceptance Ratio), LRR (Lot Rejection Rate), FPY (First Pass Yield),
+Production Yield improvement and non-conformity control during processes.
+</p>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-diagram-project"></i>
+<h4>Automation & Controls</h4>
+<p>
+PLC, HMI, Servo and Axis coordination, automation tracing, interlock verification
+and process validation during machine commissioning and model changeovers.
 </p>
 </div>
 
 </div>
-</section>
-
-<!-- QUALITY METRICS -->
-<section class="section">
-<h3>Manufacturing Performance & Quality Excellence</h3>
-<ul>
-<li>OEE improvement through breakdown reduction and machine stabilisation</li>
-<li>MTTR reduction and MTBF improvement using structured troubleshooting</li>
-<li>LAR improvement through process validation and parameter control</li>
-<li>LRR reduction using 8D, 5-Why and Red Bin analysis</li>
-<li>Production Yield (PY) and First Pass Yield (FPY) improvement</li>
-</ul>
-</section>
-
-<!-- QUALITY TOOLS -->
-<section class="section">
-<h3>Quality Tools & Process Control Expertise</h3>
-<p>
-Hands-on application of quality tools for defect prevention, root cause analysis
-and non-conformity control during production processes.
-</p>
-<ul>
-<li><strong>7 QC Tools:</strong> Check Sheet, Pareto Chart, Fishbone Diagram, Histogram,
-Control Chart, Scatter Diagram and Flow Chart for data-driven decision making</li>
-<li><strong>5 Core Quality Tools:</strong> APQP, PPAP, FMEA, MSA and SPC for process control
-and quality assurance</li>
-<li><strong>Non-Conformity Handling:</strong> Identification, containment, root cause analysis
-and corrective & preventive action implementation to prevent recurrence</li>
-</ul>
+</div>
 </section>
 
 <!-- EXPERIENCE -->
-<section class="section">
+<section>
+<div class="container timeline">
 <h3>Professional Experience</h3>
-<div class="timeline">
 
 <div class="job">
 <h4>DBG India Technology Pvt Ltd – Bawal</h4>
-<span>Machine Repair Engineer (L4.2) – Team Leader | Jul 2023 – Present</span>
+<p><strong>Machine Repair Engineer (L4.2) – Team Leader | 2023 – Present</strong></p>
 <p>
-Leading machine maintenance, breakdown handling and modification activities for
-high-volume manufacturing lines. Supporting MTTR reduction, MTBF improvement and
-OEE enhancement through structured problem solving and preventive actions.
+Leading machine maintenance, breakdown control and modification activities across
+manufacturing lines. Actively involved in training skilled and unskilled technicians,
+RCA using 8D and 5-Why, red bin analysis and process validation.
 </p>
 </div>
 
 <div class="job">
 <h4>Senstek India Pvt Ltd – Manesar</h4>
-<span>Machine Repair Engineer | Nov 2022 – Jul 2023</span>
+<p><strong>Machine Repair Engineer | 2022 – 2023</strong></p>
 <p>
-Supported precision manufacturing machines with focus on breakdown control,
-quality improvement and process stability.
+Supported precision manufacturing machines, quality-driven maintenance
+and process stability in a high-volume production environment.
 </p>
 </div>
 
 <div class="job">
 <h4>TXD (India) Technology Pvt Ltd – Bawal</h4>
-<span>Graduate Engineer Trainee | Jan 2020 – Oct 2022</span>
+<p><strong>Graduate Engineer Trainee | 2020 – 2022</strong></p>
 <p>
-Gained strong exposure to manufacturing operations, machine maintenance,
-quality systems and shop-floor best practices.
-</p>
-</div>
-
-<div class="job">
-<h4>Adani Power – Pokhran</h4>
-<span>Supervisor – 33/132kV Substation | Aug 2019 – Jan 2020</span>
-<p>
-Supervised electrical substation operations ensuring safety and reliable
-power distribution.
+Structured training in manufacturing processes, preventive maintenance,
+machine principles and shop-floor engineering discipline.
 </p>
 </div>
 
 </div>
 </section>
 
-<!-- MACHINES -->
-<section class="section">
-<h3>Machines & Systems Experience</h3>
+<!-- TOOLS -->
+<section>
+<div class="container">
+<h3>Tools, Systems & Methodologies</h3>
 <div class="tags">
-<span class="tag">Pressing & Assembly Machines</span>
-<span class="tag">Glue Dispensing Machines</span>
-<span class="tag">Plasma Cleaning Machines</span>
-<span class="tag">Axis-Controlled Automation</span>
-<span class="tag">Industrial Robotic Arms</span>
-<span class="tag">CCD Vision Systems</span>
-<span class="tag">RF Antenna Testing (CMW100 / CMW500)</span>
-<span class="tag">Machine Modification & Validation</span>
+<span class="tag">7 QC Tools</span>
+<span class="tag">5 Core Tools</span>
+<span class="tag">8D Problem Solving</span>
+<span class="tag">5 Why Analysis</span>
+<span class="tag">Red Bin Analysis</span>
+<span class="tag">Process Validation</span>
+<span class="tag">Non-Conformity Control</span>
+<span class="tag">Work Precision Control</span>
+</div>
 </div>
 </section>
 
-<!-- RESUME & QR -->
-<section class="section" style="text-align:center">
-<h3>Resume & QR Code</h3>
+<!-- RESUME -->
+<section style="text-align:center">
+<div class="container">
+<h3>Resume & ATS Version</h3>
+<p>Download standard resume or ATS-optimized version.</p>
 
-<a href="Nikhil_Jangir_Resume.docx" download
-style="background:#061b33;color:#fff;padding:14px 30px;border-radius:30px;display:inline-block;margin:10px">
-Download Resume (DOCX)
-</a>
+<div class="cta">
+<a href="Nikhil_Jangir_Resume.docx" download>Download Resume</a>
+<a href="Nikhil_Jangir_Resume.docx" target="_blank">View Resume</a>
+</div>
+</div>
+</section>
 
-<a href="Nikhil_Jangir_Resume.docx" target="_blank"
-style="background:#e3ecfb;color:#061b33;padding:14px 30px;border-radius:30px;display:inline-block;margin:10px">
-View Resume
-</a>
-
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://nikhiljangir.github.io"
-style="display:block;margin:30px auto">
+<!-- QR -->
+<section style="text-align:center">
+<div class="container">
+<h3>Scan Portfolio</h3>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://nikjangir.github.io" alt="QR Code">
+<p style="margin-top:18px;color:var(--muted)">Scan to open website</p>
+</div>
 </section>
 
 <footer>
-© 2025 Nikhil Jangir · Manufacturing & Automation Engineering Portfolio
+© 2025 Nikhil Jangir | Manufacturing Engineering Portfolio
 </footer>
 
 </body>
