@@ -1,231 +1,621 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nikhil Jangir | Professional Dashboard</title>  <!-- ================== STYLE ================== -->  <style>
-    :root{
-      --bg:#0f172a;           /* slate-900 */
-      --card:#111827;         /* gray-900 */
-      --accent:#38bdf8;       /* sky-400 */
-      --accent2:#22c55e;      /* green-500 */
-      --text:#e5e7eb;         /* gray-200 */
-      --muted:#9ca3af;        /* gray-400 */
-    }
-
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;
-      background:linear-gradient(135deg,#020617,#020617,var(--bg));
-      color:var(--text);
-      min-height:100vh;
-    }
-
-    header{
-      padding:24px;
-      display:flex;
-      align-items:center;
-      gap:20px;
-      border-bottom:1px solid #1f2933;
-    }
-
-    header img{
-      width:90px;height:90px;
-      border-radius:50%;
-      object-fit:cover;
-      border:3px solid var(--accent);
-    }
-
-    header h1{font-size:1.6rem}
-    header p{color:var(--muted)}
-
-    main{
-      padding:24px;
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:20px;
-    }
-
-    .card{
-      background:linear-gradient(180deg,#020617,var(--card));
-      border-radius:16px;
-      padding:20px;
-      box-shadow:0 20px 40px rgba(0,0,0,.4);
-      transition:.3s ease;
-    }
-    .card:hover{transform:translateY(-4px)}
-
-    .card h2{
-      margin-bottom:14px;
-      font-size:1.2rem;
-      color:var(--accent);
-    }
-
-    button{
-      background:linear-gradient(135deg,var(--accent),#0ea5e9);
-      border:none;
-      color:#020617;
-      padding:10px 16px;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:600;
-      transition:.2s;
-    }
-    button:hover{filter:brightness(1.1)}
-
-    a.btn{
-      display:inline-block;
-      text-decoration:none;
-      margin-top:10px;
-    }
-
-    /* ===== Resume Viewer ===== */
-    iframe{
-      width:100%;
-      height:420px;
-      border:none;
-      border-radius:12px;
-      background:#000;
-    }
-
-    /* ===== Calculator ===== */
-    .calc{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:10px;
-    }
-    .calc input{
-      grid-column:span 4;
-      padding:14px;
-      border-radius:10px;
-      border:none;
-      font-size:1.2rem;
-      background:#020617;
-      color:var(--text);
-    }
-    .calc button{
-      padding:14px;
-      border-radius:10px;
-      font-size:1rem;
-    }
-
-    /* ===== Excel Section ===== */
-    table{
-      width:100%;
-      border-collapse:collapse;
-      margin-top:10px;
-    }
-    table th,table td{
-      border:1px solid #1f2937;
-      padding:8px;
-      text-align:center;
-    }
-    table th{color:var(--accent)}
-
-    footer{
-      text-align:center;
-      padding:20px;
-      color:var(--muted);
-      font-size:.9rem;
-    }
-  </style></head>
-<body><header>
-  <img src="profile.jpg.png" alt="Profile" />
-  <div>
-    <h1>Nikhil Jangir</h1>
-    <p>Electronics / Manufacturing Professional | ISO Process | Dashboard Portfolio</p>
-  </div>
-</header><main>  <!-- ================= Resume Card ================= -->  <section class="card">
-    <h2>📄 Resume (View & Download)</h2>
-    <iframe src="Nikhil_Jangir_Resume.pdf"></iframe>
-    <a class="btn" href="Nikhil_Jangir_Resume.pdf" download>
-      <button>⬇ Download Resume</button>
-    </a>
-  </section>  <!-- ================= Calculator Card ================= -->  <section class="card">
-    <h2>🧮 Smart Calculator</h2>
-    <div class="calc">
-      <input type="text" id="display" disabled />
-      <button onclick="clr()">C</button>
-      <button onclick="add('/')">÷</button>
-      <button onclick="add('*')">×</button>
-      <button onclick="del()">⌫</button><button onclick="add('7')">7</button>
-  <button onclick="add('8')">8</button>
-  <button onclick="add('9')">9</button>
-  <button onclick="add('-')">−</button>
-
-  <button onclick="add('4')">4</button>
-  <button onclick="add('5')">5</button>
-  <button onclick="add('6')">6</button>
-  <button onclick="add('+')">+</button>
-
-  <button onclick="add('1')">1</button>
-  <button onclick="add('2')">2</button>
-  <button onclick="add('3')">3</button>
-  <button onclick="calc()" style="grid-row:span 2;background:linear-gradient(135deg,var(--accent2),#16a34a)">=</button>
-
-  <button onclick="add('0')" style="grid-column:span 2">0</button>
-  <button onclick="add('.')">.</button>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikhil Jangir | Factory Documentation Portal</title>
+<style>
+:root{
+--bg:#020617;--card:#0f172a;--accent:#38bdf8;--accent2:#22c55e;--text:#e5e7eb;--muted:#94a3b8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,Segoe UI,Roboto;background:var(--bg);color:var(--text)}
+header{padding:24px;border-bottom:1px solid #1e293b;display:flex;gap:20px;align-items:center}
+header img{width:90px;height:90px;border-radius:50%;border:3px solid var(--accent)}
+main{padding:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.card{background:var(--card);border-radius:16px;padding:20px;box-shadow:0 20px 40px rgba(0,0,0,.4)}
+h2{color:var(--accent);margin-bottom:12px}
+h3{color:var(--accent2);margin-top:12px}
+p,li{color:var(--muted);line-height:1.6}
+button{padding:12px;border:none;border-radius:10px;background:var(--accent);color:#020617;font-weight:700;cursor:pointer;margin-top:8px}
+textarea{width:100%;min-height:160px;border-radius:10px;border:none;padding:12px;background:#020617;color:var(--text)}
+select,input{width:100%;padding:10px;border-radius:8px;border:none;background:#020617;color:var(--text)}
+footer{text-align:center;padding:20px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+<img src="profile.jpg.png">
+<div>
+<h1>Nikhil Jangir</h1>
+<p>Senior Equipment & Process Engineer | QA • Maintenance • Automation</p>
 </div>
+</header>
+<main>
 
-  </section>  <!-- ================= Excel Documents ================= -->  <section class="card">
-    <h2>📊 ISO Documents, Manuals & Troubleshooting</h2>
-    <p style="color:var(--muted)">
-      Real‑world ISO templates, machine manuals, electronics component references and troubleshooting guides.
-      Downloads are standard industry formats (Excel / PDF) and reference official sources.
-    </p><h3 style="margin-top:14px;color:#22c55e">✔ ISO Excel Templates</h3>
-<ul>
-  <li><a href="https://www.iso.org/files/live/sites/isoorg/files/store/en/PUB100080.pdf" target="_blank">ISO 9001 Process Approach Template (Official ISO)</a></li>
-  <li><a href="https://asq.org/quality-resources/quality-check-sheet" target="_blank">Quality Check Sheet (ASQ)</a></li>
-  <li><a href="https://www.vertex42.com/ExcelTemplates/inspection-checklist.html" target="_blank">Inspection Checklist – Excel</a></li>
+<!-- LOGIN -->
+<section class="card">
+<h2>🔐 Role Based Login</h2>
+<select id="role">
+<option value="qa">QA Engineer</option>
+<option value="maint">Maintenance Engineer</option>
+<option value="process">Process / Equipment Engineer</option>
+</select>
+<button onclick="login()">Login</button>
+<p id="loginStatus"></p>
+</section>
+
+<!-- ISO DOCUMENTATION -->
+<section class="card" id="iso" style="display:none">
+<h2>📄 ISO / IATF 16949 – Step‑by‑Step Documentation</h2>
+<h3>1. Process Definition</h3>
+<p>Each manufacturing process shall be defined with inputs, outputs, risks and controls. Evidence shall be maintained as controlled documents.</p>
+<h3>2. Risk Analysis</h3>
+<p>Process risk shall be evaluated using PFMEA. Actions shall be recorded and reviewed during management review.</p>
+<h3>3. Record Control</h3>
+<p>All records shall be identifiable, retrievable and retained as per retention matrix.</p>
+<h3>Audit Language Example</h3>
+<p>"The organization has established, implemented and maintained documented information to support the operation of its processes."</p>
+</section>
+
+<!-- ELECTRONICS FAULT DATABASE -->
+<section class="card" id="electronics" style="display:none">
+<h2>⚡ Electronics Fault Database</h2>
+<h3>Camera Module</h3>
+<ul><li>No Image → Check MIPI lines, power rails</li><li>Blur Image → Lens contamination, focus motor</li></ul>
+<h3>RF</h3>
+<ul><li>No Network → RF path open/short</li><li>High Power → PA bias issue</li></ul>
+<h3>Display</h3>
+<ul><li>Dead Pixel → Panel defect</li><li>No Backlight → Driver IC / LED open</li></ul>
+<h3>Power</h3>
+<ul><li>No Power → PMIC enable missing</li><li>High Idle Current → Leakage component</li></ul>
+</section>
+
+<!-- MACHINE TROUBLESHOOTING -->
+<section class="card" id="machines" style="display:none">
+<h2>🛠 Machine‑wise Troubleshooting</h2>
+<h3>BRT Machine</h3>
+<p>Check vacuum sensors, timing and PLC interlocks.</p>
+<h3>CCD Inspection</h3>
+<p>Verify lighting, camera focus, algorithm threshold.</p>
+<h3>Plasma Cleaning</h3>
+<p>Confirm gas flow, RF power and chamber pressure.</p>
+<h3>Robots</h3>
+<p>Check servo alarms, encoder feedback, safety zones.</p>
+</section>
+
+
+
+<!-- ISO CLAUSE WISE MANUAL -->
+<section class="card" id="isoClauses" style="display:none">
+<h2>📘 ISO 9001 / IATF 16949 – Clause‑wise Manual</h2>
+<h3>Clause 4 – Context of the Organization</h3>
+<p>The organization shall determine external and internal issues relevant to its purpose and strategic direction.</p>
+<h3>Clause 5 – Leadership</h3>
+<p>Top management shall demonstrate leadership and commitment with respect to the QMS.</p>
+<h3>Clause 6 – Planning</h3>
+<p>Actions to address risks and opportunities shall be planned and integrated.</p>
+<h3>Clause 7 – Support</h3>
+<p>Resources, competence, awareness and documented information shall be maintained.</p>
+<h3>Clause 8 – Operation</h3>
+<p>Operational planning and control shall be implemented under controlled conditions.</p>
+<h3>Clause 9 – Performance Evaluation</h3>
+<p>Monitoring, measurement, analysis and evaluation shall be performed.</p>
+<h3>Clause 10 – Improvement</h3>
+<p>Nonconformities shall be addressed and continual improvement maintained.</p>
+</section>
+
+<!-- SEARCHABLE FAULT DATABASE -->
+<section class="card" id="faultDB" style="display:none">
+<h2>🔍 Searchable Electronics Fault Database</h2>
+<input id="searchFault" placeholder="Search fault e.g. No Network, Blur Image" onkeyup="searchFaults()">
+<ul id="faultList">
+<li>CAM01 – Camera No Image – Check MIPI lines</li>
+<li>CAM02 – Blur Image – Lens contamination</li>
+<li>RF01 – No Network – RF path open</li>
+<li>RF02 – High Power – PA bias issue</li>
+<li>DSP01 – No Backlight – LED open</li>
+<li>PWR01 – No Power – PMIC enable missing</li>
 </ul>
+</section>
 
-<h3 style="margin-top:14px;color:#22c55e">✔ Machine Manuals</h3>
+<!-- MTTR MTBF LOGS -->
+<section class="card" id="logs" style="display:none">
+<h2>🧾 MTTR / MTBF Editable Logs</h2>
+<input id="machine" placeholder="Machine Name">
+<input id="down" placeholder="Downtime (hrs)">
+<input id="fail" placeholder="Failures">
+<button onclick="addLog()">Add Log</button>
+<ul id="logList"></ul>
+</section>
+
+
+
+<!-- ISO EVIDENCE & RECORD SAMPLES -->
+<section class="card" id="evidence" style="display:none">
+<h2>📂 Clause‑wise Evidence & Record Samples</h2>
 <ul>
-  <li><a href="https://support.siemens.com" target="_blank">Siemens PLC & Drives Manuals</a></li>
-  <li><a href="https://www.rockwellautomation.com/en-in/support/documentation.html" target="_blank">Allen‑Bradley Manuals</a></li>
-  <li><a href="https://www.schneider-electric.com/en/work/support/" target="_blank">Schneider Electric Manuals</a></li>
+<li>Clause 4 – Process Interaction Map (Excel)</li>
+<li>Clause 5 – Management Review Minutes (Excel)</li>
+<li>Clause 6 – Risk Register / PFMEA (Excel)</li>
+<li>Clause 7 – Training Matrix & Document Control (Excel)</li>
+<li>Clause 8 – Control Plan & Checksheet (Excel)</li>
+<li>Clause 9 – KPI Monitoring & Audit Report (Excel)</li>
+<li>Clause 10 – CAPA & Improvement Tracker (Excel)</li>
 </ul>
+<button onclick="downloadISOExcel()">⬇ Download ISO Evidence Pack</button>
+</section>
 
-<h3 style="margin-top:14px;color:#22c55e">✔ Electronics Components Details</h3>
+<!-- FAULT PHOTO / VIDEO MAPPING -->
+<section class="card" id="media" style="display:none">
+<h2>🖼 Fault Photo / Video Mapping</h2>
+<p>Upload and map real fault photos/videos for training and troubleshooting.</p>
+<input type="file" accept="image/*,video/*" multiple>
+<p style="color:var(--muted)">Files remain local to browser (no external server).</p>
+</section>
+
+<!-- USER WISE DATA -->
+<section class="card" id="userdata" style="display:none">
+<h2>👤 User‑wise Data Separation</h2>
+<p>QA users see ISO records & audits. Maintenance users see breakdown & KPI logs.</p>
 <ul>
-  <li><a href="https://www.ti.com/lit/ds" target="_blank">Texas Instruments Datasheets</a></li>
-  <li><a href="https://www.st.com/en/technical-documentation.html" target="_blank">STMicroelectronics Datasheets</a></li>
-  <li><a href="https://www.onsemi.com/support/documentation" target="_blank">ON Semiconductor Docs</a></li>
+<li>QA → ISO Clauses, Evidence, Audit Records</li>
+<li>Maintenance → Fault DB, MTTR/MTBF, Machine Logs</li>
 </ul>
+</section>
 
-<h3 style="margin-top:14px;color:#22c55e">✔ Troubleshooting & Repair</h3>
+
+
+<!-- EDITABLE EXCEL-LIKE TABLE -->
+<section class="card" id="excel" style="display:none">
+<h2>📊 Editable Excel‑like Tables (Browser)</h2>
+<table id="excelTable" border="1" style="width:100%;border-collapse:collapse">
+<tr><th>Machine</th><th>Downtime (hrs)</th><th>Failures</th></tr>
+<tr><td contenteditable>CCD‑01</td><td contenteditable>2</td><td contenteditable>1</td></tr>
+<tr><td contenteditable>Plasma‑02</td><td contenteditable>5</td><td contenteditable>2</td></tr>
+</table>
+<button onclick="downloadExcelTable()">⬇ Download Excel</button>
+</section>
+
+<!-- FAULT TREND CHART -->
+<section class="card" id="charts" style="display:none">
+<h2>📈 Fault Trend Chart</h2>
+<canvas id="faultChart" width="300" height="200"></canvas>
+<button onclick="drawChart()">Generate Trend</button>
+</section>
+
+<!-- AUDIT READINESS SCORE -->
+<section class="card" id="audit" style="display:none">
+<h2>✅ Audit Readiness Score</h2>
+<label>Process Documents (%)</label>
+<input id="doc" value="80">
+<label>Records Maintained (%)</label>
+<input id="rec" value="70">
+<label>Corrective Actions Closed (%)</label>
+<input id="cap" value="60">
+<button onclick="auditScore()">Calculate Score</button>
+<p id="auditResult"></p>
+</section>
+
+
+
+<!-- FAULT PARETO CHART -->
+<section class="card" id="pareto" style="display:none">
+<h2>📊 Fault Pareto Chart (80/20 Analysis)</h2>
+<canvas id="paretoChart" width="320" height="220"></canvas>
+<button onclick="drawPareto()">Generate Pareto</button>
+</section>
+
+<!-- SPC CHART -->
+<section class="card" id="spc" style="display:none">
+<h2>📉 SPC Control Chart</h2>
+<p>Example: Process Parameter Trend</p>
+<canvas id="spcChart" width="320" height="220"></canvas>
+<button onclick="drawSPC()">Generate SPC</button>
+</section>
+
+<!-- MONTHLY OEE DASHBOARD -->
+<section class="card" id="monthlyOEE" style="display:none">
+<h2>📅 Monthly OEE Dashboard</h2>
+<table border="1" style="width:100%;border-collapse:collapse">
+<tr><th>Month</th><th>Availability %</th><th>Performance %</th><th>Quality %</th><th>OEE %</th></tr>
+<tr><td>Jan</td><td contenteditable>90</td><td contenteditable>95</td><td contenteditable>98</td><td></td></tr>
+<tr><td>Feb</td><td contenteditable>88</td><td contenteditable>94</td><td contenteditable>97</td><td></td></tr>
+</table>
+<button onclick="calcMonthlyOEE()">Calculate Monthly OEE</button>
+</section>
+
+
+
+<!-- COMBINED PARETO + SPC DASHBOARD -->
+<section class="card" id="combined" style="display:none">
+<h2>📊 Combined Pareto + SPC Dashboard</h2>
+<p>Top faults with process stability view.</p>
+<canvas id="comboChart" width="340" height="220"></canvas>
+<button onclick="drawCombined()">Generate Combined View</button>
+</section>
+
+<!-- FAULT COST ANALYSIS -->
+<section class="card" id="faultCost" style="display:none">
+<h2>💰 Fault Cost Analysis</h2>
+<table border="1" style="width:100%;border-collapse:collapse">
+<tr><th>Fault</th><th>Frequency</th><th>Cost / Occurrence</th><th>Total Cost</th></tr>
+<tr><td contenteditable>Camera No Image</td><td contenteditable>10</td><td contenteditable>200</td><td></td></tr>
+<tr><td contenteditable>RF No Network</td><td contenteditable>6</td><td contenteditable>300</td><td></td></tr>
+</table>
+<button onclick="calcFaultCost()">Calculate Fault Cost</button>
+</section>
+
+<!-- TARGET VS ACTUAL OEE -->
+<section class="card" id="targetOEE" style="display:none">
+<h2>🎯 Target vs Actual OEE</h2>
+<label>Target OEE %</label>
+<input id="target" value="85">
+<label>Actual OEE %</label>
+<input id="actual" value="72">
+<button onclick="compareOEE()">Compare</button>
+<p id="oeeCompare"></p>
+</section>
+
+<!-- YEARLY AUDIT READINESS HEATMAP -->
+<section class="card" id="heatmap" style="display:none">
+<h2>🗓 Yearly Audit Readiness Heatmap</h2>
+<table border="1" style="width:100%;border-collapse:collapse;text-align:center">
+<tr><th>Month</th><th>Status</th></tr>
+<tr><td>Jan</td><td style="background:#22c55e">Ready</td></tr>
+<tr><td>Feb</td><td style="background:#eab308">Partial</td></tr>
+<tr><td>Mar</td><td style="background:#ef4444">Not Ready</td></tr>
+</table>
+</section>
+
+<!-- COST REDUCTION ANALYSIS -->
+<section class="card" id="costReduction" style="display:none">
+<h2>📉 Cost Reduction Analysis</h2>
+<p>Based on fault elimination and OEE improvement.</p>
+<label>Previous Monthly Cost</label>
+<input id="prevCost" value="500000">
+<label>Current Monthly Cost</label>
+<input id="currCost" value="380000">
+<button onclick="calcSaving()">Calculate Saving</button>
+<p id="saving"></p>
+</section>
+
+
+
+<!-- YEARLY COST SAVING PROJECTION -->
+<section class="card" id="projection" style="display:none">
+<h2>📆 Yearly Cost‑Saving Projection</h2>
+<label>Monthly Saving (₹)</label>
+<input id="monthlySave" value="120000">
+<button onclick="calcYearly()">Calculate Projection</button>
+<p id="yearlyResult"></p>
+</section>
+
+<!-- PARETO ACTION TRACKING -->
+<section class="card" id="paretoAction" style="display:none">
+<h2>📝 Fault Pareto → Action Tracking</h2>
+<table border="1" style="width:100%;border-collapse:collapse">
+<tr><th>Fault</th><th>Action</th><th>Owner</th><th>Status</th></tr>
+<tr>
+<td contenteditable>Camera No Image</td>
+<td contenteditable>Improve MIPI routing</td>
+<td contenteditable>Process Engg</td>
+<td contenteditable>Open</td>
+</tr>
+</table>
+</section>
+
+<!-- SPC WITH UCL LCL -->
+<section class="card" id="spcLimit" style="display:none">
+<h2>📐 SPC Chart with UCL / LCL</h2>
+<label>Process Values (comma separated)</label>
+<input id="spcData" value="10,11,9,12,10,11,9">
+<button onclick="calcSPCLimits()">Calculate Limits</button>
+<p id="ucl"></p>
+<p id="lcl"></p>
+</section>
+
+<!-- EXECUTIVE SUMMARY REPORT -->
+<section class="card" id="report" style="display:none">
+<h2>📑 Executive Summary Auto‑Report</h2>
+<p>This report summarizes OEE, cost saving, audit readiness and fault reduction.</p>
+<button onclick="printReport()">Generate PDF Report</button>
+</section>
+
+
+
+<!-- AUDIT NC → CAPA WORKFLOW -->
+<section class="card" id="capa" style="display:none">
+<h2>🛠 Audit NC → CAPA Workflow</h2>
+<table border="1" style="width:100%;border-collapse:collapse">
+<tr><th>NC No</th><th>Description</th><th>Root Cause</th><th>Action</th><th>Owner</th><th>Status</th></tr>
+<tr>
+<td contenteditable>NC‑01</td>
+<td contenteditable>Calibration record missing</td>
+<td contenteditable>Procedure not followed</td>
+<td contenteditable>Revise SOP & train</td>
+<td contenteditable>QA</td>
+<td contenteditable>Open</td>
+</tr>
+</table>
+</section>
+
+<!-- RISK HEATMAP FMEA -->
+<section class="card" id="risk" style="display:none">
+<h2>🔥 Risk Heatmap (FMEA)</h2>
+<table border="1" style="width:100%;border-collapse:collapse;text-align:center">
+<tr><th>Process</th><th>Severity</th><th>Occurrence</th><th>Detection</th><th>RPN</th></tr>
+<tr>
+<td contenteditable>Camera Assembly</td>
+<td contenteditable>8</td>
+<td contenteditable>6</td>
+<td contenteditable>4</td>
+<td></td>
+</tr>
+</table>
+<button onclick="calcRPN()">Calculate RPN</button>
+</section>
+
+<!-- LIVE OEE GAUGE -->
+<section class="card" id="liveOEE" style="display:none">
+<h2>⏱ Live OEE Gauge</h2>
+<label>Availability</label><input id="a" value="90">
+<label>Performance</label><input id="p" value="95">
+<label>Quality</label><input id="q" value="98">
+<button onclick="liveCalc()">Calculate OEE</button>
+<p id="liveResult"></p>
+</section>
+
+<!-- ROLE BASED LOGIN -->
+<section class="card" id="login" style="display:none">
+<h2>🔐 Role‑Wise Login (Demo)</h2>
+<select id="role">
+<option>QA</option>
+<option>Maintenance</option>
+<option>Engineering</option>
+</select>
+<button onclick="loginRole()">Login</button>
+<p id="roleView"></p>
+</section>
+
+
+
+<!-- CAPA EFFECTIVENESS VERIFICATION -->
+<section class="card" id="capaEffect" style="display:none">
+<h2>✅ CAPA Effectiveness Verification</h2>
+<table border="1" style="width:100%;border-collapse:collapse">
+<tr><th>NC No</th><th>Action Implemented</th><th>Verification Method</th><th>Result</th><th>Verified By</th></tr>
+<tr>
+<td contenteditable>NC-01</td>
+<td contenteditable>SOP updated & training done</td>
+<td contenteditable>Audit + data review</td>
+<td contenteditable>Effective</td>
+<td contenteditable>QA Head</td>
+</tr>
+</table>
+</section>
+
+<!-- NC AGING DASHBOARD -->
+<section class="card" id="ncAging" style="display:none">
+<h2>⏳ NC Aging Dashboard</h2>
+<table border="1" style="width:100%;border-collapse:collapse;text-align:center">
+<tr><th>NC No</th><th>Open Days</th><th>Status</th></tr>
+<tr>
+<td>NC-01</td>
+<td contenteditable>45</td>
+<td style="background:#ef4444">Overdue</td>
+</tr>
+</table>
+</section>
+
+<!-- LIVE FAULT TREND AUTO UPDATE -->
+<section class="card" id="faultTrend" style="display:none">
+<h2>📈 Live Fault Trend (Auto Update)</h2>
+<p>Simulated real-time fault count update</p>
+<canvas id="faultChart" width="320" height="220"></canvas>
+<button onclick="startTrend()">Start Live Trend</button>
+</section>
+
+<!-- AUTO AUDIT REPORT PACK -->
+<section class="card" id="auditPack" style="display:none">
+<h2>📦 Auto-Generated Audit PPT / PDF Pack</h2>
 <ul>
-  <li><a href="https://www.electronics-tutorials.ws" target="_blank">Electronics Troubleshooting Basics</a></li>
-  <li><a href="https://www.allaboutcircuits.com/technical-articles/" target="_blank">All About Circuits – Fault Analysis</a></li>
-  <li><a href="https://automationcommunity.com" target="_blank">Industrial Automation Troubleshooting</a></li>
+<li>Audit summary</li>
+<li>NC & CAPA status</li>
+<li>OEE & cost saving</li>
+<li>Risk & SPC charts</li>
 </ul>
+<button onclick="generateAuditPack()">Generate Audit Pack</button>
+</section>
 
-<p style="margin-top:10px;color:#9ca3af">
-  👉 These links are used by QA, production and maintenance engineers in real factories.
-</p>
+</main>
+<script>
+function startTrend(){
+const ctx=faultChart.getContext('2d');let x=20;ctx.clearRect(0,0,320,220);
+const interval=setInterval(()=>{
+const v=Math.floor(Math.random()*10)+1;
+ctx.fillRect(x,200-v*15,10,v*15);x+=15;if(x>300)clearInterval(interval);
+},800);
+}
+function generateAuditPack(){
+window.print();
+}
+</script>
 
-  </section></main><footer>
-  © 2026 Nikhil Jangir | GitHub Pages Advanced Dashboard
-</footer><!-- ================= SCRIPT ================= --><script>
-  /* Calculator */
-  const d=document.getElementById('display');
-  function add(v){d.value+=v}
-  function clr(){d.value=''}
-  function del(){d.value=d.value.slice(0,-1)}
-  function calc(){try{d.value=eval(d.value)}catch{d.value='Error'}}
+<script>
+function calcRPN(){
+[...risk.querySelectorAll('tr')].slice(1).forEach(r=>{
+const s=+r.cells[1].innerText;
+const o=+r.cells[2].innerText;
+const d=+r.cells[3].innerText;
+r.cells[4].innerText=s*o*d;
+});
+}
+function liveCalc(){
+liveResult.innerText='Live OEE = '+((a.value*p.value*q.value)/10000).toFixed(2)+' %';
+}
+function loginRole(){
+roleView.innerText='Logged in as '+role.value+' dashboard';
+}
+</script>
 
-  /* Excel Download */
-  function downloadExcel(){
-    let csv='Process,Status,Remark\n';
-    document.querySelectorAll('#sheet tbody tr').forEach(r=>{
-      let row=[...r.children].map(td=>td.innerText).join(',');
-      csv+=row+'\n';
-    });
-    const blob=new Blob([csv],{type:'text/csv'});
-    const a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);
-    a.download='ISO_Checksheet.csv';
-    a.click();
-  }
-</script></body>
-  </html>
-  
+<script>
+function calcYearly(){
+yearlyResult.innerText='Projected Yearly Saving: ₹ '+(monthlySave.value*12);
+}
+function calcSPCLimits(){
+const arr=spcData.value.split(',').map(Number);
+const mean=arr.reduce((a,b)=>a+b)/arr.length;
+const sd=Math.sqrt(arr.map(x=>(x-mean)**2).reduce((a,b)=>a+b)/arr.length);
+ucl.innerText='UCL = '+(mean+3*sd).toFixed(2);
+lcl.innerText='LCL = '+(mean-3*sd).toFixed(2);
+}
+function printReport(){window.print();}
+</script>
+
+<script>
+function drawCombined(){
+const ctx=comboChart.getContext('2d');ctx.clearRect(0,0,340,220);
+const faults=[8,4,2];let x=40;
+faults.forEach(v=>{ctx.fillRect(x,200-v*20,30,v*20);x+=60});
+ctx.beginPath();ctx.moveTo(40,180);ctx.lineTo(220,120);ctx.stroke();
+}
+function calcFaultCost(){
+[...faultCost.querySelectorAll('tr')].slice(1).forEach(r=>{
+const f=+r.cells[1].innerText;
+const c=+r.cells[2].innerText;
+r.cells[3].innerText=f*c;
+});
+}
+function compareOEE(){
+const diff=target.value-actual.value;
+oeeCompare.innerText=diff>0?`Gap: ${diff}% – Improvement needed`:'Target achieved';
+}
+function calcSaving(){
+const save=prevCost.value-currCost.value;
+saving.innerText='Monthly Saving: ₹ '+save;
+}
+</script>
+
+<script>
+function drawPareto(){
+const ctx=paretoChart.getContext('2d');ctx.clearRect(0,0,320,220);
+const faults=[5,3,2,1];let x=40;
+faults.forEach(v=>{ctx.fillRect(x,200-v*30,30,v*30);x+=60});
+}
+function drawSPC(){
+const ctx=spcChart.getContext('2d');ctx.clearRect(0,0,320,220);
+const data=[10,11,9,12,10,11,9];
+ctx.beginPath();ctx.moveTo(20,200-data[0]*10);
+data.forEach((v,i)=>ctx.lineTo(20+i*40,200-v*10));ctx.stroke();
+}
+function calcMonthlyOEE(){
+[...document.querySelectorAll('#monthlyOEE tr')].slice(1).forEach(r=>{
+const a=r.cells[1].innerText;
+const p=r.cells[2].innerText;
+const q=r.cells[3].innerText;
+r.cells[4].innerText=((a*p*q)/10000).toFixed(1);
+});
+}
+</script>
+
+<script>
+function downloadExcelTable(){
+let csv='Machine,Downtime,Failures
+';
+[...excelTable.rows].slice(1).forEach(r=>{
+csv+=[...r.cells].map(c=>c.innerText).join(',')+'
+';
+});
+const a=document.createElement('a');
+a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+a.download='MTTR_MTBF_Log.xlsx';
+a.click();
+}
+function drawChart(){
+const ctx=faultChart.getContext('2d');
+ctx.clearRect(0,0,300,200);
+const data=[2,5,3,1,4];
+data.forEach((v,i)=>{
+ctx.fillRect(40+i*40,180-v*20,20,v*20);
+});
+}
+function auditScore(){
+const score=(+doc.value + +rec.value + +cap.value)/3;
+auditResult.innerText='Audit Readiness Score: '+score.toFixed(1)+' %';
+}
+</script>
+
+<script>
+function login(){
+const r=document.getElementById('role').value;
+loginStatus.innerText='Logged in as '+r;
+if(r==='qa'){
+['iso','isoClauses','evidence'].forEach(id=>document.getElementById(id).style.display='block');
+}
+if(r==='maint'){
+['electronics','machines','faultDB','logs','media'].forEach(id=>document.getElementById(id).style.display='block');
+}
+if(r==='process'){
+['iso','isoClauses','electronics','machines','faultDB','logs'].forEach(id=>document.getElementById(id).style.display='block');
+}
+}
+function downloadISOExcel(){
+let csv='Clause,Record Name,Owner
+'+
+'4,Process Interaction Map,QA
+'+
+'5,Management Review,Management
+'+
+'6,Risk Register,QA
+'+
+'7,Training Matrix,HR
+'+
+'8,Control Plan,Production
+'+
+'9,KPI Monitoring,QA
+'+
+'10,CAPA,QA';
+const blob=new Blob([csv],{type:'text/csv'});
+const a=document.createElement('a');
+a.href=URL.createObjectURL(blob);
+a.download='ISO_Evidence_Pack.xlsx';
+a.click();
+}
+</script>
+
+<script>
+function login(){
+const r=document.getElementById('role').value;
+loginStatus.innerText='Logged in as '+r;
+['iso','electronics','machines','isoClauses','faultDB','logs'].forEach(id=>document.getElementById(id).style.display='block');
+}
+function searchFaults(){
+const q=document.getElementById('searchFault').value.toLowerCase();
+[...document.querySelectorAll('#faultList li')].forEach(li=>{
+li.style.display=li.innerText.toLowerCase().includes(q)?'block':'none';
+});
+}
+function addLog(){
+const m=machine.value;
+const d=down.value;
+const f=fail.value;
+logList.innerHTML+=`<li>${m} | Downtime: ${d} hrs | Failures: ${f}</li>`;
+}
+</script>
+
+<footer>© 2026 Nikhil Jangir | Self‑Owned Factory Documentation System</footer>
+<script>
+function generate(){
+const t=document.getElementById('topic').value;
+const d=document.getElementById('depth').value;
+let text='';
+for(let i=0;i<d*10;i++){
+text+=`Section ${i+1}: ${t}\n`+
+`This section explains ${t} from a real factory perspective. It covers definition, practical examples, daily usage, audit relevance, common mistakes, and continuous improvement actions.\n\n`;
+}
+document.getElementById('output').value=text;
+}
+</script>
+</body>
+</html>
