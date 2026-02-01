@@ -235,3 +235,238 @@
             <div class="stat-label">FPY</div>
         </div>
     </div>
+    <!-- CALCULATORS SECTION -->
+<section id="calculators">
+    <h2>Industrial Calculators</h2>
+    
+    <div class="calculator-grid">
+        <!-- OEE Calculator -->
+        <div class="calc-card">
+            <h3 class="calc-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                OEE Calculator
+            </h3>
+            
+            <div class="input-group">
+                <label>Planned Production Time (hours)</label>
+                <input type="number" id="plannedTime" value="480">
+            </div>
+            
+            <div class="input-group">
+                <label>Operating Time (hours)</label>
+                <input type="number" id="operatingTime" value="450">
+            </div>
+            
+            <div class="input-group">
+                <label>Good Count (units)</label>
+                <input type="number" id="goodCount" value="9500">
+            </div>
+            
+            <div class="input-group">
+                <label>Total Count (units)</label>
+                <input type="number" id="totalCount" value="10000">
+            </div>
+            
+            <div class="input-group">
+                <label>Ideal Cycle Time (seconds)</label>
+                <input type="number" id="idealCycle" value="15">
+            </div>
+            
+            <button class="calc-btn" id="calcOEE">Calculate OEE</button>
+            
+            <div class="results" id="oeeResults" style="display: none;">
+                <div style="color: var(--green); margin-bottom: 1rem; font-weight: 600;">OEE Results</div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                    <div>
+                        <div style="font-size: 0.875rem; color: var(--text2);">Availability</div>
+                        <div id="availability" style="font-size: 1.25rem; font-weight: 700;">0%</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: var(--text2);">Performance</div>
+                        <div id="performance" style="font-size: 1.25rem; font-weight: 700;">0%</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: var(--text2);">Quality</div>
+                        <div id="quality" style="font-size: 1.25rem; font-weight: 700;">0%</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: var(--text2);">Overall OEE</div>
+                        <div id="overallOEE" style="font-size: 1.25rem; font-weight: 700; color: var(--green);">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MTBF/MTTR Calculator -->
+        <div class="calc-card">
+            <h3 class="calc-title" style="color: var(--orange);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="M9 12l2 2 4-4"/>
+                </svg>
+                MTBF/MTTR Calculator
+            </h3>
+            
+            <div class="input-group">
+                <label>Total Operating Time (hours)</label>
+                <input type="number" id="totalOpTime" value="720">
+            </div>
+            
+            <div class="input-group">
+                <label>Number of Failures</label>
+                <input type="number" id="numFailures" value="3">
+            </div>
+            
+            <div class="input-group">
+                <label>Total Downtime (hours)</label>
+                <input type="number" id="totalDowntime" value="15">
+            </div>
+            
+            <button class="calc-btn" style="background: var(--orange);" id="calcMTBF">Calculate MTBF/MTTR</button>
+            
+            <div class="results" id="mtbfResults" style="display: none; background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3);">
+                <div style="color: var(--orange); margin-bottom: 1rem; font-weight: 600;">Results</div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                    <div>
+                        <div style="font-size: 0.875rem; color: var(--text2);">MTBF</div>
+                        <div id="mtbfValue" style="font-size: 1.25rem; font-weight: 700;">0 hours</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: var(--text2);">MTTR</div>
+                        <div id="mttrValue" style="font-size: 1.25rem; font-weight: 700;">0 hours</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: var(--text2);">Availability</div>
+                        <div id="availabilityCalc" style="font-size: 1.25rem; font-weight: 700; color: var(--green);">0%</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: var(--text2);">Failure Rate</div>
+                        <div id="failureRate" style="font-size: 1.25rem; font-weight: 700;">0/hr</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FPY Calculator -->
+        <div class="calc-card">
+            <h3 class="calc-title" style="color: var(--green);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                FPY Calculator
+            </h3>
+            
+            <div class="input-group">
+                <label>Units Started</label>
+                <input type="number" id="unitsStarted" value="10000">
+            </div>
+            
+            <div class="input-group">
+                <label>Units Completed (Good)</label>
+                <input type="number" id="unitsGood" value="9500">
+            </div>
+            
+            <div class="input-group">
+                <label>Units Reworked</label>
+                <input type="number" id="unitsReworked" value="300">
+            </div>
+            
+            <div class="input-group">
+                <label>Units Scrapped</label>
+                <input type="number" id="unitsScrapped" value="200">
+            </div>
+            
+            <button class="calc-btn" style="background: var(--green);" id="calcFPY">Calculate FPY</button>
+            
+            <div class="results" id="fpyResults" style="display: none;">
+                <div style="color: var(--green); margin-bottom: 1rem; font-weight: 600;">FPY Results</div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                    <div>
+                        <div style="font-size: 0.875rem; color: var(--text2);">First Pass Yield</div>
+                        <div id="fpyValue" style="font-size: 1.25rem; font-weight: 700; color: var(--green);">0%</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: var(--text2);">Rework Rate</div>
+                        <div id="reworkRate" style="font-size: 1.25rem; font-weight: 700;">0%</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: var(--text2);">Scrap Rate</div>
+                        <div id="scrapRate" style="font-size: 1.25rem; font-weight: 700;">0%</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.875rem; color: var(--text2);">Total Yield</div>
+                        <div id="totalYield" style="font-size: 1.25rem; font-weight: 700;">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn" id="exportBtn" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Export All Calculations
+        </button>
+    </div>
+</section>
+
+<!-- DOCUMENTS SECTION -->
+<section id="documents" style="background: rgba(15,23,42,0.7);">
+    <h2>IATF 16949 Documents</h2>
+    
+    <div style="margin-bottom: 2rem;">
+        <input type="text" class="doc-search" id="docSearch" placeholder="Search documents (F-005, Machine History, MTTR)">
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button class="btn" id="voiceSearchBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                </svg>
+                Voice Search
+            </button>
+            <button class="btn" id="reloadDocs">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M1 4v6h6"/>
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                </svg>
+                Reload
+            </button>
+        </div>
+    </div>
+    
+    <div class="docs-grid" id="documentsGrid">
+        <!-- Documents will load here -->
+    </div>
+</section>
+
+<!-- SENSORS DATABASE -->
+<section id="sensors">
+    <h2>Sensors Database</h2>
+    
+    <div class="docs-grid">
+        <div class="doc-card">
+            <div style="color: var(--blue); font-weight: 600; margin-bottom: 0.5rem;">Photoelectric Sensors</div>
+            <div style="font-size: 0.875rem; color: var(--text2); margin-bottom: 1rem;">Omron, Keyence, Sick series with wiring diagrams</div>
+            <button class="btn" style="width: 100%;">View Details</button>
+        </div>
+        
+        <div class="doc-card">
+            <div style="color: var(--green); font-weight: 600; margin-bottom: 0.5rem;">Magnetic Sensors</div>
+            <div style="font-size: 0.875rem; color: var(--text2); margin-bottom: 1rem;">IFM, Pepperl+Fuchs with specifications</div>
+            <button class="btn" style="width: 100%;">View Details</button>
+        </div>
+        
+        <div class="doc-card">
+            <div style="color: var(--orange); font-weight: 600; margin-bottom: 0.5rem;">Proximity Sensors</div>
+            <div style="font-size: 0.875rem; color: var(--text2); margin-bottom: 1rem;">NPN/PNP, 2-wire vs 3-wire configurations</div>
+            <button class="btn" style="width: 100%;">View Details</button>
+        </div>
+    </div>
+                    </section>
