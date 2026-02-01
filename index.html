@@ -2479,6 +2479,135 @@
                 </p>
             </div>
         </div>
+    <!-- ====== ISO CERTIFIED CHECK SHEETS ====== -->
+<section style="background: white; padding: 80px 0;">
+    <div class="container">
+        <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 30px; color: #0a2540;">
+            <i class="fas fa-certificate"></i> ISO Certified Check Sheets
+        </h2>
+        
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p style="font-size: 1.1rem; color: #64748b; margin-bottom: 40px;">
+                Professional IATF 16949:2016 compliant templates. Click any template to view/download.
+            </p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 50px;">
+                <div style="background: #f8fafc; padding: 25px; border-radius: 12px; cursor: pointer;" onclick="openTemplate('machine-history')">
+                    <i class="fas fa-history" style="font-size: 40px; color: #2563eb; margin-bottom: 15px;"></i>
+                    <h4>Machine History Card</h4>
+                    <small>IATF 16949 Compliant</small>
+                </div>
+                
+                <div style="background: #f8fafc; padding: 25px; border-radius: 12px; cursor: pointer;" onclick="openTemplate('breakdown-register')">
+                    <i class="fas fa-tools" style="font-size: 40px; color: #2563eb; margin-bottom: 15px;"></i>
+                    <h4>Breakdown Register</h4>
+                    <small>IATF 16949 Compliant</small>
+                </div>
+                
+                <div style="background: #f8fafc; padding: 25px; border-radius: 12px; cursor: pointer;" onclick="openTemplate('mttr-mtbf')">
+                    <i class="fas fa-chart-line" style="font-size: 40px; color: #2563eb; margin-bottom: 15px;"></i>
+                    <h4>MTTR/MTBF Tracker</h4>
+                    <small>IATF 16949 Compliant</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .template-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-content {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        max-width: 800px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+</style>
+
+<div class="template-modal" id="templateModal">
+    <div class="modal-content">
+        <h3 id="modalTitle">Template Preview</h3>
+        <div id="modalBody">
+            <!-- Template preview will load here -->
+        </div>
+        <div style="margin-top: 30px; display: flex; gap: 15px;">
+            <button class="btn" onclick="downloadTemplate()">
+                <i class="fas fa-download"></i> Download Template
+            </button>
+            <button class="btn" style="background: #64748b;" onclick="closeModal()">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openTemplate(type) {
+        const modal = document.getElementById('templateModal');
+        const title = document.getElementById('modalTitle');
+        const body = document.getElementById('modalBody');
+        
+        let templateHTML = '';
+        let templateName = '';
+        
+        if(type === 'machine-history') {
+            templateName = 'Machine_History_Card_F005';
+            templateHTML = `
+                <h4 style="color: #0a2540; margin-bottom: 20px;">Machine History Card (F-005)</h4>
+                <div style="background: #f8fafc; padding: 30px; border-radius: 10px; font-family: monospace;">
+                    <p><strong>COMPANY:</strong> _______________</p>
+                    <p><strong>MACHINE ID:</strong> _______________</p>
+                    <p><strong>DATE OF INSTALLATION:</strong> _______________</p>
+                    <p><strong>MAINTENANCE HISTORY:</strong></p>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                        <tr style="background: #e2e8f0;">
+                            <th style="padding: 10px; border: 1px solid #cbd5e1;">Date</th>
+                            <th style="padding: 10px; border: 1px solid #cbd5e1;">Maintenance Type</th>
+                            <th style="padding: 10px; border: 1px solid #cbd5e1;">Description</th>
+                            <th style="padding: 10px; border: 1px solid #cbd5e1;">Technician</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #cbd5e1;">________________</td>
+                            <td style="padding: 10px; border: 1px solid #cbd5e1;">________________</td>
+                            <td style="padding: 10px; border: 1px solid #cbd5e1;">________________</td>
+                            <td style="padding: 10px; border: 1px solid #cbd5e1;">________________</td>
+                        </tr>
+                    </table>
+                    <p style="margin-top: 20px; color: #2563eb;">
+                        <i class="fas fa-certificate"></i> IATF 16949:2016 Compliant Template
+                    </p>
+                </div>
+            `;
+        }
+        
+        title.textContent = templateName;
+        body.innerHTML = templateHTML;
+        modal.style.display = 'flex';
+    }
+    
+    function downloadTemplate() {
+        const fileName = document.getElementById('modalTitle').textContent;
+        alert('Downloading ' + fileName + ' template...\n\nThis is a demo. For actual file, create template in Word/Excel.');
+    }
+    
+    function closeModal() {
+        document.getElementById('templateModal').style.display = 'none';
+    }
+    </script>
     </footer>
 
     <!-- Voice Control Interface -->
