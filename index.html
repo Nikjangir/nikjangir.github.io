@@ -1,1 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>NIKHIL JANGIR | Senior Equipment & Process Engineer | Jigs & Fixtures | Testing & Validation | Team Leader</title>
+    <meta name="description" content="Equipment and Process Engineer with 6.5+ years experience in mobile manufacturing automation, RF testing, machine modification, jigs & fixtures, IATF 16949 documentation">
+    <meta name="keywords" content="Nikhil Jangir, Equipment Engineer, Process Engineer, RF Testing, CMW100, CMW500, PLC, HMI, Jigs, Fixtures, IATF 16949, MTTR, MTBF, OEE, Xiaomi, OPPO, Vivo">
+    <meta name="author" content="Nikhil Jangir">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    
+    <style>
+        /* ===== INDUSTRIAL DESIGN SYSTEM ===== */
+        :root {
+            --factory-dark: #0f172a;
+            --factory-gray: #1e293b;
+            --panel-bg: #334155;
+            --industrial-blue: #3b82f6;
+            --safety-orange: #f59e0b;
+            --quality-green: #10b981;
+            --warning-red: #ef4444;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --shadow-heavy: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --border-industrial: 2px solid #475569;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--factory-dark) 0%, #1e293b 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(245, 158, 11, 0.05) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 48%, rgba(16, 185, 129, 0.03) 50%, transparent 52%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* ===== INDUSTRIAL NAVIGATION ===== */
+        .factory-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: var(--border-industrial);
+            z-index: 1000;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .robotic-arm-icon {
+            width: 40px; height: 40px;
+            animation: arm-rotate 4s ease-in-out infinite;
+        }
+        
+        @keyframes arm-rotate {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(90deg); }
+            50% { transform: rotate(180deg); }
+            75% { transform: rotate(270deg); }
+        }
+        
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--industrial-blue), var(--safety-orange));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .badge-iatf {
+            background: linear-gradient(135deg, var(--quality-green), #059669);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+        
+        .nav-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .control-btn {
+            background: var(--panel-bg);
+            border: var(--border-industrial);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .control-btn:hover {
+            background: var(--industrial-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 1.5rem 2rem;
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            width: 100%;
+            align-items: center;
+        }
+        
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .profile-container {
+            position: relative;
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--industrial-blue);
+            box-shadow: 
+                0 0 40px rgba(59, 130, 246, 0.3),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        
+        .profile-image {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            background: #1e293b;
+        }
+        
+        .profile-status {
+            position: absolute;
+            bottom: 20px; right: 20px;
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .status-led {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .led-green { background: var(--quality-green); box-shadow: 0 0 10px var(--quality-green); }
+        .led-blue { background: var(--industrial-blue); box-shadow: 0 0 10px var(--industrial-blue); }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-title span {
+            display: block;
+            background: linear-gradient(90deg, #ffffff, var(--industrial-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--safety-orange);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+        
+        .tag {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .contact-item:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .contact-icon {
+            width: 24px; height: 24px;
+            color: var(--industrial-blue);
+        }
+        
+        /* ===== 3D FACTORY CANVAS ===== */
+        .factory-canvas-container {
+            position: relative;
+            width: 100%; height: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: var(--border-industrial);
+            box-shadow: var(--shadow-heavy);
+        }
+        
+        #factory3d {
+            width: 100%; height: 100%;
+            display: block;
+        }
+        
+        .factory-controls {
+            position: absolute;
+            bottom: 20px; left: 20px;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+        
+        .factory-btn {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--industrial-blue);
+            color: white;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .factory-btn:hover {
+            background: var(--industrial-blue);
+            transform: scale(1.1);
+        }
+        
+        .equipment-list {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: rgba(15, 23, 42, 0.9);
+            border: var(--border-industrial);
+            border-radius: 8px;
+            padding: 1rem;
+            max-width: 250px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .equipment-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .equipment-item:hover {
+            background: rgba(59, 130, 246, 0.2);
+        }
+        
+        .eq-indicator {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+        }
+        
+        .eq-active { background: var(--quality-green); }
+        .eq-warning { background: var(--warning-red); animation: blink 1s infinite; }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* ===== LIVE STATS BAR ===== */
+        .live-stats-bar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            border-top: var(--border-industrial);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stats-container {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--industrial-blue);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .hero-title { font-size: 2.5rem; }
+            .profile-container { width: 250px; height: 250px; margin: 0 auto; }
+        }
+        
+        @media (max-width: 768px) {
+            .factory-nav { padding: 0.5rem 1rem; }
+            .brand-name { font-size: 1.25rem; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .live-stats-bar { flex-direction: column; gap: 1rem; align-items: center; }
+            .stats-container { gap: 1rem; }
+            .equipment-list { position: relative; top: auto; right: auto; max-width: 100%; }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title { font-size: 2rem; }
+            .hero-subtitle { font-size: 1.25rem; }
+            .profile-container { width: 200px; height: 200px; }
+            .nav-controls { gap: 0.5rem; }
+            .control-btn { padding: 0.4rem 0.75rem; font-size: 0.875rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- INDUSTRIAL NAVIGATION -->
+    <nav class="factory-nav">
+        <div class="nav-brand">
+            <div class="robotic-arm-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                    <path d="M2 17L12 22L22 17"/>
+                    <path d="M2 12L12 17L22 12"/>
+                </svg>
+            </div>
+            <h1 class="brand-name">NIKHIL JANGIR</h1>
+            <span class="badge-iatf">IATF 16949:2016</span>
+        </div>
+        
+        <div class="nav-controls">
+            <button class="control-btn" id="themeToggle">
+                <svg class="control-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+                Theme
+            </button>
+            <button class="control-btn" id="langToggle">
+                <svg class="control-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="2" y1="12" x2="22" y2="12"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+                हिंदी
+            </button>
+            <button class="control-btn" id="voiceControl">
+                <svg class="control-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="23"/>
+                    <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+                Voice
+            </button>
+        </div>
+    </nav>
 
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="profile-container">
+                    <!-- YOUR PROFILE PHOTO WILL BE HERE -->
+                    <img class="profile-image" id="profilePhoto" alt="Nikhil Jangir">
+                    <div class="profile-status">
+                        <div class="status-led led-green"></div>
+                        <div class="status-led led-blue"></div>
+                    </div>
+                </div>
+                
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span>NIKHIL JANGIR</span>
+                        Senior Equipment & Process Engineer
+                    </h1>
+                    
+                    <div class="hero-subtitle">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                        Jigs & Fixtures | Testing & Validation | Team Leader
+                    </div>
+                    
+                    <div class="hero-tags">
+                        <div class="tag">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                            Valid Passport Holder
+                        </div>
+                        <div class="tag">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                            Open to Relocation
+                        </div>
+                        <div class="tag">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            6.5+ Years Experience
+                        </div>
+                    </div>
+                    
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                            <div>
+                                <div class="contact-label">Mobile</div>
+                                <div class="contact-value">+91 84447107097</div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <div>
+                                <div class="contact-label">Email</div>
+                                <div class="contact-value">nikhilkishanpura@gmail.com</div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect x="2" y="9" width="4" height="12"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                            <div>
+                                <div class="contact-label">LinkedIn</div>
+                                <div class="contact-value">nikhil-jangir-40296a18b</div>
+                            </div>
+  </div>
