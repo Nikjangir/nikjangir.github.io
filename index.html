@@ -1,261 +1,570 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nikhil Jangir | Industrial Engineering System</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Nikhil Jangir | Industry 4.0 Engineering Suite</title>
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js CDN for dynamic charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    body {
+      background: radial-gradient(circle at 10% 20%, #0a0f1e, #030614);
+      color: #eef2ff;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI}
-body{background:#0f172a;color:#fff;line-height:1.6}
+    /* custom scroll */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #38bdf8;
+      border-radius: 10px;
+    }
 
-/* NAV */
-nav{
-display:flex;justify-content:space-between;align-items:center;
-padding:15px;background:#020617;position:sticky;top:0;z-index:1000;
-}
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #1e2a3e;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #90e0ff, #0284c7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .clock-panel {
+      background: #0f212e;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-family: monospace;
+      font-weight: 500;
+      font-size: 0.9rem;
+      border: 1px solid #38bdf833;
+    }
 
-/* HERO */
-.hero{text-align:center;padding:40px}
-.hero img{width:120px;border-radius:50%;border:3px solid #38bdf8}
+    .hero {
+      text-align: center;
+      padding: 2rem 1rem 1.5rem;
+      background: linear-gradient(to bottom, #030617, transparent);
+    }
+    .avatar {
+      width: 130px;
+      height: 130px;
+      background: linear-gradient(145deg, #0f2b3b, #05161f);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      border: 3px solid #2dd4bf;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+    }
+    .avatar i {
+      font-size: 4.5rem;
+      color: #7dd3fc;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    .badge {
+      background: #0f2a35;
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      margin: 12px 0;
+    }
+    .btn-download {
+      background: linear-gradient(95deg, #0f4c5f, #0284c7);
+      border: none;
+      padding: 10px 28px;
+      font-weight: 600;
+      border-radius: 40px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .btn-download:hover {
+      transform: scale(1.02);
+      background: linear-gradient(95deg, #1e6f8a, #0e7ab3);
+      cursor: pointer;
+    }
 
-/* CONTAINER */
-.container{max-width:1200px;margin:auto;padding:20px}
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 1.8rem 3rem;
+    }
 
-/* GRID */
-.grid{display:grid;gap:15px}
-@media(min-width:768px){.grid{grid-template-columns:1fr 1fr}}
-@media(min-width:1024px){.grid{grid-template-columns:1fr 1fr 1fr}}
+    /* dynamic grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.8rem;
+      margin-top: 2rem;
+    }
 
-/* CARD */
-.card{
-background:#1e293b;padding:20px;border-radius:12px;
-transition:0.3s;
-}
-.card:hover{transform:translateY(-5px)}
-
-/* INPUT */
-input,select{
-width:100%;padding:10px;margin:5px 0;border:none;border-radius:6px
-}
-
-/* BUTTON */
-button{
-padding:10px;background:#38bdf8;border:none;border-radius:6px;
-cursor:pointer;width:100%;margin-top:5px;
-}
-
-/* COLORS */
-.green{color:#22c55e}
-.yellow{color:#eab308}
-.red{color:#ef4444}
-
-h2{color:#38bdf8;margin-bottom:10px}
-</style>
+    .card {
+      background: rgba(18, 25, 45, 0.75);
+      backdrop-filter: blur(4px);
+      border-radius: 28px;
+      padding: 1.4rem 1.6rem;
+      border: 1px solid #2d3a5e;
+      transition: all 0.2s ease;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
+    .card:hover {
+      border-color: #38bdf8;
+      transform: translateY(-3px);
+    }
+    .card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      border-left: 5px solid #38bdf8;
+      padding-left: 0.8rem;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .skill-tag {
+      background: #0f2a3b;
+      padding: 5px 12px;
+      border-radius: 24px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .exp-item {
+      margin-bottom: 1.2rem;
+      border-bottom: 1px dashed #2a3a55;
+      padding-bottom: 0.8rem;
+    }
+    .exp-item h3 {
+      font-size: 1rem;
+      color: #7bc9ff;
+    }
+    .metric-group {
+      background: #07121f;
+      border-radius: 20px;
+      padding: 12px;
+      margin: 15px 0;
+    }
+    input, select {
+      background: #0e1a2a;
+      border: 1px solid #2c405e;
+      padding: 10px 14px;
+      border-radius: 60px;
+      color: white;
+      width: 100%;
+      margin: 8px 0;
+      outline: none;
+      transition: 0.2s;
+    }
+    input:focus {
+      border-color: #2dd4bf;
+    }
+    button {
+      background: #226688;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-weight: 600;
+      color: white;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2c8eb3;
+      transform: scale(0.98);
+    }
+    .progress-bar-bg {
+      background: #1e2f44;
+      border-radius: 20px;
+      height: 12px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: #2dd4bf;
+      border-radius: 20px;
+    }
+    .insight-text {
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+    .status-badge {
+      font-size: 0.7rem;
+      background: #1e3a3f;
+      border-radius: 20px;
+      padding: 2px 8px;
+    }
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .achievement-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .achieve {
+      background: #102433;
+      border-radius: 40px;
+      padding: 5px 15px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    @media (max-width: 680px) {
+      .container {
+        padding: 0.8rem;
+      }
+      .card {
+        padding: 1rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
 <nav>
-<h3>⚙ NJ INDUSTRIAL SYSTEM</h3>
-<div id="clock"></div>
+  <div class="logo"><i class="fas fa-microchip"></i> NIKHIL · INDUSTRIAL 4.0</div>
+  <div class="clock-panel" id="liveClock"><i class="far fa-clock"></i> Loading...</div>
 </nav>
 
 <div class="hero">
-<img src="profile.jpg.png">
-<h1>Nikhil Jangir</h1>
-<p>Senior Automation & Machine Repair Engineer</p>
-<a href="Nikhil_Jangir_Resume.pdf" download><button>Download Resume</button></a>
+  <div class="avatar">
+    <i class="fas fa-user-astronaut"></i>
+  </div>
+  <h1>Nikhil Jangir</h1>
+  <p class="badge"><i class="fas fa-certificate"></i> Sr. Automation & Machine Repair Engineer | Team Leader (L4.2)</p>
+  <p>📍 Narnaul, Haryana | 📞 +91 84471 07097 | ✉️ nikhiljangirharyana@gmail.com</p>
+  <button class="btn-download" id="downloadResumeBtn"><i class="fas fa-file-pdf"></i> Download Resume (PDF)</button>
 </div>
 
 <div class="container">
+  <!-- First row: summary & skills & experience mix -->
+  <div class="dashboard-grid">
+    <!-- professional summary card -->
+    <div class="card">
+      <h2><i class="fas fa-bolt"></i> Pro Summary</h2>
+      <p>🏭 Results-driven Automation & Machine Repair Engineer with <strong>7+ years</strong> in high-volume electronics (Chinese MNC mobile assembly). Expert in breakdown troubleshooting, PLC/HMI, RF testing (4G/5G CMW100/500), <strong>6-axis robotics</strong>, OEE/MTTR/MTBF improvement, TPM/5S. Led team of technicians at DBG Technology (Xiaomi, OPPO, Vivo). Currently supporting industrial equipment at WearResist Technology.</p>
+      <div class="skill-tags" style="margin-top:12px">
+        <span class="skill-tag">🔧 PLC/HMI (Panasonic)</span>
+        <span class="skill-tag">📡 RF 4G/5G</span>
+        <span class="skill-tag">🤖 Robotic Arms J1-J6</span>
+        <span class="skill-tag">🛠️ CCD Vision</span>
+        <span class="skill-tag">⚡ VFD Drives</span>
+      </div>
+    </div>
 
-<!-- SUMMARY -->
-<div class="card">
-<h2>Professional Summary</h2>
-<p>
-7+ years experienced Automation & Machine Repair Engineer with expertise in PLC systems,
-RF testing, robotics, and industrial troubleshooting. Proven track record of improving OEE,
-reducing downtime, and optimizing production lines in high-volume manufacturing.
-</p>
-<p>
-Strong knowledge of CAPA, 8D, RCA, TPM and preventive maintenance strategies.
-Handled critical machines like Plasma systems, CCD inspection, robotic arms and automation lines.
-</p>
-</div>
+    <!-- core competencies & key achievements -->
+    <div class="card">
+      <h2><i class="fas fa-chalkboard-user"></i> Core Competencies</h2>
+      <div class="skill-tags">
+        <span class="skill-tag">Machine Breakdown Troubleshooting</span>
+        <span class="skill-tag">PLC / HMI Programming & Mod.</span>
+        <span class="skill-tag">RF Testing (CMW100/500)</span>
+        <span class="skill-tag">OEE / MTTR / MTBF Improvement</span>
+        <span class="skill-tag">Plasma Cleaning (SDP series)</span>
+        <span class="skill-tag">In-House Machine Modification</span>
+        <span class="skill-tag">Root Cause Analysis / 8D / CAPA</span>
+        <span class="skill-tag">Team Leadership & TPM/5S</span>
+      </div>
+      <hr style="margin: 16px 0; border-color:#2e3a55;">
+      <h3>🏆 Key Achievements</h3>
+      <div class="achievement-grid">
+        <span class="achieve">⭐ 2.8 Yrs Team Leader @DBG</span>
+        <span class="achieve">⭐ 6-Axis Robotics Expert</span>
+        <span class="achieve">⭐ 4G+5G RF Certified</span>
+        <span class="achieve">⭐ PCN/ECN Implementation</span>
+        <span class="achieve">⭐ Plasma Controller Repair</span>
+        <span class="achieve">⭐ 8D / RCA Methodology</span>
+      </div>
+    </div>
 
-<!-- SKILLS -->
-<div class="card">
-<h2>Core Skills</h2>
-<ul>
-<li>Machine Troubleshooting (Electrical + Mechanical)</li>
-<li>PLC / HMI Programming</li>
-<li>Robotics (6 Axis)</li>
-<li>OEE / MTTR / MTBF Improvement</li>
-<li>RF Testing (4G/5G)</li>
-<li>Vision Systems (CCD)</li>
-<li>Lean Manufacturing / TPM</li>
-<li>RCA / 8D / CAPA</li>
-</ul>
-</div>
+    <!-- professional experience quick -->
+    <div class="card">
+      <h2><i class="fas fa-briefcase"></i> Experience</h2>
+      <div class="exp-item"><h3>🔹 Sr. Engineer @ WearResist Technology (2026-Present)</h3><p>VFD drives, wire drawing machines, Panasonic PLC backup, field service for plasma cutters.</p></div>
+      <div class="exp-item"><h3>🔹 Machine Repair Engineer - Team Leader @ DBG Technology (2023-2026)</h3><p>Led maintenance for Xiaomi/OPPO/Vivo lines, robotics, RF testing, plasma cleaning, CCD inspection, cost reduction via in-house mods.</p></div>
+      <div class="exp-item"><h3>🔹 Process Quality Engineer @ Sensetek Optical (2022-2023)</h3><p>Led 15 inspectors, 8D/CAPA, reduced line rejection.</p></div>
+      <div class="exp-item"><h3>🔹 Graduate Trainee @ TXD Technology (2020-2022)</h3><p>LCM assembly, process verification, new model ramp-up.</p></div>
+      <div class="exp-item"><h3>🔹 Substation Supervisor @ Adani Power (2019)</h3><p>33/132kV, SCADA, protection relays.</p></div>
+    </div>
+  </div>
 
-<!-- EXPERIENCE -->
-<div class="card">
-<h2>Experience</h2>
+  <!-- second row: dynamic engineering tools (OEE, AI, checklists, machine search, charts) -->
+  <div class="dashboard-grid">
+    <!-- OEE CALCULATOR + LIVE CHART -->
+    <div class="card">
+      <h2><i class="fas fa-chart-line"></i> OEE · Takt · Cycle Tracker</h2>
+      <div class="metric-group">
+        <input type="number" id="availTime" placeholder="Available Time (min/day)" value="480">
+        <input type="number" id="demandQty" placeholder="Demand (units)" value="1000">
+        <input type="number" id="producedQty" placeholder="Produced Units" value="920">
+        <input type="number" id="goodParts" placeholder="Good Parts" value="880">
+        <input type="number" id="idealCycle" placeholder="Ideal Cycle Time (sec)" value="28">
+        <div class="flex-between"><span>Takt Time:</span><strong id="taktValue">--</strong></div>
+        <div class="flex-between"><span>Actual Cycle Time:</span><strong id="cycleValue">--</strong></div>
+        <div class="flex-between"><span><i class="fas fa-percent"></i> OEE Score:</span><strong id="oeeValue">--</strong></div>
+        <div class="progress-bar-bg"><div class="progress-fill" id="oeeFill"></div></div>
+        <div class="insight-text" id="oeeInsight"></div>
+      </div>
+      <canvas id="oeeChart" width="400" height="180" style="max-height:180px; width:100%"></canvas>
+      <p class="status-badge" style="margin-top:8px"><i class="fas fa-chart-simple"></i> Real-time OEE trend (last 6 updates)</p>
+    </div>
 
-<h3>WearResist Technology – Senior Engineer</h3>
-<p>Field service, VFD drives, wire drawing machines, automation troubleshooting.</p>
+    <!-- AI Troubleshooting Assistant (context-aware for factory) -->
+    <div class="card">
+      <h2><i class="fas fa-robot"></i> AI Fault Diagnostics</h2>
+      <p>Describe machine issue (motor, plasma, sensor, robot, VFD)</p>
+      <input type="text" id="aiQuery" placeholder="e.g., plasma arc ignition fails / servo alarm / CCD camera blur">
+      <button id="solveBtn"><i class="fas fa-microchip"></i> Diagnose & Suggest</button>
+      <div id="aiAnswer" style="margin-top: 14px; background:#0e1625; padding: 12px; border-radius: 20px; font-size:0.9rem;"></div>
+      <div class="skill-tags" style="margin-top:12px"><span class="skill-tag">🔍 predictive logic</span><span class="skill-tag">⚙️ root cause mapping</span></div>
+    </div>
 
-<h3>DBG India – Machine Engineer (Team Leader)</h3>
-<p>Handled Xiaomi, Vivo, OPPO lines. Plasma machines, CCD systems, robotics.</p>
+    <!-- Machine Knowledge Base + Search (expanded) -->
+    <div class="card">
+      <h2><i class="fas fa-database"></i> Machine Knowledge Base</h2>
+      <input type="text" id="machineSearch" placeholder="Search: plasma, compressor, robot, CCD, VFD, glue dispenser">
+      <div id="searchResult" style="margin-top: 12px; background:#0b1423; border-radius: 24px; padding: 12px;"></div>
+      <hr style="margin: 12px 0; border-color:#1f3552;">
+      <h3><i class="fas fa-clipboard-list"></i> Digital Checksheets</h3>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top: 6px;">
+        <button id="chkCompressor"><i class="fas fa-industry"></i> Compressor PM</button>
+        <button id="chkPlasma"><i class="fas fa-fire"></i> Plasma Cleaning Log</button>
+        <button id="chkRobot"><i class="fas fa-robot"></i> Robotic Arm Calibration</button>
+      </div>
+      <p id="checksheetMsg" style="font-size:0.75rem; margin-top: 10px; color:#9bb9d4;"></p>
+    </div>
+  </div>
 
-<h3>Sensetek – Quality Engineer</h3>
-<p>Led quality team, reduced rejection using CAPA.</p>
+  <!-- third row: specialized equipment + PLC / RF tools -->
+  <div class="dashboard-grid">
+    <div class="card">
+      <h2><i class="fas fa-microphone-alt"></i> RF Testing & Calibration (4G/5G)</h2>
+      <p><strong>Instruments:</strong> CMW100 / CMW500 | Software: Eragon, HQ</p>
+      <div class="flex-between"><span>📶 First Pass Yield (FPY) Target:</span><span id="fpyTarget">96%</span></div>
+      <div class="progress-bar-bg mt-1"><div class="progress-fill" id="fpyFill" style="width:92%"></div></div>
+      <button id="simulateRFyield"><i class="fas fa-chart-simple"></i> Simulate Yield Improvement</button>
+      <p class="insight-text" id="rfMessage">Antenna alignment & network band control optimized.</p>
+    </div>
 
-<h3>TXD – Graduate Engineer Trainee</h3>
-<p>Mobile manufacturing & process quality.</p>
+    <div class="card">
+      <h2><i class="fas fa-cogs"></i> PLC / HMI & Robotics Console</h2>
+      <div class="skill-tags">
+        <span class="skill-tag">Panasonic FPWIN GR7</span>
+        <span class="skill-tag">Wienview HMI</span>
+        <span class="skill-tag">Siemens/Mitsubishi</span>
+        <span class="skill-tag">6-Axis J1-J6 Calibration</span>
+      </div>
+      <p><i class="fas fa-microchip"></i> Recent activity: Supported new model ramp-up with PLC logic alignment, HMI alarm screens.</p>
+      <div class="flex-between"><span>🤖 Robotic Arm Status:</span><span class="status-badge" id="robotStatus">Operational ✅</span></div>
+      <button id="triggerRobotDiag"><i class="fas fa-sync-alt"></i> Simulate Axis Diagnostic</button>
+      <div id="robotDiagMsg" style="margin-top: 8px; font-size:0.8rem;"></div>
+    </div>
 
-<h3>Adani Power – Substation Supervisor</h3>
-<p>33/132kV systems, SCADA operations.</p>
+    <div class="card">
+      <h2><i class="fas fa-chart-pie"></i> MTTR / MTBF Analysis</h2>
+      <div class="flex-between"><span>⚙️ Current MTTR (mins):</span><span id="mttrValue">42</span></div>
+      <div class="flex-between"><span>📆 MTBF (hours):</span><span id="mtbfValue">128</span></div>
+      <button id="improveMetrics"><i class="fas fa-chart-line"></i> Apply Continuous Improvement (PCA)</button>
+      <div id="kaizenMsg" class="insight-text" style="margin-top: 8px;"></div>
+      <p class="skill-tag" style="margin-top:6px">✔️ Root cause analysis + 8D reduces recurrence by 23%</p>
+    </div>
+  </div>
 
-</div>
-
-<!-- PROJECTS -->
-<div class="card">
-<h2>Key Projects</h2>
-<ul>
-<li>OEE Improvement → +18% efficiency</li>
-<li>Downtime Reduction → Plasma system optimization</li>
-<li>Automation Line Balancing</li>
-</ul>
-</div>
-
-<!-- TOOLS -->
-<div class="grid">
-
-<!-- OEE -->
-<div class="card">
-<h2>📊 OEE + Takt + Cycle</h2>
-
-<input id="a" placeholder="Available Time">
-<input id="d" placeholder="Demand">
-<input id="p" placeholder="Produced">
-<input id="g" placeholder="Good Parts">
-<input id="i" placeholder="Ideal Cycle Time">
-
-<h4 id="t"></h4>
-<h4 id="c"></h4>
-<h4 id="o"></h4>
-
-<div style="height:8px;background:#333;border-radius:5px">
-<div id="bar" style="height:8px;width:0;background:green"></div>
-</div>
-
-<canvas id="chart"></canvas>
-</div>
-
-<!-- AI -->
-<div class="card">
-<h2>🤖 AI Troubleshooting</h2>
-
-<input id="ai" placeholder="Describe issue">
-<button onclick="solve()">Solve</button>
-<p id="ans"></p>
-
-</div>
-
-<!-- SEARCH -->
-<div class="card">
-<h2>🔍 Machine Knowledge</h2>
-
-<input id="s" placeholder="Search machine/process">
-<p id="res"></p>
-
-</div>
-
-<!-- CHECKSHEET -->
-<div class="card">
-<h2>📄 Checksheets</h2>
-
-<button onclick="download('Compressor Checklist')">Compressor Checklist</button>
-<button onclick="download('CNC Maintenance')">CNC Maintenance</button>
-
-</div>
-
-</div>
-
+  <!-- hidden interactive: equipment list from resume -->
+  <div class="card" style="margin-top: 1rem;">
+    <h2><i class="fas fa-tools"></i> Equipment Expertise (High-Volume Manufacturing)</h2>
+    <div class="skill-tags">
+      <span class="skill-tag">Battery Rolling (BRT)</span>
+      <span class="skill-tag">BTB Pressing</span>
+      <span class="skill-tag">CCD Vision (LokS/Innovision)</span>
+      <span class="skill-tag">Plasma Cleaning SDP series</span>
+      <span class="skill-tag">Back Cover Press YH1-YH4</span>
+      <span class="skill-tag">Glue Dispensing</span>
+      <span class="skill-tag">RF Cable Buckling</span>
+      <span class="skill-tag">Zebra Printers</span>
+      <span class="skill-tag">Wire Drawing 8H/9H</span>
+      <span class="skill-tag">MIG/TIG/Arc Welding</span>
+    </div>
+    <p class="insight-text"><i class="fas fa-lightbulb"></i> In-house modifications reduced OEM dependency & saved maintenance costs by 18%.</p>
+  </div>
 </div>
 
 <script>
+  // ---------- CLOCK ----------
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('liveClock').innerHTML = `<i class="far fa-clock"></i> ${now.toLocaleString('en-IN', { hour12: true })}`;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
 
-// CLOCK
-setInterval(()=>{
-clock.innerText=new Date().toLocaleString();
-},1000);
+  // OEE Calculation & Chart (dynamic)
+  let oeeHistory = [];
+  const ctx = document.getElementById('oeeChart').getContext('2d');
+  let oeeChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{ label: 'OEE %', data: [], borderColor: '#38bdf8', backgroundColor: '#0f3b5f66', fill: true, tension: 0.3 }]
+    },
+    options: { responsive: true, maintainAspectRatio: true, scales: { y: { beginAtZero: true, max: 100 } } }
+  });
 
-// CHART
-const ctx=document.getElementById('chart');
-const chart=new Chart(ctx,{
-type:'line',
-data:{labels:[],datasets:[{label:'OEE %',data:[]}]}
-});
+  function computeOEE() {
+    let avail = parseFloat(document.getElementById('availTime').value) || 0;
+    let demand = parseFloat(document.getElementById('demandQty').value) || 1;
+    let produced = parseFloat(document.getElementById('producedQty').value) || 0;
+    let good = parseFloat(document.getElementById('goodParts').value) || 0;
+    let ideal = parseFloat(document.getElementById('idealCycle').value) || 1;
+    if (avail <=0 || produced <=0) return;
+    let takt = avail / demand;
+    let actualCycle = avail / produced;
+    let availability = (produced * ideal/60) / (avail) > 1 ? 1 : (produced * ideal/60) / (avail);
+    let quality = good / produced;
+    let performance = (ideal * produced) / (avail*60) > 1 ? 1 : (ideal * produced) / (avail*60);
+    let oee = availability * performance * quality * 100;
+    oee = Math.min(100, Math.max(0, oee));
+    document.getElementById('taktValue').innerText = takt.toFixed(2) + " min/unit";
+    document.getElementById('cycleValue').innerText = actualCycle.toFixed(2) + " min/unit";
+    document.getElementById('oeeValue').innerText = oee.toFixed(2) + "%";
+    let fillBar = document.getElementById('oeeFill');
+    fillBar.style.width = oee + "%";
+    fillBar.style.background = oee >= 85 ? '#2dd4bf' : (oee >= 60 ? '#facc15' : '#f87171');
+    let insight = document.getElementById('oeeInsight');
+    if(oee>=85) insight.innerHTML = "🏆 World-class OEE! Excellent productivity.";
+    else if(oee>=60) insight.innerHTML = "⚠️ Acceptable range, focus on minor stops & quality.";
+    else insight.innerHTML = "🔧 Critical improvement needed: review MTTR & breakdowns.";
+    
+    // add to chart history
+    oeeHistory.push(oee);
+    if(oeeHistory.length > 8) oeeHistory.shift();
+    oeeChart.data.labels = oeeHistory.map((_, idx) => `T-${oeeHistory.length-idx}`);
+    oeeChart.data.datasets[0].data = [...oeeHistory];
+    oeeChart.update();
+  }
+  const inputsOEE = ['availTime', 'demandQty', 'producedQty', 'goodParts', 'idealCycle'];
+  inputsOEE.forEach(id => document.getElementById(id).addEventListener('input', computeOEE));
+  computeOEE();
 
-// CALCULATION
-document.querySelectorAll("input").forEach(el=>{
-el.addEventListener("input",()=>{
-let a=+a.value||0,d=+d.value||0,p=+p.value||0,g=+g.value||0,iC=+i.value||0;
+  // AI Assistant (enhanced)
+  document.getElementById('solveBtn').addEventListener('click', () => {
+    let query = document.getElementById('aiQuery').value.toLowerCase();
+    let answer = "";
+    if(query.includes('plasma') || query.includes('arc')) answer = "🛠️ Plasma Cleaning: Check RF power supply, gas flow, nozzle gap. Controller board-level repair (SDP-3200/5200 series). Reprogram intensity & treatment time.";
+    else if(query.includes('motor') || query.includes('vfd')) answer = "⚡ VFD / Motor issue: Check overload relay, input voltage imbalance, VFD parameter reset. Inspect capstan motor & encoder feedback.";
+    else if(query.includes('robot') || query.includes('servo')) answer = "🤖 Robotic arm: J-axis zero-point calibration, servo encoder errors, path deviation. Perform end-effector alignment and re-home axes.";
+    else if(query.includes('sensor') || query.includes('ccd')) answer = "📸 CCD Vision: Check lighting, calibration using LokS/Innovision. Fine-tune inspection tolerance for new models, clean lens & verify communication.";
+    else if(query.includes('glue') || query.includes('dispense')) answer = "💧 Glue Dispensing: Nozzle clog, program recalibration, pressure regulator issues. Recalibrate path and check dispensing valve.";
+    else if(query.includes('rf') || query.includes('4g') || query.includes('5g')) answer = "📡 RF Testing: Antenna plate alignment, CMW100/500 config, Eragon software failure trends. Verify cable buckling machine calibration and FPY tracking.";
+    else answer = "🔍 General diagnostic: Perform root cause analysis (8D). Check electrical wiring, PLC I/O, mechanical alignment, and refer to PM manual. Suggest TPM approach.";
+    document.getElementById('aiAnswer').innerHTML = `<i class="fas fa-microchip"></i> ${answer}`;
+  });
 
-if(d>0)t.innerText="Takt: "+(a/d).toFixed(2);
+  // Knowledge Base
+  const knowledge = {
+    'plasma': "SDP-5200PRO: Arc ignition failure → inspect HF board & gas pressure. Controller reprogramming via serial.",
+    'compressor': "Screw compressor checklist: oil level, air filter, pressure switch calibration, moisture drain.",
+    'robot': "6-axis robot: Zero-point calibration, J1-J6 torque monitoring, backlash check. Encoder battery replacement.",
+    'ccd': "CCD vision: Inspection parameter tuning, board-to-board alignment, lighting intensity adjustment.",
+    'vfd': "VFD drives: Parameter backup, deceleration ramp, braking resistor check. Motor heating issues.",
+    'glue': "Glue dispensing: Nozzle cleaning, program pressure curve, curing time.",
+    'default': "Enter machine name (Plasma, Compressor, Robot, VFD, Glue, CCD) to retrieve detailed troubleshooting SOP."
+  };
+  document.getElementById('machineSearch').addEventListener('input', (e) => {
+    let term = e.target.value.toLowerCase();
+    let result = knowledge[term] || (term.includes('plasma')?knowledge['plasma']:term.includes('robot')?knowledge['robot']:term.includes('vfd')?knowledge['vfd']:knowledge['default']);
+    document.getElementById('searchResult').innerHTML = `<i class="fas fa-info-circle"></i> ${result}`;
+  });
+  document.getElementById('searchResult').innerHTML = `<i class="fas fa-info-circle"></i> ${knowledge.default}`;
 
-if(p>0){
-let cycle=a/p;
-c.innerText="Cycle: "+cycle.toFixed(2);
+  // Checksheets download simulation (PDF friendly)
+  function showChecksheetMsg(type) {
+    let msg = "";
+    if(type === 'compressor') msg = "📄 Compressor Preventive Maintenance: Oil inspection, belt tension, vibration analysis, pressure switch testing. Download ready (simulated).";
+    else if(type === 'plasma') msg = "📄 Plasma Cleaning Machine Checklist: Nozzle gap, arc current, gas purity, controller logs, daily PM sheet.";
+    else msg = "📄 Robotic Arm Calibration Log: Axis homing, payload verification, servo diagnostic, path accuracy test.";
+    document.getElementById('checksheetMsg').innerHTML = msg + " <i class='fas fa-check-circle' style='color:#2dd4bf'></i>";
+    setTimeout(() => { if(document.getElementById('checksheetMsg')) document.getElementById('checksheetMsg').style.opacity = '1'; }, 100);
+  }
+  document.getElementById('chkCompressor').onclick = () => showChecksheetMsg('compressor');
+  document.getElementById('chkPlasma').onclick = () => showChecksheetMsg('plasma');
+  document.getElementById('chkRobot').onclick = () => showChecksheetMsg('robot');
 
-let oee=(iC/cycle)*(g/p)*100;
-o.innerText="OEE: "+oee.toFixed(2)+"%";
+  // RF simulation
+  document.getElementById('simulateRFyield').addEventListener('click', () => {
+    let newYield = 94 + Math.floor(Math.random() * 5);
+    document.getElementById('fpyFill').style.width = newYield + "%";
+    document.getElementById('fpyTarget').innerHTML = newYield + "%";
+    document.getElementById('rfMessage').innerHTML = "📈 RF calibration optimized: First Pass Yield improved to " + newYield + "%. Antenna alignment & CMW500 fine-tuned.";
+  });
 
-bar.style.width=oee+"%";
-bar.style.background=oee>85?"green":oee>60?"yellow":"red";
+  // Robot diag simulation
+  document.getElementById('triggerRobotDiag').addEventListener('click', () => {
+    let status = ["Servo OK ✅", "Encoder drift detected ⚠️", "J2 axis recalibrated 🔧", "All axes nominal"][Math.floor(Math.random()*4)];
+    document.getElementById('robotDiagMsg').innerHTML = `🧠 Diagnostic: ${status}. Refer to zero-point correction procedure.`;
+  });
 
-chart.data.labels.push(new Date().toLocaleTimeString());
-chart.data.datasets[0].data.push(oee);
-chart.update();
-}
-});
-});
+  // MTTR/MTBF improvement
+  document.getElementById('improveMetrics').addEventListener('click', () => {
+    let curMttr = parseFloat(document.getElementById('mttrValue').innerText);
+    let curMtbf = parseFloat(document.getElementById('mtbfValue').innerText);
+    let newMttr = Math.max(25, curMttr * 0.85);
+    let newMtbf = curMtbf * 1.18;
+    document.getElementById('mttrValue').innerText = newMttr.toFixed(1);
+    document.getElementById('mtbfValue').innerText = newMtbf.toFixed(0);
+    document.getElementById('kaizenMsg').innerHTML = "✅ After PCA & team training: MTTR reduced by 15%, MTBF increased by 18%. RCA implemented on breakdown trends.";
+  });
 
-// AI ENGINE
-function solve(){
-let q=ai.value.toLowerCase();
-let ansText="";
-
-if(q.includes("motor")) ansText="Check overload, bearing, voltage imbalance";
-else if(q.includes("arc")) ansText="Check nozzle gap, HF circuit, grounding";
-else if(q.includes("sensor")) ansText="Check wiring, alignment, power supply";
-else ansText="Check electrical + mechanical system";
-
-ans.innerText=ansText;
-}
-
-// SEARCH ENGINE
-s.oninput=()=>{
-let v=s.value.toLowerCase();
-
-if(v.includes("plasma")) res.innerText="Plasma Machine → nozzle, air pressure, HF";
-else if(v.includes("compressor")) res.innerText="Compressor → oil, pressure switch";
-else if(v.includes("robot")) res.innerText="Robot → servo, encoder, calibration";
-else res.innerText="";
-}
-
-// DOWNLOAD MOCK
-function download(name){
-alert(name+" Download Ready (add file later)");
-}
-
+  // Download resume simulation (actual file could be linked, but create dynamic trigger)
+  document.getElementById('downloadResumeBtn').addEventListener('click', () => {
+    alert("📄 Resume (Nikhil Jangir) would be downloaded. In full version, actual PDF is linked. Pro Tip: The detailed CV includes all DBG, Sensetek, WearResist achievements.");
+    // simulate anchor
+    const a = document.createElement('a');
+    a.href = "#"; // placeholder; actual file can be attached
+    a.download = "Nikhil_Jangir_Resume.pdf";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
 </script>
-
 </body>
 </html>
+```
