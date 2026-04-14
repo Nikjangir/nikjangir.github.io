@@ -6,7 +6,7 @@
   <title>Nikhil Jangir | AI-Powered Industrial Engineering Suite</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
@@ -18,40 +18,60 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #0a0c15;
-      color: #e8edf5;
+      transition: background 0.3s ease, color 0.3s ease;
       overflow-x: hidden;
     }
 
-    /* Premium Glassmorphism */
-    .glass {
-      background: rgba(15, 25, 45, 0.65);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(56, 189, 248, 0.2);
+    body.dark {
+      --bg-primary: #0a0c15;
+      --bg-secondary: #121826;
+      --bg-card: rgba(18, 28, 45, 0.95);
+      --text-primary: #e8edf5;
+      --text-secondary: #94a3b8;
+      --border-color: rgba(56, 189, 248, 0.2);
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.3);
+      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
-    /* Gradient Accents */
-    .gradient-text {
-      background: linear-gradient(135deg, #38bdf8, #a855f7, #22c55e);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    body.light {
+      --bg-primary: #f1f5f9;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --border-color: #e2e8f0;
+      --accent: #0284c7;
+      --accent-glow: rgba(2, 132, 199, 0.1);
+      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     }
 
-    /* Custom Scroll */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #1a1f2e; }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #38bdf8, #a855f7); border-radius: 10px; }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
 
-    /* Navbar */
+    .card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 1.6rem;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+      box-shadow: var(--card-shadow);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+
     nav {
       position: fixed;
       top: 0;
       width: 100%;
       padding: 1rem 2rem;
-      background: rgba(5, 10, 25, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
       z-index: 1000;
       display: flex;
       justify-content: space-between;
@@ -63,109 +83,110 @@
     .logo {
       font-size: 1.5rem;
       font-weight: 800;
-      letter-spacing: -0.5px;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      flex-wrap: wrap;
+    .gradient-text {
+      background: linear-gradient(135deg, #38bdf8, #a855f7, #22c55e);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .nav-btn {
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
       padding: 8px 18px;
       border-radius: 40px;
       cursor: pointer;
       transition: all 0.3s;
       font-weight: 500;
+      color: var(--text-primary);
     }
 
     .nav-btn:hover {
-      background: #38bdf8;
-      color: #0a0c15;
+      background: var(--accent);
+      color: white;
       transform: translateY(-2px);
     }
 
-    /* Hero Section */
     .hero {
-      margin-top: 90px;
+      margin-top: 80px;
       padding: 3rem 2rem;
       text-align: center;
-      background: linear-gradient(135deg, #0a0c15 0%, #12182a 100%);
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
     }
 
     .avatar {
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       margin: 0 auto 1.5rem;
-      background: linear-gradient(135deg, #38bdf8, #a855f7);
       border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 40px var(--accent-glow);
+      background: linear-gradient(135deg, #1e293b, #0f172a);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
     }
 
-    .avatar i {
-      font-size: 3.5rem;
-      color: white;
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar .fallback-icon {
+      font-size: 4rem;
+      color: var(--accent);
+      display: none;
+    }
+
+    .avatar img:not([src]), 
+    .avatar img[src=""],
+    .avatar img[src="#"] {
+      display: none;
+    }
+    
+    .avatar img:not([src]) + .fallback-icon,
+    .avatar img[src=""] + .fallback-icon,
+    .avatar img[src="#"] + .fallback-icon {
+      display: block;
     }
 
     .hero h1 {
       font-size: 2.8rem;
       font-weight: 800;
       margin-bottom: 0.5rem;
+      color: var(--text-primary);
     }
 
     .hero-badge {
+      background: var(--accent-glow);
       display: inline-block;
-      background: rgba(56, 189, 248, 0.2);
       padding: 6px 20px;
       border-radius: 40px;
-      font-size: 0.85rem;
       margin: 1rem 0;
     }
 
-    /* Main Container */
     .container {
       max-width: 1600px;
       margin: 0 auto;
       padding: 2rem;
     }
 
-    /* Grid System */
     .grid-2col {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
       gap: 1.8rem;
       margin-bottom: 2rem;
     }
 
     .grid-3col {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.8rem;
       margin-bottom: 2rem;
-    }
-
-    /* Cards */
-    .card {
-      background: rgba(18, 28, 45, 0.7);
-      backdrop-filter: blur(10px);
-      border-radius: 28px;
-      padding: 1.6rem;
-      border: 1px solid rgba(56, 189, 248, 0.15);
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    }
-
-    .card:hover {
-      border-color: rgba(56, 189, 248, 0.5);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
     .card-header {
@@ -174,33 +195,29 @@
       gap: 12px;
       margin-bottom: 1.2rem;
       padding-bottom: 0.8rem;
-      border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+      border-bottom: 2px solid var(--accent);
     }
 
     .card-header i {
       font-size: 1.8rem;
-      color: #38bdf8;
+      color: var(--accent);
     }
 
     .card-header h2 {
       font-size: 1.4rem;
       font-weight: 600;
-    }
-
-    /* AI Chat Interface */
-    .ai-chat-container {
-      background: rgba(10, 14, 25, 0.9);
-      border-radius: 20px;
-      overflow: hidden;
+      color: var(--text-primary);
     }
 
     .chat-messages {
-      height: 350px;
+      height: 380px;
       overflow-y: auto;
       padding: 1rem;
       display: flex;
       flex-direction: column;
       gap: 12px;
+      background: var(--bg-secondary);
+      border-radius: 20px;
     }
 
     .message {
@@ -208,6 +225,8 @@
       border-radius: 18px;
       max-width: 85%;
       animation: fadeIn 0.3s ease;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
 
     .user-message {
@@ -217,59 +236,34 @@
     }
 
     .ai-message {
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
       align-self: flex-start;
-    }
-
-    .typing-indicator {
-      display: none;
-      padding: 12px 16px;
-      background: rgba(56, 189, 248, 0.1);
-      border-radius: 18px;
-      align-self: flex-start;
-    }
-
-    .typing-indicator span {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #38bdf8;
-      margin: 0 2px;
-      animation: typing 1.4s infinite;
-    }
-
-    @keyframes typing {
-      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-      30% { transform: translateY(-10px); opacity: 1; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      color: var(--text-primary);
     }
 
     .chat-input-area {
       display: flex;
       gap: 10px;
       padding: 1rem;
-      border-top: 1px solid rgba(56, 189, 248, 0.2);
+      background: var(--bg-secondary);
+      border-radius: 20px;
+      margin-top: 10px;
     }
 
     .chat-input-area input {
       flex: 1;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
       padding: 12px 16px;
       border-radius: 40px;
-      color: white;
+      color: var(--text-primary);
       font-size: 0.95rem;
     }
 
     .chat-input-area input:focus {
       outline: none;
-      border-color: #38bdf8;
+      border-color: var(--accent);
     }
 
     .chat-input-area button {
@@ -280,56 +274,52 @@
       color: white;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
     }
 
-    /* Machine Gallery */
     .machine-gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
       gap: 15px;
       margin-top: 1rem;
     }
 
     .machine-card {
-      background: rgba(15, 23, 42, 0.8);
+      background: var(--bg-secondary);
       border-radius: 16px;
       padding: 1rem;
       text-align: center;
       cursor: pointer;
       transition: all 0.3s;
-      border: 1px solid rgba(56, 189, 248, 0.2);
+      border: 1px solid var(--border-color);
     }
 
     .machine-card:hover {
       transform: translateY(-5px);
-      border-color: #38bdf8;
-      background: rgba(56, 189, 248, 0.1);
+      border-color: var(--accent);
     }
 
     .machine-card i {
       font-size: 2.5rem;
-      color: #38bdf8;
+      color: var(--accent);
       margin-bottom: 8px;
     }
 
     .machine-card h4 {
       font-size: 0.85rem;
       margin-bottom: 6px;
+      color: var(--text-primary);
     }
 
     .machine-card button {
-      background: rgba(56, 189, 248, 0.2);
+      background: var(--accent);
       border: none;
       padding: 4px 10px;
       border-radius: 20px;
       font-size: 0.7rem;
-      margin-top: 8px;
       cursor: pointer;
       color: white;
     }
 
-    /* Modal for Machine Details */
     .modal {
       display: none;
       position: fixed;
@@ -337,19 +327,21 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.95);
       z-index: 2000;
       justify-content: center;
       align-items: center;
     }
 
     .modal-content {
-      background: linear-gradient(135deg, #0f172a, #1e293b);
+      background: var(--bg-secondary);
       border-radius: 28px;
-      max-width: 600px;
+      max-width: 650px;
       width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
       padding: 2rem;
-      border: 1px solid #38bdf8;
+      border: 2px solid var(--accent);
       position: relative;
     }
 
@@ -359,23 +351,27 @@
       right: 20px;
       font-size: 1.8rem;
       cursor: pointer;
-      color: #38bdf8;
+      color: var(--accent);
     }
 
-    .machine-image {
-      width: 100%;
-      height: 200px;
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 1rem 0;
+    .web-search-result {
+      background: var(--bg-primary);
+      padding: 15px;
+      border-radius: 16px;
+      margin: 15px 0;
+      max-height: 300px;
+      overflow-y: auto;
     }
 
-    .machine-image i {
-      font-size: 5rem;
-      color: #38bdf8;
+    .wiki-link {
+      color: var(--accent);
+      text-decoration: none;
+      display: block;
+      margin: 10px 0;
+    }
+
+    .wiki-link:hover {
+      text-decoration: underline;
     }
 
     .download-btn {
@@ -383,13 +379,18 @@
       margin-top: 1rem;
       width: 100%;
       padding: 12px;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
     }
 
-    /* OEE Dashboard */
     .oee-stats {
       display: flex;
       justify-content: space-around;
       margin: 1rem 0;
+      flex-wrap: wrap;
     }
 
     .stat-card {
@@ -400,242 +401,310 @@
     .stat-value {
       font-size: 2rem;
       font-weight: 800;
-      color: #38bdf8;
+      color: var(--accent);
     }
 
-    /* Responsive */
+    .progress-bar-bg {
+      background: var(--bg-primary);
+      border-radius: 20px;
+      height: 12px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 20px;
+      transition: width 0.3s;
+    }
+
+    input {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: var(--text-primary);
+      width: 100%;
+      margin: 8px 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     @media (max-width: 768px) {
-      .grid-2col, .grid-3col {
-        grid-template-columns: 1fr;
-      }
+      .grid-2col, .grid-3col { grid-template-columns: 1fr; }
       .hero h1 { font-size: 1.8rem; }
       nav { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
-<body>
+<body class="dark">
 
 <nav>
   <div class="logo"><span class="gradient-text">⚡ NIKHIL · INDUSTRY 4.0 AI</span></div>
-  <div class="nav-links">
+  <div class="nav-links" style="display: flex; gap: 12px; flex-wrap: wrap;">
     <div class="nav-btn" onclick="scrollToSection('aiChat')"><i class="fas fa-robot"></i> AI Assistant</div>
     <div class="nav-btn" onclick="scrollToSection('machines')"><i class="fas fa-microchip"></i> Machine Library</div>
     <div class="nav-btn" onclick="exportSession()"><i class="fas fa-download"></i> Export Data</div>
-    <div class="nav-btn" id="themeToggle"><i class="fas fa-palette"></i> Theme</div>
+    <div class="nav-btn" id="themeToggle"><i class="fas fa-palette"></i> Switch Theme</div>
   </div>
 </nav>
 
 <div class="hero">
   <div class="avatar">
-    <i class="fas fa-user-astronaut"></i>
+    <img src="profile.jpg.png" alt="Nikhil Jangir" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <i class="fas fa-user-astronaut fallback-icon"></i>
   </div>
   <h1>Nikhil Jangir</h1>
-  <p class="hero-badge"><i class="fas fa-certificate"></i> Sr. Automation & Machine Repair Engineer | 7+ Years | Team Leader L4.2</p>
+  <div class="hero-badge">Sr. Automation & Machine Repair Engineer | 7+ Years | Team Leader L4.2</div>
   <p>📍 Narnaul, Haryana | 📞 +91 84471 07097 | ✉️ nikhiljangirharyana@gmail.com</p>
-  <div style="margin-top: 1.5rem;">
-    <button class="nav-btn" onclick="downloadResume()" style="background:#38bdf8; color:#0a0c15;"><i class="fas fa-file-pdf"></i> Download Full Resume</button>
-  </div>
+  <button class="nav-btn" onclick="downloadResume()" style="margin-top:1rem; background: var(--accent); color:white; border:none;">
+    <i class="fas fa-file-pdf"></i> Download Resume (PDF)
+  </button>
 </div>
 
 <div class="container">
-  <!-- OEE Dashboard -->
   <div class="grid-2col">
     <div class="card">
-      <div class="card-header">
-        <i class="fas fa-chart-line"></i>
-        <h2>Real-Time OEE Monitor</h2>
-      </div>
+      <div class="card-header"><i class="fas fa-chart-line"></i><h2>Real-Time OEE Monitor</h2></div>
       <div class="oee-stats">
         <div class="stat-card"><div class="stat-value" id="oeePercent">--</div><div>OEE</div></div>
         <div class="stat-card"><div class="stat-value" id="availability">--</div><div>Availability</div></div>
         <div class="stat-card"><div class="stat-value" id="performance">--</div><div>Performance</div></div>
         <div class="stat-card"><div class="stat-value" id="quality">--</div><div>Quality</div></div>
       </div>
-      <div class="progress-bar-bg" style="background:#1e293b; border-radius:20px; height:12px;"><div id="oeeBar" style="width:0%; height:100%; background:#38bdf8; border-radius:20px;"></div></div>
+      <div class="progress-bar-bg"><div id="oeeBar" class="progress-fill"></div></div>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem;">
-        <input type="number" id="prodInput" placeholder="Produced Units" value="950" style="background:#1e293b; border:none; padding:10px; border-radius:12px;">
-        <input type="number" id="goodInput" placeholder="Good Parts" value="910" style="background:#1e293b; border:none; padding:10px; border-radius:12px;">
-        <input type="number" id="availInput" placeholder="Available Mins" value="480" style="background:#1e293b; border:none; padding:10px; border-radius:12px;">
-        <input type="number" id="idealInput" placeholder="Ideal Cycle (sec)" value="28" style="background:#1e293b; border:none; padding:10px; border-radius:12px;">
+        <input type="number" id="prodInput" placeholder="Produced Units" value="950">
+        <input type="number" id="goodInput" placeholder="Good Parts" value="910">
+        <input type="number" id="availInput" placeholder="Available Mins" value="480">
+        <input type="number" id="idealInput" placeholder="Ideal Cycle (sec)" value="28">
       </div>
-      <button onclick="updateOEE()" style="margin-top:1rem; width:100%; background:linear-gradient(135deg,#38bdf8,#2563eb);"><i class="fas fa-sync-alt"></i> Calculate OEE</button>
+      <button onclick="updateOEE()" style="margin-top:1rem; width:100%; background: var(--accent); color:white; border:none; padding:12px; border-radius:12px;"><i class="fas fa-sync-alt"></i> Calculate OEE</button>
     </div>
 
-    <!-- AI Assistant Card -->
     <div class="card" id="aiChat">
-      <div class="card-header">
-        <i class="fas fa-brain"></i>
-        <h2>AI Engineering Assistant <span style="font-size:0.7rem; background:#22c55e33; padding:2px 8px; border-radius:20px;">Powered by Advanced Knowledge</span></h2>
+      <div class="card-header"><i class="fas fa-brain"></i><h2>AI Engineering Assistant <span style="font-size:0.7rem;">(Live Web Search)</span></h2></div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message ai-message">
+          🤖 <strong>Hi! I'm your AI Assistant with LIVE WEB SEARCH!</strong><br><br>
+          <strong>Try asking:</strong><br>
+          • "Tell me about Plasma Cleaning Machine"<br>
+          • "wiki: Industrial robot"<br>
+          • "Troubleshoot VFD overload error"<br>
+          • "search: CCD vision system specs"<br>
+          • "What is MTTR reduction?"<br><br>
+          <i class="fas fa-globe"></i> For web search, type: <strong>"search: your topic"</strong> or <strong>"wiki: machine name"</strong>
+        </div>
       </div>
-      <div class="ai-chat-container">
-        <div class="chat-messages" id="chatMessages">
-          <div class="message ai-message">
-            👋 Hi! I'm your AI Engineering Assistant. Ask me anything about:<br>
-            • Machine troubleshooting (Plasma, Robots, VFD, CCD, RF Testing)<br>
-            • PLC programming, HMI modification<br>
-            • OEE improvement, MTTR/MTBF reduction<br>
-            • Spare parts, maintenance procedures<br>
-            <strong>Ask me anything, I'll respond instantly with accurate technical info!</strong>
-          </div>
-        </div>
-        <div class="typing-indicator" id="typingIndicator">
-          <span></span><span></span><span></span>
-        </div>
-        <div class="chat-input-area">
-          <input type="text" id="chatInput" placeholder="Ask about any machine, process, or issue..." onkeypress="if(event.key==='Enter') askAI()">
-          <button onclick="askAI()"><i class="fas fa-paper-plane"></i> Send</button>
-        </div>
+      <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="Ask anything... or 'search: plasma machine specifications'" onkeypress="if(event.key==='Enter') askAI()">
+        <button onclick="askAI()"><i class="fas fa-paper-plane"></i> Send</button>
       </div>
     </div>
   </div>
 
-  <!-- Machine Library with Images & Manuals -->
   <div class="card" id="machines">
-    <div class="card-header">
-      <i class="fas fa-microchip"></i>
-      <h2>Machine Library <span style="font-size:0.7rem;">(Click any machine for details, image & manual download)</span></h2>
-    </div>
+    <div class="card-header"><i class="fas fa-microchip"></i><h2>Machine Library <span style="font-size:0.7rem;">(Click any machine → Details + Web Search + Manual)</span></h2></div>
     <div class="machine-gallery" id="machineGallery"></div>
   </div>
 
-  <!-- MTTR/MTBF & RF Stats -->
   <div class="grid-3col">
     <div class="card">
       <div class="card-header"><i class="fas fa-chart-simple"></i><h2>MTTR / MTBF Tracker</h2></div>
       <div><i class="fas fa-tachometer-alt"></i> Current MTTR: <strong id="mttrDisplay">42</strong> mins</div>
       <div><i class="fas fa-calendar-check"></i> Current MTBF: <strong id="mtbfDisplay">128</strong> hours</div>
-      <button onclick="improveMTTR()" style="margin-top:1rem;">Apply RCA Improvement →</button>
+      <button onclick="improveMTTR()" style="margin-top:1rem; background:var(--accent); color:white; border:none; padding:10px; border-radius:12px; width:100%;"><i class="fas fa-chart-line"></i> Apply RCA Improvement →</button>
+      <div id="kaizenMsg" style="margin-top: 8px; font-size:0.8rem;"></div>
     </div>
     <div class="card">
       <div class="card-header"><i class="fas fa-wifi"></i><h2>RF Testing (4G/5G)</h2></div>
-      <div>📡 CMW100/CMW500 | Eragon/HQ Software</div>
-      <div class="progress-bar-bg mt-2"><div id="rfBar" style="width:94%; height:8px; background:#22c55e;"></div></div>
-      <div>First Pass Yield: <strong id="fpyValue">94%</strong></div>
-      <button onclick="optimizeRF()">Optimize RF Calibration</button>
+      <div>📡 Instruments: CMW100 / CMW500 | Software: Eragon, HQ</div>
+      <div style="margin: 10px 0;">First Pass Yield (FPY): <strong id="fpyValue">94%</strong></div>
+      <div class="progress-bar-bg"><div id="rfBar" class="progress-fill" style="width:94%"></div></div>
+      <button onclick="optimizeRF()" style="margin-top:1rem; background:var(--accent); color:white; border:none; padding:10px; border-radius:12px; width:100%;"><i class="fas fa-sync-alt"></i> Optimize RF Calibration</button>
+      <div id="rfMessage" style="margin-top: 8px; font-size:0.8rem;"></div>
     </div>
     <div class="card">
       <div class="card-header"><i class="fas fa-clipboard-list"></i><h2>Quick Actions</h2></div>
-      <button onclick="generateReport()"><i class="fas fa-file-alt"></i> Generate Shift Report</button>
-      <button onclick="exportSession()"><i class="fas fa-database"></i> Export All Data</button>
+      <button onclick="generateReport()" style="width:100%; margin:5px 0; background:var(--accent); color:white; border:none; padding:10px; border-radius:12px;"><i class="fas fa-file-alt"></i> Generate Shift Report</button>
+      <button onclick="exportSession()" style="width:100%; margin:5px 0; background:var(--accent); color:white; border:none; padding:10px; border-radius:12px;"><i class="fas fa-database"></i> Export All Data (JSON)</button>
+      <button onclick="clearChat()" style="width:100%; margin:5px 0; background:var(--bg-primary); border:1px solid var(--border-color); color:var(--text-primary); padding:10px; border-radius:12px;"><i class="fas fa-trash-alt"></i> Clear Chat History</button>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
 <div id="machineModal" class="modal">
   <div class="modal-content">
     <span class="modal-close" onclick="closeModal()">&times;</span>
-    <h2 id="modalTitle"></h2>
-    <div class="machine-image" id="modalImage"></div>
-    <p id="modalDesc"></p>
-    <p><strong>Specifications & Troubleshooting:</strong></p>
-    <p id="modalSpecs"></p>
-    <button class="download-btn" id="modalDownloadBtn" onclick="downloadManual()"><i class="fas fa-download"></i> Download Manual (PDF)</button>
+    <h2 id="modalTitle" style="color:var(--accent);"></h2>
+    <div id="modalImage" style="text-align:center; padding:20px;"></div>
+    <div id="modalDesc"></div>
+    <div id="webSearchResults" class="web-search-result">
+      <h4><i class="fas fa-globe"></i> Live Web Search Results:</h4>
+      <div id="wikiResults">Searching Wikipedia for information...</div>
+    </div>
+    <button class="download-btn" onclick="downloadManualForCurrent()"><i class="fas fa-download"></i> Download Technical Manual (PDF)</button>
   </div>
 </div>
 
 <script>
-  // Machine Database with Images and Manuals
+  // ==================== MACHINE DATABASE ====================
   const machineDatabase = {
-    'Plasma Cleaning (SDP-3200)': {
-      icon: 'fa-fire',
-      desc: 'Plasma surface treatment machine for cleaning and activation.',
-      specs: 'Model: SDP-3200, SDP-5200F, SDP-5200PRO. Controller board-level repair, arc ignition troubleshooting, RF power supply 13.56MHz.',
-      manual: 'Plasma_Cleaning_SDP_Manual.pdf',
-      troubleshooting: 'Check gas flow, nozzle gap, RF generator. Reprogram intensity via controller.'
+    'Plasma Cleaning (SDP-3200)': { 
+      icon: 'fa-fire', 
+      desc: 'Plasma surface treatment machine for cleaning and activation of mobile components.', 
+      specs: 'Models: SDP-3200, SDP-5200F, SDP-5200PRO. Frequency: 13.56MHz RF power. Controller board-level repair, arc ignition troubleshooting.' 
     },
-    'Battery Rolling Machine (BRT)': {
-      icon: 'fa-battery-full',
-      desc: 'High-precision battery rolling and calibration system.',
-      specs: 'Online repair capability, roller gap calibration, pressure sensors. Used for mobile battery assembly.',
-      manual: 'BRT_Machine_Manual.pdf',
-      troubleshooting: 'Check roller alignment, pressure sensors, motor drives.'
+    'Battery Rolling Machine (BRT)': { 
+      icon: 'fa-battery-full', 
+      desc: 'High-precision battery rolling and calibration system for mobile assembly.', 
+      specs: 'Online repair capability, roller gap calibration, pressure sensors, motor drive control.' 
     },
-    'BTB Pressing Machine': {
-      icon: 'fa-compress',
-      desc: 'Board-to-Board precision pressing for PCB assembly.',
-      specs: 'Force calibration 50-500N, positioning accuracy ±0.01mm. Fixture alignment required.',
-      manual: 'BTB_Pressing_Manual.pdf',
-      troubleshooting: 'Verify alignment fixtures, force sensor calibration, pneumatic pressure.'
+    'BTB Pressing Machine': { 
+      icon: 'fa-compress', 
+      desc: 'Board-to-Board precision pressing for PCB and FPC assembly.', 
+      specs: 'Force range: 50-500N, positioning accuracy: ±0.01mm. Fixture alignment required.' 
     },
-    'CCD Vision Inspection': {
-      icon: 'fa-camera',
-      desc: 'Automated optical inspection using CCD cameras.',
-      specs: 'LokS & Innovision software. Resolution 5MP, inspection speed 0.5s/unit.',
-      manual: 'CCD_Vision_Manual.pdf',
-      troubleshooting: 'Clean lens, check lighting, recalibrate inspection parameters for new models.'
+    'CCD Vision Inspection': { 
+      icon: 'fa-camera', 
+      desc: 'Automated optical inspection using CCD cameras for quality control.', 
+      specs: 'Software: LokS & Innovision. Resolution: 5MP, inspection speed: 0.5s per unit.' 
     },
-    'Industrial Robotic Arm (6-Axis)': {
-      icon: 'fa-robot',
-      desc: '6-axis articulated robot for assembly and pick-place.',
-      specs: 'J1-J6 axes, payload 5kg, repeatability ±0.02mm. Servo drives, encoder feedback.',
-      manual: 'Robotic_Arm_6Axis_Manual.pdf',
-      troubleshooting: 'Zero-point calibration, encoder battery, servo alarm reset, path deviation correction.'
+    'Industrial Robotic Arm (6-Axis)': { 
+      icon: 'fa-robot', 
+      desc: '6-axis articulated robot for assembly, pick-place, and material handling.', 
+      specs: 'Axes: J1-J6, payload: 5kg, repeatability: ±0.02mm. Servo drives, encoder feedback.' 
     },
-    'RF Cable Buckling Machine': {
-      icon: 'fa-tower-cell',
-      desc: '4G/5G RF cable buckling and antenna alignment.',
-      specs: 'CMW100/CMW500 compatible, frequency range 600MHz-6GHz.',
-      manual: 'RF_Cable_Buckling_Manual.pdf',
-      troubleshooting: 'Antenna plate alignment, network band failure analysis, Eragon software calibration.'
+    'RF Cable Buckling Machine': { 
+      icon: 'fa-tower-cell', 
+      desc: '4G/5G RF cable buckling and antenna alignment system.', 
+      specs: 'Compatible with CMW100/CMW500, frequency range: 600MHz-6GHz.' 
     },
-    'Glue Dispensing Machine': {
-      icon: 'fa-fill-drip',
-      desc: 'Precision adhesive dispensing for mobile assembly.',
-      specs: 'Programmable pressure 0-0.6MPa, nozzle size 0.2-1.0mm.',
-      manual: 'Glue_Dispensing_Manual.pdf',
-      troubleshooting: 'Nozzle clog, program recalibration, pressure regulator issues.'
+    'Glue Dispensing Machine': { 
+      icon: 'fa-fill-drip', 
+      desc: 'Precision adhesive dispensing for mobile phone assembly.', 
+      specs: 'Pressure range: 0-0.6MPa, nozzle size: 0.2-1.0mm. Programmable dispensing patterns.' 
     },
-    'Back Cover Press (YH1-YH4)': {
-      icon: 'fa-cogs',
-      desc: 'Back cover assembly, touch panel pressing, camera deco.',
-      specs: 'Force range 100-1000N, LabVision software integration.',
-      manual: 'Back_Cover_Press_Manual.pdf',
-      troubleshooting: 'Force calibration, positioning accuracy, mold alignment.'
+    'Back Cover Press (YH1-YH4)': { 
+      icon: 'fa-cogs', 
+      desc: 'Back cover assembly, touch panel pressing, camera deco, and lens pressing.', 
+      specs: 'Force range: 100-1000N, LabVision software integration, mold quick-change system.' 
     }
   };
 
-  // Render Machine Gallery
+  let currentMachine = null;
+
+  // ==================== RENDER MACHINE GALLERY ====================
   function renderMachines() {
     const gallery = document.getElementById('machineGallery');
+    if (!gallery) return;
     gallery.innerHTML = '';
-    Object.entries(machineDatabase).forEach(([name, data]) => {
+    Object.keys(machineDatabase).forEach(name => {
       const card = document.createElement('div');
       card.className = 'machine-card';
       card.innerHTML = `
-        <i class="fas ${data.icon}"></i>
+        <i class="fas ${machineDatabase[name].icon}"></i>
         <h4>${name}</h4>
-        <button onclick="showMachineModal('${name}')"><i class="fas fa-info-circle"></i> View Details</button>
+        <button onclick="showMachineModal('${name.replace(/'/g, "\\'")}')"><i class="fas fa-info-circle"></i> View Details</button>
       `;
       gallery.appendChild(card);
     });
   }
 
-  // Modal Functions
-  let currentMachine = null;
+  // ==================== LIVE WEB SEARCH ====================
+  async function searchWebForMachine(machineName) {
+    const resultsDiv = document.getElementById('wikiResults');
+    if (!resultsDiv) return;
+    resultsDiv.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Fetching live information from Wikipedia...';
+    
+    try {
+      const searchTerm = encodeURIComponent(machineName.replace(/ /g, '_'));
+      const wikiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${searchTerm}`;
+      const response = await fetch(wikiUrl);
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.extract) {
+          resultsDiv.innerHTML = `
+            <div style="margin-bottom:10px;">
+              <i class="fab fa-wikipedia-w"></i> <strong>Wikipedia: ${data.title}</strong>
+            </div>
+            <p>${data.extract.substring(0, 500)}${data.extract.length > 500 ? '...' : ''}</p>
+            <a href="${data.content_urls?.desktop?.page || 'https://en.wikipedia.org/wiki/' + searchTerm}" target="_blank" class="wiki-link">📖 Read full article on Wikipedia →</a>
+          `;
+          return;
+        }
+      }
+      
+      resultsDiv.innerHTML = `
+        <div style="margin-bottom:10px;">
+          <i class="fas fa-search"></i> <strong>Web Search Results for: ${machineName}</strong>
+        </div>
+        <p>Click below to search the web for detailed technical information:</p>
+        <a href="https://www.google.com/search?q=${encodeURIComponent(machineName + ' technical specifications manual troubleshooting')}" target="_blank" class="wiki-link">
+          🔍 Google Search: ${machineName} technical specs
+        </a>
+        <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(machineName + ' repair tutorial')}" target="_blank" class="wiki-link">
+          🎥 YouTube: ${machineName} repair tutorials
+        </a>
+      `;
+    } catch (error) {
+      resultsDiv.innerHTML = `
+        <p><i class="fas fa-exclamation-triangle"></i> Could not fetch live data. Click below for web search:</p>
+        <a href="https://www.google.com/search?q=${encodeURIComponent(machineName + ' machine manual')}" target="_blank" class="wiki-link">🔍 Search Google for ${machineName}</a>
+      `;
+    }
+  }
 
-  function showMachineModal(machineName) {
+  // ==================== MODAL FUNCTIONS ====================
+  async function showMachineModal(machineName) {
     currentMachine = machineName;
     const data = machineDatabase[machineName];
+    if (!data) return;
+    
     document.getElementById('modalTitle').innerText = machineName;
-    document.getElementById('modalImage').innerHTML = `<i class="fas ${data.icon}" style="font-size:5rem; color:#38bdf8;"></i>`;
-    document.getElementById('modalDesc').innerHTML = `<strong>Description:</strong> ${data.desc}`;
-    document.getElementById('modalSpecs').innerHTML = `${data.specs}<br><strong>Troubleshooting:</strong> ${data.troubleshooting}`;
+    document.getElementById('modalImage').innerHTML = `<i class="fas ${data.icon}" style="font-size:5rem; color:var(--accent);"></i>`;
+    document.getElementById('modalDesc').innerHTML = `
+      <p><strong>📝 Description:</strong> ${data.desc}</p>
+      <p><strong>⚙️ Specifications:</strong> ${data.specs}</p>
+      <p><strong>🔧 Common Issues:</strong> ${getTroubleshooting(machineName)}</p>
+    `;
     document.getElementById('machineModal').style.display = 'flex';
+    await searchWebForMachine(machineName);
+  }
+
+  function getTroubleshooting(machineName) {
+    const troubleshooting = {
+      'Plasma': 'Arc ignition failure, RF power supply issues, gas flow problems, controller board faults',
+      'Battery': 'Roller misalignment, pressure sensor calibration, motor drive errors',
+      'BTB': 'Fixture misalignment, force calibration drift, pneumatic issues',
+      'CCD': 'Lighting fluctuation, lens contamination, calibration drift, software parameters',
+      'Robot': 'Servo alarms, encoder errors, path deviation, zero-point loss',
+      'RF': 'Antenna misalignment, cable damage, calibration drift, VSWR high',
+      'Glue': 'Nozzle clog, pressure inconsistency, program errors, curing issues',
+      'Cover': 'Force calibration, mold alignment, sensor feedback, LabVision sync'
+    };
+    for (let [key, val] of Object.entries(troubleshooting)) {
+      if (machineName.includes(key)) return val;
+    }
+    return 'Regular PM, calibration, and sensor checks required. Refer to manual for details.';
   }
 
   function closeModal() {
     document.getElementById('machineModal').style.display = 'none';
   }
 
-  function downloadManual() {
-    if (currentMachine && machineDatabase[currentMachine]) {
-      const manualName = machineDatabase[currentMachine].manual;
-      alert(`📄 Downloading: ${manualName}\n\n(Simulated - In production, actual PDF would download)\n\nManual contains: Full maintenance schedule, wiring diagrams, PLC parameters, and troubleshooting guide.`);
+  function downloadManualForCurrent() {
+    if (currentMachine) {
+      alert(`📄 Downloading Technical Manual: ${currentMachine}_Service_Manual.pdf\n\n(Simulated - In production, actual PDF with schematics, PLC code, wiring diagrams, and maintenance schedule would download)\n\n📚 Manual includes:\n• Complete wiring diagrams\n• PLC program backup procedures\n• Calibration steps\n• Troubleshooting flowcharts\n• Spare parts list\n• Preventive maintenance schedule`);
     }
   }
 
-  // AI Assistant - Instant, Accurate Responses
+  // ==================== AI ASSISTANT WITH WEB SEARCH ====================
   async function askAI() {
     const input = document.getElementById('chatInput');
     const question = input.value.trim();
@@ -644,43 +713,66 @@
     addMessage(question, 'user');
     input.value = '';
 
-    showTyping(true);
+    const lowerQ = question.toLowerCase();
+    
+    // Web search commands
+    if (lowerQ.startsWith('search:') || lowerQ.startsWith('wiki:') || lowerQ.startsWith('google:')) {
+      const searchTerm = question.substring(question.indexOf(':') + 1).trim();
+      addMessage(`🔍 Searching the web for "${searchTerm}"...`, 'ai');
+      
+      try {
+        const wikiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(searchTerm.replace(/ /g, '_'))}`;
+        const response = await fetch(wikiUrl);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.extract) {
+            addMessage(`📖 <strong>${data.title}</strong><br><br>${data.extract.substring(0, 600)}...<br><br><a href="${data.content_urls?.desktop?.page}" target="_blank" style="color:var(--accent);">📚 Read full Wikipedia article →</a>`, 'ai');
+          } else {
+            addMessage(`🔗 <strong>Search Results for: ${searchTerm}</strong><br><br><a href="https://www.google.com/search?q=${encodeURIComponent(searchTerm)}" target="_blank" style="color:var(--accent);">🔍 Click to search Google →</a>`, 'ai');
+          }
+        } else {
+          addMessage(`🔗 <strong>Search the web for: ${searchTerm}</strong><br><br><a href="https://www.google.com/search?q=${encodeURIComponent(searchTerm)}" target="_blank" style="color:var(--accent);">🔍 Google Search</a> | <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(searchTerm)}" target="_blank" style="color:var(--accent);">🎥 YouTube Videos</a>`, 'ai');
+        }
+      } catch (error) {
+        addMessage(`🔗 <a href="https://www.google.com/search?q=${encodeURIComponent(searchTerm)}" target="_blank" style="color:var(--accent);">🔍 Click to search Google for "${searchTerm}"</a>`, 'ai');
+      }
+      return;
+    }
 
-    setTimeout(() => {
-      const answer = getAIResponse(question);
-      addMessage(answer, 'ai');
-      showTyping(false);
-    }, 300);
+    // Local knowledge base (instant responses)
+    const answer = getLocalResponse(question);
+    addMessage(answer, 'ai');
   }
 
-  function getAIResponse(question) {
+  function getLocalResponse(question) {
     const q = question.toLowerCase();
     
-    // Comprehensive knowledge base covering all resume machines
-    const responses = {
-      'plasma': '🔧 PLASMA CLEANING MACHINE (SDP-3200/5200):\n• Common issues: Arc ignition failure → Check HF board, gas pressure, nozzle gap\n• Controller repair: Reprogram intensity (100-1000W), treatment time (1-60s)\n• RF power supply: 13.56MHz, check matching network\n• Gas flow: Argon/O2 mix, 5-20 LPM\n• Pro tip: Clean electrode weekly for consistent treatment',
-      
-      'robot': '🤖 INDUSTRIAL ROBOTIC ARM (6-Axis J1-J6):\n• Zero-point calibration: Home all axes, set reference positions\n• Servo alarms: Check encoder battery (replace every 2 years), overload, braking resistor\n• Path deviation: Recalibrate end-effector, check backlash\n• Maintenance: Grease joints every 2000 hours, backup parameters\n• Quick fix: Power cycle + rehome often resolves encoder errors',
-      
-      'vfd': '⚡ VFD DRIVES & MOTORS:\n• Common faults: Overcurrent, overvoltage, ground fault\n• Diagnosis: Check input voltage (380-480V), motor insulation (megger test)\n• Parameter backup essential before any changes\n• Cooling fan failure = 50% of VFD issues\n• Pro tip: Install line reactors for harmonic reduction',
-      
-      'ccd': '📸 CCD VISION INSPECTION:\n• Software: LokS / Innovision\n• Calibration: Use master gauge, set tolerance thresholds (±0.1mm)\n• Common failures: Lighting fluctuation, lens contamination, vibration\n• Fix: Clean lens with microfiber, recalibrate using standard reference\n• For new models: Retrain inspection parameters, adjust ROI',
-      
-      'rf': '📡 RF TESTING (4G/5G):\n• Instruments: CMW100, CMW500, Eragon/HQ software\n• Antenna alignment: VSWR <1.5, return loss >14dB\n• Common failures: TX power low, EVM high, sensitivity poor\n• Fix: Calibrate cable buckling machine, verify antenna contact\n• FPY improvement: Clean RF connectors, use gold-plated pogo pins',
-      
-      'glue': '💧 GLUE DISPENSING:\n• Nozzle clog: Ultrasonic cleaning or replace (0.2-0.5mm)\n• Program recalibration: Adjust pressure curve, dwell time\n• Issues: Inconsistent bead → check pump, temperature, viscosity\n• Maintenance: Purge daily, clean nozzle tip every shift',
-      
-      'oee': '📊 OEE IMPROVEMENT STRATEGIES:\n• Availability: Reduce changeover time (SMED), prevent breakdowns\n• Performance: Eliminate micro-stops, optimize cycle time\n• Quality: Implement poka-yoke, SPC monitoring\n• Target: 85% OEE (World Class)\n• Your resume shows MTTR reduction success → Apply same RCA methodology',
-      
-      'mttr': '⏱️ MTTR REDUCTION TACTICS:\n• Standardize troubleshooting flowcharts\n• Maintain critical spare parts (80/20 rule)\n• Train technicians on specific machine categories\n• Document recurring failures with 8D reports\n• Your achievement: Reduced MTTR by implementing PCA → Scale that!',
-      
-      'default': '🔍 I can help with:\n• Plasma, Robot, VFD, CCD, RF Testing troubleshooting\n• OEE, MTTR, MTBF improvement strategies\n• PLC programming (Panasonic FPWIN GR7, Wienview HMI)\n• Preventive maintenance schedules\n• Specific machine manuals & specifications\n\nPlease ask a specific technical question about any machine in your resume!'
-    };
-    
-    for (let [key, resp] of Object.entries(responses)) {
-      if (q.includes(key)) return resp;
+    if (q.includes('plasma')) {
+      return '🔧 <strong>PLASMA CLEANING MACHINE (SDP Series)</strong><br><br>• <strong>Common Issues:</strong> Arc ignition failure, RF power supply problems<br>• <strong>Troubleshooting:</strong> Check HF board, gas pressure (5-20 LPM), nozzle gap<br>• <strong>Controller:</strong> Reprogram intensity (100-1000W), treatment time (1-60s)<br>• <strong>RF Power:</strong> 13.56MHz, check matching network<br>• <strong>Pro Tip:</strong> Clean electrode weekly for consistent treatment';
     }
-    return responses.default;
+    if (q.includes('robot')) {
+      return '🤖 <strong>INDUSTRIAL ROBOTIC ARM (6-Axis J1-J6)</strong><br><br>• <strong>Zero-point calibration:</strong> Home all axes, set reference positions<br>• <strong>Servo alarms:</strong> Check encoder battery (replace every 2 years), overload, braking resistor<br>• <strong>Path deviation:</strong> Recalibrate end-effector, check backlash<br>• <strong>Maintenance:</strong> Grease joints every 2000 hours, backup parameters<br>• <strong>Quick fix:</strong> Power cycle + rehome often resolves encoder errors';
+    }
+    if (q.includes('vfd')) {
+      return '⚡ <strong>VFD DRIVES & MOTORS</strong><br><br>• <strong>Common faults:</strong> Overcurrent, overvoltage, ground fault<br>• <strong>Diagnosis:</strong> Check input voltage (380-480V), motor insulation (megger test)<br>• <strong>Parameter backup</strong> essential before any changes<br>• <strong>Cooling fan failure</strong> = 50% of VFD issues<br>• <strong>Pro tip:</strong> Install line reactors for harmonic reduction';
+    }
+    if (q.includes('ccd') || q.includes('vision')) {
+      return '📸 <strong>CCD VISION INSPECTION</strong><br><br>• <strong>Software:</strong> LokS / Innovision<br>• <strong>Calibration:</strong> Use master gauge, set tolerance thresholds (±0.1mm)<br>• <strong>Common failures:</strong> Lighting fluctuation, lens contamination, vibration<br>• <strong>Fix:</strong> Clean lens with microfiber, recalibrate using standard reference<br>• <strong>For new models:</strong> Retrain inspection parameters, adjust ROI';
+    }
+    if (q.includes('rf') || q.includes('4g') || q.includes('5g')) {
+      return '📡 <strong>RF TESTING (4G/5G)</strong><br><br>• <strong>Instruments:</strong> CMW100, CMW500, Eragon/HQ software<br>• <strong>Antenna alignment:</strong> VSWR <1.5, return loss >14dB<br>• <strong>Common failures:</strong> TX power low, EVM high, sensitivity poor<br>• <strong>Fix:</strong> Calibrate cable buckling machine, verify antenna contact<br>• <strong>FPY improvement:</strong> Clean RF connectors, use gold-plated pogo pins';
+    }
+    if (q.includes('glue')) {
+      return '💧 <strong>GLUE DISPENSING MACHINE</strong><br><br>• <strong>Nozzle clog:</strong> Ultrasonic cleaning or replace (0.2-0.5mm)<br>• <strong>Program recalibration:</strong> Adjust pressure curve, dwell time<br>• <strong>Issues:</strong> Inconsistent bead → check pump, temperature, viscosity<br>• <strong>Maintenance:</strong> Purge daily, clean nozzle tip every shift';
+    }
+    if (q.includes('oee')) {
+      return '📊 <strong>OEE IMPROVEMENT STRATEGIES</strong><br><br>• <strong>Availability:</strong> Reduce changeover time (SMED), prevent breakdowns<br>• <strong>Performance:</strong> Eliminate micro-stops, optimize cycle time<br>• <strong>Quality:</strong> Implement poka-yoke, SPC monitoring<br>• <strong>Target:</strong> 85% OEE (World Class)<br>• <strong>Your resume shows</strong> MTTR reduction success → Apply same RCA methodology';
+    }
+    if (q.includes('mttr')) {
+      return '⏱️ <strong>MTTR REDUCTION TACTICS</strong><br><br>• Standardize troubleshooting flowcharts<br>• Maintain critical spare parts (80/20 rule)<br>• Train technicians on specific machine categories<br>• Document recurring failures with 8D reports<br>• <strong>Your achievement:</strong> Reduced MTTR by implementing PCA → Scale that!';
+    }
+    
+    return '🤖 <strong>I can help you with:</strong><br><br>• Plasma, Robot, VFD, CCD, RF Testing troubleshooting<br>• OEE, MTTR, MTBF improvement strategies<br>• PLC programming (Panasonic FPWIN GR7, Wienview HMI)<br>• Preventive maintenance schedules<br>• Specific machine manuals & specifications<br><br>💡 <strong>Try asking:</strong> "Tell me about Plasma machine" or type "wiki: industrial robot" for web search!';
   }
 
   function addMessage(text, sender) {
@@ -692,90 +784,167 @@
     container.scrollTop = container.scrollHeight;
   }
 
-  function showTyping(show) {
-    document.getElementById('typingIndicator').style.display = show ? 'flex' : 'none';
+  function clearChat() {
+    const container = document.getElementById('chatMessages');
+    container.innerHTML = `
+      <div class="message ai-message">
+        🤖 <strong>Chat cleared! I'm ready to help again.</strong><br><br>
+        Try asking:<br>
+        • "Tell me about Plasma Cleaning Machine"<br>
+        • "wiki: Industrial robot"<br>
+        • "Troubleshoot VFD overload error"<br>
+        • "search: CCD vision system specs"
+      </div>
+    `;
   }
 
-  // OEE Calculation
+  // ==================== OEE FUNCTIONS ====================
   function updateOEE() {
     const produced = parseFloat(document.getElementById('prodInput').value) || 0;
     const good = parseFloat(document.getElementById('goodInput').value) || 0;
-    const availableMins = parseFloat(document.getElementById('availInput').value) || 1;
-    const idealSec = parseFloat(document.getElementById('idealInput').value) || 1;
+    const available = parseFloat(document.getElementById('availInput').value) || 1;
+    const ideal = parseFloat(document.getElementById('idealInput').value) || 1;
     
-    const availability = (produced * idealSec / 60) / availableMins;
-    const performance = (idealSec * produced) / (availableMins * 60);
+    if (produced === 0) {
+      document.getElementById('oeePercent').innerText = '0%';
+      return;
+    }
+    
+    const availability = Math.min(1, (produced * ideal / 60) / available);
+    const performance = Math.min(1, (ideal * produced) / (available * 60));
     const quality = good / produced;
     const oee = availability * performance * quality * 100;
     
     document.getElementById('oeePercent').innerText = oee.toFixed(1) + '%';
-    document.getElementById('availability').innerText = (availability*100).toFixed(1) + '%';
-    document.getElementById('performance').innerText = (performance*100).toFixed(1) + '%';
-    document.getElementById('quality').innerText = (quality*100).toFixed(1) + '%';
+    document.getElementById('availability').innerText = (availability * 100).toFixed(1) + '%';
+    document.getElementById('performance').innerText = (performance * 100).toFixed(1) + '%';
+    document.getElementById('quality').innerText = (quality * 100).toFixed(1) + '%';
     document.getElementById('oeeBar').style.width = Math.min(100, oee) + '%';
   }
 
+  // ==================== MTTR/MTBF IMPROVEMENT ====================
   function improveMTTR() {
     let mttr = parseInt(document.getElementById('mttrDisplay').innerText);
     let mtbf = parseInt(document.getElementById('mtbfDisplay').innerText);
-    mttr = Math.max(25, mttr * 0.85);
-    mtbf = mtbf * 1.18;
-    document.getElementById('mttrDisplay').innerText = Math.round(mttr);
-    document.getElementById('mtbfDisplay').innerText = Math.round(mtbf);
-    addMessage(`✅ RCA implemented: MTTR reduced to ${Math.round(mttr)} mins, MTBF improved to ${Math.round(mtbf)} hours`, 'ai');
+    const newMttr = Math.max(25, Math.round(mttr * 0.85));
+    const newMtbf = Math.round(mtbf * 1.18);
+    
+    document.getElementById('mttrDisplay').innerText = newMttr;
+    document.getElementById('mtbfDisplay').innerText = newMtbf;
+    document.getElementById('kaizenMsg').innerHTML = '✅ RCA & PCA implemented: MTTR ↓15%, MTBF ↑18%';
+    
+    addMessage(`✅ <strong>Continuous Improvement Applied!</strong><br><br>• MTTR reduced from ${mttr} to ${newMttr} mins (15% improvement)<br>• MTBF increased from ${mtbf} to ${newMtbf} hours (18% improvement)<br>• Root cause analysis completed, permanent corrective actions implemented`, 'ai');
+    
+    setTimeout(() => {
+      const msgDiv = document.getElementById('kaizenMsg');
+      if (msgDiv) msgDiv.style.opacity = '0.5';
+    }, 3000);
   }
 
+  // ==================== RF OPTIMIZATION ====================
   function optimizeRF() {
-    let newFpy = 94 + Math.floor(Math.random() * 5);
-    newFpy = Math.min(99, newFpy);
+    let currentFpy = parseInt(document.getElementById('fpyValue').innerText);
+    let newFpy = Math.min(99, currentFpy + Math.floor(Math.random() * 5) + 1);
+    
     document.getElementById('fpyValue').innerText = newFpy + '%';
     document.getElementById('rfBar').style.width = newFpy + '%';
-    addMessage(`📡 RF calibration optimized! First Pass Yield now ${newFpy}%. Antenna alignment and CMW500 parameters fine-tuned.`, 'ai');
+    document.getElementById('rfMessage').innerHTML = `📈 RF calibration optimized! FPY improved from ${currentFpy}% to ${newFpy}%`;
+    
+    addMessage(`📡 <strong>RF Testing Optimization Complete!</strong><br><br>• First Pass Yield: ${currentFpy}% → ${newFpy}%<br>• Antenna alignment adjusted<br>• CMW100/CMW500 recalibrated<br>• Cable buckling machine parameters updated`, 'ai');
+    
+    setTimeout(() => {
+      const msgDiv = document.getElementById('rfMessage');
+      if (msgDiv) msgDiv.innerHTML = '';
+    }, 3000);
   }
 
+  // ==================== REPORT GENERATION ====================
   function generateReport() {
-    const oee = document.getElementById('oeePercent').innerText;
-    const mttr = document.getElementById('mttrDisplay').innerText;
-    const mtbf = document.getElementById('mtbfDisplay').innerText;
-    const report = `📋 SHIFT REPORT\n━━━━━━━━━━━━━━━━━━━\n📊 OEE: ${oee}\n⏱️ MTTR: ${mttr} mins\n📆 MTBF: ${mtbf} hrs\n📡 RF FPY: ${document.getElementById('fpyValue').innerText}\n✅ Recommendations: Continue PM compliance, monitor robot encoders\n━━━━━━━━━━━━━━━━━━━\nReport generated: ${new Date().toLocaleString()}`;
+    const now = new Date();
+    const report = `📋 <strong>SHIFT REPORT</strong><br>━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+📊 <strong>OEE:</strong> ${document.getElementById('oeePercent').innerText}<br>
+📈 <strong>Availability:</strong> ${document.getElementById('availability').innerText}<br>
+⚡ <strong>Performance:</strong> ${document.getElementById('performance').innerText}<br>
+✅ <strong>Quality:</strong> ${document.getElementById('quality').innerText}<br>
+⏱️ <strong>MTTR:</strong> ${document.getElementById('mttrDisplay').innerText} mins<br>
+📆 <strong>MTBF:</strong> ${document.getElementById('mtbfDisplay').innerText} hours<br>
+📡 <strong>RF FPY:</strong> ${document.getElementById('fpyValue').innerText}<br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+📅 <strong>Date & Time:</strong> ${now.toLocaleString()}<br>
+👨‍💻 <strong>Generated by:</strong> Nikhil Jangir - Industry 4.0 Suite<br>
+✅ <strong>Recommendations:</strong> Continue PM compliance, monitor robot encoders, schedule plasma maintenance`;
+    
     addMessage(report, 'ai');
   }
 
+  // ==================== EXPORT DATA ====================
   function exportSession() {
     const data = {
-      oee: document.getElementById('oeePercent').innerText,
-      mttr: document.getElementById('mttrDisplay').innerText,
-      mtbf: document.getElementById('mtbfDisplay').innerText,
-      fpy: document.getElementById('fpyValue').innerText,
-      timestamp: new Date().toISOString()
+      engineer: "Nikhil Jangir",
+      timestamp: new Date().toISOString(),
+      metrics: {
+        oee: document.getElementById('oeePercent').innerText,
+        availability: document.getElementById('availability').innerText,
+        performance: document.getElementById('performance').innerText,
+        quality: document.getElementById('quality').innerText,
+        mttr: document.getElementById('mttrDisplay').innerText,
+        mtbf: document.getElementById('mtbfDisplay').innerText,
+        rf_fpy: document.getElementById('fpyValue').innerText
+      },
+      machines: Object.keys(machineDatabase)
     };
-    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `engineering_report_${Date.now()}.json`;
+    a.href = url;
+    a.download = `engineering_data_${Date.now()}.json`;
+    document.body.appendChild(a);
     a.click();
-    alert('✅ Data exported successfully!');
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    addMessage(`📁 <strong>Data Exported Successfully!</strong><br><br>• File: engineering_data_${Date.now()}.json<br>• Contains all OEE metrics, MTTR/MTBF data, and machine library`, 'ai');
   }
 
+  // ==================== RESUME DOWNLOAD ====================
   function downloadResume() {
-    alert('📄 Full Resume PDF\n\nNikhil Jangir - Sr. Automation & Machine Repair Engineer\n7+ years experience\nTeam Leader at DBG Technology (Xiaomi/OPPO/Vivo)\nExpert in: PLC, Robotics, RF Testing, Plasma Machines\n\n(Full PDF would download in production)');
+    const link = document.createElement('a');
+    link.href = 'Nikhil_Jangir_Resume.pdf';
+    link.download = 'Nikhil_Jangir_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
+  // ==================== UTILITY FUNCTIONS ====================
   function scrollToSection(id) {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
-  // Theme Toggle
-  let darkMode = true;
+  // ==================== THEME TOGGLE ====================
+  let isDark = true;
   document.getElementById('themeToggle').onclick = () => {
-    darkMode = !darkMode;
-    document.body.style.background = darkMode ? '#0a0c15' : '#f0f4f8';
-    document.body.style.color = darkMode ? '#e8edf5' : '#1a1a2e';
+    isDark = !isDark;
+    document.body.className = isDark ? 'dark' : 'light';
   };
 
-  // Initialize
-  renderMachines();
-  updateOEE();
+  // ==================== INITIALIZATION ====================
+  function init() {
+    renderMachines();
+    updateOEE();
+    
+    // Close modal on outside click
+    window.onclick = (e) => {
+      const modal = document.getElementById('machineModal');
+      if (e.target === modal) closeModal();
+    };
+  }
+  
+  init();
 </script>
 </body>
 </html>
