@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Nikhil Jangir | Industry 4.0 Engineering Suite</title>
-  <!-- Font Awesome 6 (free icons) -->
+  <title>Nikhil Jangir | Industry 4.0 Engineering Suite + Options</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Chart.js CDN for dynamic charts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     * {
@@ -16,22 +14,64 @@
       font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     }
 
-    body {
-      background: radial-gradient(circle at 10% 20%, #0a0f1e, #030614);
-      color: #eef2ff;
-      line-height: 1.5;
-      scroll-behavior: smooth;
+    /* Theme Variables */
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-card: rgba(18, 25, 45, 0.75);
+      --text-primary: #eef2ff;
+      --border-color: #2d3a5e;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.3);
+      --success: #22c55e;
+      --warning: #eab308;
+      --danger: #ef4444;
     }
 
-    /* custom scroll */
+    body {
+      background: radial-gradient(circle at 10% 20%, #0a0f1e, #030614);
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+    }
+
+    /* Light Theme */
+    body.light {
+      --bg-primary: #f1f5f9;
+      --bg-secondary: #e2e8f0;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --text-primary: #0f172a;
+      --border-color: #cbd5e1;
+      --accent: #0284c7;
+    }
+
+    /* Neon Theme */
+    body.neon {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a2e;
+      --bg-card: rgba(0, 255, 255, 0.1);
+      --text-primary: #00ffcc;
+      --border-color: #00ffcc;
+      --accent: #ff00ff;
+    }
+
+    body.neon .card {
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      border: 1px solid #00ffcc;
+    }
+
+    body.light .card {
+      backdrop-filter: none;
+      background: white;
+    }
+
     ::-webkit-scrollbar {
       width: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #0f172a;
+      background: var(--bg-secondary);
     }
     ::-webkit-scrollbar-thumb {
-      background: #38bdf8;
+      background: var(--accent);
       border-radius: 10px;
     }
 
@@ -42,35 +82,59 @@
       padding: 1rem 2rem;
       background: rgba(2, 6, 23, 0.85);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid #1e2a3e;
+      border-bottom: 1px solid var(--border-color);
       position: sticky;
       top: 0;
       z-index: 1000;
+      flex-wrap: wrap;
+      gap: 10px;
     }
+
     .logo {
       font-weight: 700;
       font-size: 1.4rem;
-      letter-spacing: -0.5px;
       background: linear-gradient(135deg, #90e0ff, #0284c7);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
+
+    .nav-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .theme-btn, .option-btn {
+      background: var(--bg-secondary);
+      border: 1px solid var(--accent);
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+      transition: 0.2s;
+    }
+
+    .theme-btn:hover, .option-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
     .clock-panel {
       background: #0f212e;
       padding: 6px 14px;
       border-radius: 40px;
       font-family: monospace;
-      font-weight: 500;
       font-size: 0.9rem;
-      border: 1px solid #38bdf833;
     }
 
     .hero {
       text-align: center;
       padding: 2rem 1rem 1.5rem;
-      background: linear-gradient(to bottom, #030617, transparent);
     }
+
     .avatar {
       width: 130px;
       height: 130px;
@@ -80,38 +144,12 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 1rem;
-      border: 3px solid #2dd4bf;
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+      border: 3px solid var(--accent);
     }
+
     .avatar i {
       font-size: 4.5rem;
-      color: #7dd3fc;
-    }
-    .hero h1 {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-    .badge {
-      background: #0f2a35;
-      display: inline-block;
-      padding: 4px 14px;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      margin: 12px 0;
-    }
-    .btn-download {
-      background: linear-gradient(95deg, #0f4c5f, #0284c7);
-      border: none;
-      padding: 10px 28px;
-      font-weight: 600;
-      border-radius: 40px;
-      transition: all 0.2s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .btn-download:hover {
-      transform: scale(1.02);
-      background: linear-gradient(95deg, #1e6f8a, #0e7ab3);
-      cursor: pointer;
+      color: var(--accent);
     }
 
     .container {
@@ -120,450 +158,527 @@
       padding: 1rem 1.8rem 3rem;
     }
 
-    /* dynamic grid */
     .dashboard-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
       gap: 1.8rem;
       margin-top: 2rem;
     }
 
     .card {
-      background: rgba(18, 25, 45, 0.75);
+      background: var(--bg-card);
       backdrop-filter: blur(4px);
       border-radius: 28px;
       padding: 1.4rem 1.6rem;
-      border: 1px solid #2d3a5e;
+      border: 1px solid var(--border-color);
       transition: all 0.2s ease;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     }
+
     .card:hover {
-      border-color: #38bdf8;
       transform: translateY(-3px);
+      border-color: var(--accent);
     }
+
     .card h2 {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       margin-bottom: 1rem;
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      border-left: 5px solid #38bdf8;
+      border-left: 4px solid var(--accent);
       padding-left: 0.8rem;
     }
+
+    input, select, textarea {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: var(--text-primary);
+      width: 100%;
+      margin: 8px 0;
+      outline: none;
+    }
+
+    button {
+      background: var(--accent);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.85;
+      transform: scale(0.98);
+    }
+
     .skill-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       margin-top: 10px;
     }
+
     .skill-tag {
-      background: #0f2a3b;
-      padding: 5px 12px;
-      border-radius: 24px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-    .exp-item {
-      margin-bottom: 1.2rem;
-      border-bottom: 1px dashed #2a3a55;
-      padding-bottom: 0.8rem;
-    }
-    .exp-item h3 {
-      font-size: 1rem;
-      color: #7bc9ff;
-    }
-    .metric-group {
-      background: #07121f;
+      background: var(--bg-secondary);
+      padding: 4px 12px;
       border-radius: 20px;
-      padding: 12px;
-      margin: 15px 0;
+      font-size: 0.75rem;
     }
-    input, select {
-      background: #0e1a2a;
-      border: 1px solid #2c405e;
-      padding: 10px 14px;
-      border-radius: 60px;
-      color: white;
-      width: 100%;
-      margin: 8px 0;
-      outline: none;
-      transition: 0.2s;
-    }
-    input:focus {
-      border-color: #2dd4bf;
-    }
-    button {
-      background: #226688;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 40px;
-      font-weight: 600;
-      color: white;
-      transition: 0.2s;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #2c8eb3;
-      transform: scale(0.98);
-    }
+
     .progress-bar-bg {
-      background: #1e2f44;
+      background: var(--bg-secondary);
       border-radius: 20px;
       height: 12px;
       overflow: hidden;
       margin: 10px 0;
     }
+
     .progress-fill {
       width: 0%;
       height: 100%;
-      background: #2dd4bf;
+      background: var(--success);
       border-radius: 20px;
+      transition: width 0.3s;
     }
-    .insight-text {
-      font-size: 0.9rem;
-      margin-top: 8px;
+
+    .alarm-active {
+      animation: pulse 1s infinite;
+      background: var(--danger);
     }
-    .status-badge {
-      font-size: 0.7rem;
-      background: #1e3a3f;
-      border-radius: 20px;
-      padding: 2px 8px;
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
     }
-    .flex-between {
+
+    .reminder-item {
+      background: var(--bg-secondary);
+      padding: 8px;
+      border-radius: 12px;
+      margin: 8px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .achievement-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 12px;
-    }
-    .achieve {
-      background: #102433;
-      border-radius: 40px;
-      padding: 5px 15px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
+
     @media (max-width: 680px) {
-      .container {
-        padding: 0.8rem;
-      }
-      .card {
-        padding: 1rem;
-      }
+      .container { padding: 0.8rem; }
+      .card { padding: 1rem; }
+      nav { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo"><i class="fas fa-microchip"></i> NIKHIL · INDUSTRIAL 4.0</div>
+  <div class="logo"><i class="fas fa-microchip"></i> NIKHIL · INDUSTRY 4.0</div>
+  <div class="nav-controls">
+    <button class="theme-btn" onclick="setTheme('dark')">🌙 Dark</button>
+    <button class="theme-btn" onclick="setTheme('light')">☀️ Light</button>
+    <button class="theme-btn" onclick="setTheme('neon')">🌈 Neon</button>
+    <button class="option-btn" onclick="exportData()"><i class="fas fa-download"></i> Export</button>
+    <button class="option-btn" onclick="showOptionsPanel()"><i class="fas fa-sliders-h"></i> More Options</button>
+  </div>
   <div class="clock-panel" id="liveClock"><i class="far fa-clock"></i> Loading...</div>
 </nav>
 
 <div class="hero">
-  <div class="avatar">
-    <i class="fas fa-user-astronaut"></i>
-  </div>
+  <div class="avatar"><i class="fas fa-user-astronaut"></i></div>
   <h1>Nikhil Jangir</h1>
-  <p class="badge"><i class="fas fa-certificate"></i> Sr. Automation & Machine Repair Engineer | Team Leader (L4.2)</p>
-  <p>📍 Narnaul, Haryana | 📞 +91 84471 07097 | ✉️ nikhiljangirharyana@gmail.com</p>
-  <button class="btn-download" id="downloadResumeBtn"><i class="fas fa-file-pdf"></i> Download Resume (PDF)</button>
+  <p>Sr. Automation & Machine Repair Engineer | Team Leader (L4.2)</p>
+  <button id="downloadResumeBtn"><i class="fas fa-file-pdf"></i> Download Resume</button>
 </div>
 
 <div class="container">
-  <!-- First row: summary & skills & experience mix -->
-  <div class="dashboard-grid">
-    <!-- professional summary card -->
-    <div class="card">
-      <h2><i class="fas fa-bolt"></i> Pro Summary</h2>
-      <p>🏭 Results-driven Automation & Machine Repair Engineer with <strong>7+ years</strong> in high-volume electronics (Chinese MNC mobile assembly). Expert in breakdown troubleshooting, PLC/HMI, RF testing (4G/5G CMW100/500), <strong>6-axis robotics</strong>, OEE/MTTR/MTBF improvement, TPM/5S. Led team of technicians at DBG Technology (Xiaomi, OPPO, Vivo). Currently supporting industrial equipment at WearResist Technology.</p>
-      <div class="skill-tags" style="margin-top:12px">
-        <span class="skill-tag">🔧 PLC/HMI (Panasonic)</span>
-        <span class="skill-tag">📡 RF 4G/5G</span>
-        <span class="skill-tag">🤖 Robotic Arms J1-J6</span>
-        <span class="skill-tag">🛠️ CCD Vision</span>
-        <span class="skill-tag">⚡ VFD Drives</span>
+  <!-- Options Panel (hidden by default) -->
+  <div id="optionsPanel" style="display:none; margin-bottom: 20px;">
+    <div class="dashboard-grid">
+      <!-- Add Custom Equipment -->
+      <div class="card">
+        <h2><i class="fas fa-plus-circle"></i> Add Custom Equipment</h2>
+        <input type="text" id="newEqName" placeholder="Equipment name (e.g., CNC Router)">
+        <textarea id="newEqSop" rows="2" placeholder="Troubleshooting SOP / notes"></textarea>
+        <button onclick="addEquipment()"><i class="fas fa-save"></i> Save to Knowledge Base</button>
+        <div id="eqAddMsg" style="margin-top: 8px; font-size:0.8rem;"></div>
+      </div>
+
+      <!-- Maintenance Reminder -->
+      <div class="card">
+        <h2><i class="fas fa-bell"></i> Maintenance Reminders</h2>
+        <input type="text" id="reminderText" placeholder="e.g., Plasma cleaning PM">
+        <input type="datetime-local" id="reminderTime">
+        <button onclick="addReminder()">Set Reminder</button>
+        <div id="reminderList"></div>
+      </div>
+
+      <!-- Spare Parts Tracker -->
+      <div class="card">
+        <h2><i class="fas fa-boxes"></i> Spare Parts Inventory</h2>
+        <input type="text" id="partName" placeholder="Part name">
+        <input type="number" id="partQty" placeholder="Quantity">
+        <button onclick="addPart()">Add / Update Stock</button>
+        <div id="partsList"></div>
       </div>
     </div>
 
-    <!-- core competencies & key achievements -->
-    <div class="card">
-      <h2><i class="fas fa-chalkboard-user"></i> Core Competencies</h2>
-      <div class="skill-tags">
-        <span class="skill-tag">Machine Breakdown Troubleshooting</span>
-        <span class="skill-tag">PLC / HMI Programming & Mod.</span>
-        <span class="skill-tag">RF Testing (CMW100/500)</span>
-        <span class="skill-tag">OEE / MTTR / MTBF Improvement</span>
-        <span class="skill-tag">Plasma Cleaning (SDP series)</span>
-        <span class="skill-tag">In-House Machine Modification</span>
-        <span class="skill-tag">Root Cause Analysis / 8D / CAPA</span>
-        <span class="skill-tag">Team Leadership & TPM/5S</span>
-      </div>
-      <hr style="margin: 16px 0; border-color:#2e3a55;">
-      <h3>🏆 Key Achievements</h3>
-      <div class="achievement-grid">
-        <span class="achieve">⭐ 2.8 Yrs Team Leader @DBG</span>
-        <span class="achieve">⭐ 6-Axis Robotics Expert</span>
-        <span class="achieve">⭐ 4G+5G RF Certified</span>
-        <span class="achieve">⭐ PCN/ECN Implementation</span>
-        <span class="achieve">⭐ Plasma Controller Repair</span>
-        <span class="achieve">⭐ 8D / RCA Methodology</span>
-      </div>
-    </div>
-
-    <!-- professional experience quick -->
-    <div class="card">
-      <h2><i class="fas fa-briefcase"></i> Experience</h2>
-      <div class="exp-item"><h3>🔹 Sr. Engineer @ WearResist Technology (2026-Present)</h3><p>VFD drives, wire drawing machines, Panasonic PLC backup, field service for plasma cutters.</p></div>
-      <div class="exp-item"><h3>🔹 Machine Repair Engineer - Team Leader @ DBG Technology (2023-2026)</h3><p>Led maintenance for Xiaomi/OPPO/Vivo lines, robotics, RF testing, plasma cleaning, CCD inspection, cost reduction via in-house mods.</p></div>
-      <div class="exp-item"><h3>🔹 Process Quality Engineer @ Sensetek Optical (2022-2023)</h3><p>Led 15 inspectors, 8D/CAPA, reduced line rejection.</p></div>
-      <div class="exp-item"><h3>🔹 Graduate Trainee @ TXD Technology (2020-2022)</h3><p>LCM assembly, process verification, new model ramp-up.</p></div>
-      <div class="exp-item"><h3>🔹 Substation Supervisor @ Adani Power (2019)</h3><p>33/132kV, SCADA, protection relays.</p></div>
+    <!-- Shift Handover Log -->
+    <div class="card" style="margin-top: 1rem;">
+      <h2><i class="fas fa-exchange-alt"></i> Shift Handover Log</h2>
+      <textarea id="handoverNote" rows="2" placeholder="Write handover notes for next shift..."></textarea>
+      <button onclick="saveHandover()">Save Handover Note</button>
+      <div id="handoverDisplay" style="margin-top: 10px; padding: 8px; background: var(--bg-secondary); border-radius: 12px;"></div>
     </div>
   </div>
 
-  <!-- second row: dynamic engineering tools (OEE, AI, checklists, machine search, charts) -->
+  <!-- Main Dashboard Grid -->
   <div class="dashboard-grid">
-    <!-- OEE CALCULATOR + LIVE CHART -->
+    <!-- OEE Calculator -->
     <div class="card">
-      <h2><i class="fas fa-chart-line"></i> OEE · Takt · Cycle Tracker</h2>
-      <div class="metric-group">
-        <input type="number" id="availTime" placeholder="Available Time (min/day)" value="480">
-        <input type="number" id="demandQty" placeholder="Demand (units)" value="1000">
-        <input type="number" id="producedQty" placeholder="Produced Units" value="920">
-        <input type="number" id="goodParts" placeholder="Good Parts" value="880">
-        <input type="number" id="idealCycle" placeholder="Ideal Cycle Time (sec)" value="28">
-        <div class="flex-between"><span>Takt Time:</span><strong id="taktValue">--</strong></div>
-        <div class="flex-between"><span>Actual Cycle Time:</span><strong id="cycleValue">--</strong></div>
-        <div class="flex-between"><span><i class="fas fa-percent"></i> OEE Score:</span><strong id="oeeValue">--</strong></div>
-        <div class="progress-bar-bg"><div class="progress-fill" id="oeeFill"></div></div>
-        <div class="insight-text" id="oeeInsight"></div>
-      </div>
-      <canvas id="oeeChart" width="400" height="180" style="max-height:180px; width:100%"></canvas>
-      <p class="status-badge" style="margin-top:8px"><i class="fas fa-chart-simple"></i> Real-time OEE trend (last 6 updates)</p>
+      <h2><i class="fas fa-chart-line"></i> OEE Tracker</h2>
+      <div class="flex-between"><span>🎯 Target OEE:</span><input type="number" id="oeeTarget" value="85" style="width:80px; display:inline-block;"></div>
+      <input type="number" id="availTime" placeholder="Available Time (min)" value="480">
+      <input type="number" id="producedQty" placeholder="Produced" value="920">
+      <input type="number" id="goodParts" placeholder="Good Parts" value="880">
+      <input type="number" id="idealCycle" placeholder="Ideal Cycle (sec)" value="28">
+      <div class="flex-between"><span>📊 Current OEE:</span><strong id="oeeValue">--</strong></div>
+      <div class="progress-bar-bg"><div class="progress-fill" id="oeeFill"></div></div>
+      <div id="oeeGap" style="font-size:0.8rem;"></div>
+      <canvas id="oeeChart" height="120"></canvas>
+      <button onclick="computeOEE()">Update OEE</button>
     </div>
 
-    <!-- AI Troubleshooting Assistant (context-aware for factory) -->
+    <!-- AI Troubleshooting -->
     <div class="card">
-      <h2><i class="fas fa-robot"></i> AI Fault Diagnostics</h2>
-      <p>Describe machine issue (motor, plasma, sensor, robot, VFD)</p>
-      <input type="text" id="aiQuery" placeholder="e.g., plasma arc ignition fails / servo alarm / CCD camera blur">
-      <button id="solveBtn"><i class="fas fa-microchip"></i> Diagnose & Suggest</button>
-      <div id="aiAnswer" style="margin-top: 14px; background:#0e1625; padding: 12px; border-radius: 20px; font-size:0.9rem;"></div>
-      <div class="skill-tags" style="margin-top:12px"><span class="skill-tag">🔍 predictive logic</span><span class="skill-tag">⚙️ root cause mapping</span></div>
+      <h2><i class="fas fa-robot"></i> AI Diagnostics</h2>
+      <input type="text" id="aiQuery" placeholder="Describe issue (motor, plasma, robot, sensor)">
+      <button onclick="solveIssue()">Diagnose</button>
+      <div id="aiAnswer" style="margin-top: 12px; padding: 10px; background: var(--bg-secondary); border-radius: 12px;"></div>
     </div>
 
-    <!-- Machine Knowledge Base + Search (expanded) -->
+    <!-- Machine Knowledge Base -->
     <div class="card">
-      <h2><i class="fas fa-database"></i> Machine Knowledge Base</h2>
-      <input type="text" id="machineSearch" placeholder="Search: plasma, compressor, robot, CCD, VFD, glue dispenser">
-      <div id="searchResult" style="margin-top: 12px; background:#0b1423; border-radius: 24px; padding: 12px;"></div>
-      <hr style="margin: 12px 0; border-color:#1f3552;">
-      <h3><i class="fas fa-clipboard-list"></i> Digital Checksheets</h3>
-      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top: 6px;">
-        <button id="chkCompressor"><i class="fas fa-industry"></i> Compressor PM</button>
-        <button id="chkPlasma"><i class="fas fa-fire"></i> Plasma Cleaning Log</button>
-        <button id="chkRobot"><i class="fas fa-robot"></i> Robotic Arm Calibration</button>
-      </div>
-      <p id="checksheetMsg" style="font-size:0.75rem; margin-top: 10px; color:#9bb9d4;"></p>
-    </div>
-  </div>
-
-  <!-- third row: specialized equipment + PLC / RF tools -->
-  <div class="dashboard-grid">
-    <div class="card">
-      <h2><i class="fas fa-microphone-alt"></i> RF Testing & Calibration (4G/5G)</h2>
-      <p><strong>Instruments:</strong> CMW100 / CMW500 | Software: Eragon, HQ</p>
-      <div class="flex-between"><span>📶 First Pass Yield (FPY) Target:</span><span id="fpyTarget">96%</span></div>
-      <div class="progress-bar-bg mt-1"><div class="progress-fill" id="fpyFill" style="width:92%"></div></div>
-      <button id="simulateRFyield"><i class="fas fa-chart-simple"></i> Simulate Yield Improvement</button>
-      <p class="insight-text" id="rfMessage">Antenna alignment & network band control optimized.</p>
+      <h2><i class="fas fa-database"></i> Knowledge Base</h2>
+      <input type="text" id="machineSearch" placeholder="Search equipment...">
+      <div id="searchResult" style="margin-top: 12px;"></div>
+      <div id="customEqList" style="margin-top: 12px; font-size:0.8rem;"></div>
     </div>
 
+    <!-- Alarm Simulator -->
     <div class="card">
-      <h2><i class="fas fa-cogs"></i> PLC / HMI & Robotics Console</h2>
-      <div class="skill-tags">
-        <span class="skill-tag">Panasonic FPWIN GR7</span>
-        <span class="skill-tag">Wienview HMI</span>
-        <span class="skill-tag">Siemens/Mitsubishi</span>
-        <span class="skill-tag">6-Axis J1-J6 Calibration</span>
-      </div>
-      <p><i class="fas fa-microchip"></i> Recent activity: Supported new model ramp-up with PLC logic alignment, HMI alarm screens.</p>
-      <div class="flex-between"><span>🤖 Robotic Arm Status:</span><span class="status-badge" id="robotStatus">Operational ✅</span></div>
-      <button id="triggerRobotDiag"><i class="fas fa-sync-alt"></i> Simulate Axis Diagnostic</button>
-      <div id="robotDiagMsg" style="margin-top: 8px; font-size:0.8rem;"></div>
+      <h2><i class="fas fa-exclamation-triangle"></i> Alarm Simulator</h2>
+      <select id="alarmType">
+        <option value="plasma">Plasma Arc Failure</option>
+        <option value="robot">Servo Alarm</option>
+        <option value="vfd">VFD Overload</option>
+        <option value="ccd">CCD Vision Error</option>
+      </select>
+      <button onclick="triggerAlarm()">Simulate Alarm</button>
+      <div id="alarmDisplay" style="margin-top: 12px; padding: 10px; border-radius: 12px;"></div>
     </div>
 
+    <!-- MTTR/MTBF -->
     <div class="card">
-      <h2><i class="fas fa-chart-pie"></i> MTTR / MTBF Analysis</h2>
-      <div class="flex-between"><span>⚙️ Current MTTR (mins):</span><span id="mttrValue">42</span></div>
-      <div class="flex-between"><span>📆 MTBF (hours):</span><span id="mtbfValue">128</span></div>
-      <button id="improveMetrics"><i class="fas fa-chart-line"></i> Apply Continuous Improvement (PCA)</button>
-      <div id="kaizenMsg" class="insight-text" style="margin-top: 8px;"></div>
-      <p class="skill-tag" style="margin-top:6px">✔️ Root cause analysis + 8D reduces recurrence by 23%</p>
+      <h2><i class="fas fa-chart-simple"></i> MTTR / MTBF</h2>
+      <div class="flex-between"><span>⚙️ MTTR (min):</span><span id="mttrValue">42</span></div>
+      <div class="flex-between"><span>📆 MTBF (hrs):</span><span id="mtbfValue">128</span></div>
+      <button onclick="improveMetrics()">Apply Continuous Improvement</button>
+      <div id="kaizenMsg" style="margin-top: 8px;"></div>
     </div>
-  </div>
 
-  <!-- hidden interactive: equipment list from resume -->
-  <div class="card" style="margin-top: 1rem;">
-    <h2><i class="fas fa-tools"></i> Equipment Expertise (High-Volume Manufacturing)</h2>
-    <div class="skill-tags">
-      <span class="skill-tag">Battery Rolling (BRT)</span>
-      <span class="skill-tag">BTB Pressing</span>
-      <span class="skill-tag">CCD Vision (LokS/Innovision)</span>
-      <span class="skill-tag">Plasma Cleaning SDP series</span>
-      <span class="skill-tag">Back Cover Press YH1-YH4</span>
-      <span class="skill-tag">Glue Dispensing</span>
-      <span class="skill-tag">RF Cable Buckling</span>
-      <span class="skill-tag">Zebra Printers</span>
-      <span class="skill-tag">Wire Drawing 8H/9H</span>
-      <span class="skill-tag">MIG/TIG/Arc Welding</span>
+    <!-- RF Testing -->
+    <div class="card">
+      <h2><i class="fas fa-wifi"></i> RF Testing (4G/5G)</h2>
+      <div class="flex-between"><span>📶 FPY:</span><span id="fpyValue">92%</span></div>
+      <div class="progress-bar-bg"><div class="progress-fill" id="fpyFill" style="width:92%"></div></div>
+      <button onclick="improveFPY()">Optimize RF Calibration</button>
     </div>
-    <p class="insight-text"><i class="fas fa-lightbulb"></i> In-house modifications reduced OEM dependency & saved maintenance costs by 18%.</p>
   </div>
 </div>
 
 <script>
-  // ---------- CLOCK ----------
+  // ========== THEME MANAGEMENT ==========
+  function setTheme(theme) {
+    document.body.className = theme;
+    localStorage.setItem('theme', theme);
+  }
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) setTheme(savedTheme);
+
+  // ========== CLOCK ==========
   function updateClock() {
-    const now = new Date();
-    document.getElementById('liveClock').innerHTML = `<i class="far fa-clock"></i> ${now.toLocaleString('en-IN', { hour12: true })}`;
+    document.getElementById('liveClock').innerHTML = `<i class="far fa-clock"></i> ${new Date().toLocaleString()}`;
   }
   setInterval(updateClock, 1000);
   updateClock();
 
-  // OEE Calculation & Chart (dynamic)
+  // ========== OEE CALCULATION ==========
   let oeeHistory = [];
-  const ctx = document.getElementById('oeeChart').getContext('2d');
-  let oeeChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [],
-      datasets: [{ label: 'OEE %', data: [], borderColor: '#38bdf8', backgroundColor: '#0f3b5f66', fill: true, tension: 0.3 }]
-    },
-    options: { responsive: true, maintainAspectRatio: true, scales: { y: { beginAtZero: true, max: 100 } } }
-  });
+  let oeeChart = null;
+
+  function initChart() {
+    const ctx = document.getElementById('oeeChart').getContext('2d');
+    oeeChart = new Chart(ctx, {
+      type: 'line',
+      data: { labels: [], datasets: [{ label: 'OEE %', data: [], borderColor: '#38bdf8', fill: true }] },
+      options: { responsive: true, maintainAspectRatio: true, scales: { y: { beginAtZero: true, max: 100 } } }
+    });
+  }
 
   function computeOEE() {
-    let avail = parseFloat(document.getElementById('availTime').value) || 0;
-    let demand = parseFloat(document.getElementById('demandQty').value) || 1;
+    let avail = parseFloat(document.getElementById('availTime').value) || 1;
     let produced = parseFloat(document.getElementById('producedQty').value) || 0;
     let good = parseFloat(document.getElementById('goodParts').value) || 0;
     let ideal = parseFloat(document.getElementById('idealCycle').value) || 1;
-    if (avail <=0 || produced <=0) return;
-    let takt = avail / demand;
-    let actualCycle = avail / produced;
-    let availability = (produced * ideal/60) / (avail) > 1 ? 1 : (produced * ideal/60) / (avail);
+    let target = parseFloat(document.getElementById('oeeTarget').value) || 85;
+
+    if (produced === 0) return;
+    let availability = (produced * ideal / 60) / avail;
     let quality = good / produced;
-    let performance = (ideal * produced) / (avail*60) > 1 ? 1 : (ideal * produced) / (avail*60);
-    let oee = availability * performance * quality * 100;
-    oee = Math.min(100, Math.max(0, oee));
-    document.getElementById('taktValue').innerText = takt.toFixed(2) + " min/unit";
-    document.getElementById('cycleValue').innerText = actualCycle.toFixed(2) + " min/unit";
-    document.getElementById('oeeValue').innerText = oee.toFixed(2) + "%";
-    let fillBar = document.getElementById('oeeFill');
-    fillBar.style.width = oee + "%";
-    fillBar.style.background = oee >= 85 ? '#2dd4bf' : (oee >= 60 ? '#facc15' : '#f87171');
-    let insight = document.getElementById('oeeInsight');
-    if(oee>=85) insight.innerHTML = "🏆 World-class OEE! Excellent productivity.";
-    else if(oee>=60) insight.innerHTML = "⚠️ Acceptable range, focus on minor stops & quality.";
-    else insight.innerHTML = "🔧 Critical improvement needed: review MTTR & breakdowns.";
+    let performance = (ideal * produced) / (avail * 60);
+    let oee = Math.min(100, Math.max(0, availability * quality * performance * 100));
     
-    // add to chart history
+    document.getElementById('oeeValue').innerHTML = oee.toFixed(1) + "%";
+    let fill = document.getElementById('oeeFill');
+    fill.style.width = oee + "%";
+    fill.style.background = oee >= target ? '#22c55e' : (oee >= target-15 ? '#eab308' : '#ef4444');
+    
+    let gap = target - oee;
+    document.getElementById('oeeGap').innerHTML = gap > 0 ? `⚠️ Gap to target: ${gap.toFixed(1)}%` : "🎯 Target achieved!";
+    
     oeeHistory.push(oee);
-    if(oeeHistory.length > 8) oeeHistory.shift();
-    oeeChart.data.labels = oeeHistory.map((_, idx) => `T-${oeeHistory.length-idx}`);
-    oeeChart.data.datasets[0].data = [...oeeHistory];
-    oeeChart.update();
+    if (oeeHistory.length > 10) oeeHistory.shift();
+    if (oeeChart) {
+      oeeChart.data.labels = oeeHistory.map((_, i) => i+1);
+      oeeChart.data.datasets[0].data = [...oeeHistory];
+      oeeChart.update();
+    }
   }
-  const inputsOEE = ['availTime', 'demandQty', 'producedQty', 'goodParts', 'idealCycle'];
-  inputsOEE.forEach(id => document.getElementById(id).addEventListener('input', computeOEE));
-  computeOEE();
 
-  // AI Assistant (enhanced)
-  document.getElementById('solveBtn').addEventListener('click', () => {
-    let query = document.getElementById('aiQuery').value.toLowerCase();
-    let answer = "";
-    if(query.includes('plasma') || query.includes('arc')) answer = "🛠️ Plasma Cleaning: Check RF power supply, gas flow, nozzle gap. Controller board-level repair (SDP-3200/5200 series). Reprogram intensity & treatment time.";
-    else if(query.includes('motor') || query.includes('vfd')) answer = "⚡ VFD / Motor issue: Check overload relay, input voltage imbalance, VFD parameter reset. Inspect capstan motor & encoder feedback.";
-    else if(query.includes('robot') || query.includes('servo')) answer = "🤖 Robotic arm: J-axis zero-point calibration, servo encoder errors, path deviation. Perform end-effector alignment and re-home axes.";
-    else if(query.includes('sensor') || query.includes('ccd')) answer = "📸 CCD Vision: Check lighting, calibration using LokS/Innovision. Fine-tune inspection tolerance for new models, clean lens & verify communication.";
-    else if(query.includes('glue') || query.includes('dispense')) answer = "💧 Glue Dispensing: Nozzle clog, program recalibration, pressure regulator issues. Recalibrate path and check dispensing valve.";
-    else if(query.includes('rf') || query.includes('4g') || query.includes('5g')) answer = "📡 RF Testing: Antenna plate alignment, CMW100/500 config, Eragon software failure trends. Verify cable buckling machine calibration and FPY tracking.";
-    else answer = "🔍 General diagnostic: Perform root cause analysis (8D). Check electrical wiring, PLC I/O, mechanical alignment, and refer to PM manual. Suggest TPM approach.";
-    document.getElementById('aiAnswer').innerHTML = `<i class="fas fa-microchip"></i> ${answer}`;
-  });
+  // ========== AI DIAGNOSTICS ==========
+  function solveIssue() {
+    let q = document.getElementById('aiQuery').value.toLowerCase();
+    let answers = {
+      'plasma': '🔧 Check RF power supply, gas flow, nozzle gap. Reprogram SDP controller.',
+      'motor': '⚡ Verify VFD parameters, check bearings, insulation resistance test.',
+      'robot': '🤖 Perform zero-point calibration, check encoder battery, servo drive status.',
+      'sensor': '📡 Clean lens, verify wiring, check power supply, recalibrate threshold.',
+      'vfd': '🔌 Check overload settings, input voltage, braking resistor, cooling fan.'
+    };
+    let ans = "🔍 General: Perform RCA, check electrical & mechanical systems.";
+    for (let [key, val] of Object.entries(answers)) {
+      if (q.includes(key)) ans = val;
+    }
+    document.getElementById('aiAnswer').innerHTML = `<i class="fas fa-microchip"></i> ${ans}`;
+  }
 
-  // Knowledge Base
-  const knowledge = {
-    'plasma': "SDP-5200PRO: Arc ignition failure → inspect HF board & gas pressure. Controller reprogramming via serial.",
-    'compressor': "Screw compressor checklist: oil level, air filter, pressure switch calibration, moisture drain.",
-    'robot': "6-axis robot: Zero-point calibration, J1-J6 torque monitoring, backlash check. Encoder battery replacement.",
-    'ccd': "CCD vision: Inspection parameter tuning, board-to-board alignment, lighting intensity adjustment.",
-    'vfd': "VFD drives: Parameter backup, deceleration ramp, braking resistor check. Motor heating issues.",
-    'glue': "Glue dispensing: Nozzle cleaning, program pressure curve, curing time.",
-    'default': "Enter machine name (Plasma, Compressor, Robot, VFD, Glue, CCD) to retrieve detailed troubleshooting SOP."
-  };
+  // ========== KNOWLEDGE BASE WITH CUSTOM EQUIPMENT ==========
+  let customEquipment = JSON.parse(localStorage.getItem('customEq')) || {};
+
+  function addEquipment() {
+    let name = document.getElementById('newEqName').value.trim();
+    let sop = document.getElementById('newEqSop').value.trim();
+    if (!name) return;
+    customEquipment[name.toLowerCase()] = sop;
+    localStorage.setItem('customEq', JSON.stringify(customEquipment));
+    document.getElementById('eqAddMsg').innerHTML = `✅ Added: ${name}`;
+    document.getElementById('newEqName').value = '';
+    document.getElementById('newEqSop').value = '';
+    updateKnowledgeBase();
+  }
+
+  function updateKnowledgeBase() {
+    let listDiv = document.getElementById('customEqList');
+    let items = Object.keys(customEquipment);
+    if (items.length === 0) {
+      listDiv.innerHTML = '<i>No custom equipment added yet.</i>';
+      return;
+    }
+    listDiv.innerHTML = '<strong>📦 Custom:</strong> ' + items.map(i => `<span class="skill-tag">${i}</span>`).join(' ');
+  }
+
   document.getElementById('machineSearch').addEventListener('input', (e) => {
     let term = e.target.value.toLowerCase();
-    let result = knowledge[term] || (term.includes('plasma')?knowledge['plasma']:term.includes('robot')?knowledge['robot']:term.includes('vfd')?knowledge['vfd']:knowledge['default']);
-    document.getElementById('searchResult').innerHTML = `<i class="fas fa-info-circle"></i> ${result}`;
+    let result = customEquipment[term] || getBuiltinKnowledge(term);
+    document.getElementById('searchResult').innerHTML = `<i class="fas fa-info-circle"></i> ${result || "No data found. Add custom equipment!"}`;
   });
-  document.getElementById('searchResult').innerHTML = `<i class="fas fa-info-circle"></i> ${knowledge.default}`;
 
-  // Checksheets download simulation (PDF friendly)
-  function showChecksheetMsg(type) {
-    let msg = "";
-    if(type === 'compressor') msg = "📄 Compressor Preventive Maintenance: Oil inspection, belt tension, vibration analysis, pressure switch testing. Download ready (simulated).";
-    else if(type === 'plasma') msg = "📄 Plasma Cleaning Machine Checklist: Nozzle gap, arc current, gas purity, controller logs, daily PM sheet.";
-    else msg = "📄 Robotic Arm Calibration Log: Axis homing, payload verification, servo diagnostic, path accuracy test.";
-    document.getElementById('checksheetMsg').innerHTML = msg + " <i class='fas fa-check-circle' style='color:#2dd4bf'></i>";
-    setTimeout(() => { if(document.getElementById('checksheetMsg')) document.getElementById('checksheetMsg').style.opacity = '1'; }, 100);
+  function getBuiltinKnowledge(term) {
+    const builtin = {
+      'plasma': 'SDP-5200: Check HF ignition, gas pressure, controller board.',
+      'compressor': 'Oil level, air filter, pressure switch, drain moisture.',
+      'robot': 'J1-J6 calibration, encoder check, path accuracy test.',
+      'vfd': 'Parameter backup, thermal check, I/O signals.'
+    };
+    for (let [k, v] of Object.entries(builtin)) {
+      if (term.includes(k)) return v;
+    }
+    return "Enter equipment name (plasma, robot, vfd, compressor) for SOP.";
   }
-  document.getElementById('chkCompressor').onclick = () => showChecksheetMsg('compressor');
-  document.getElementById('chkPlasma').onclick = () => showChecksheetMsg('plasma');
-  document.getElementById('chkRobot').onclick = () => showChecksheetMsg('robot');
 
-  // RF simulation
-  document.getElementById('simulateRFyield').addEventListener('click', () => {
-    let newYield = 94 + Math.floor(Math.random() * 5);
-    document.getElementById('fpyFill').style.width = newYield + "%";
-    document.getElementById('fpyTarget').innerHTML = newYield + "%";
-    document.getElementById('rfMessage').innerHTML = "📈 RF calibration optimized: First Pass Yield improved to " + newYield + "%. Antenna alignment & CMW500 fine-tuned.";
-  });
+  // ========== MAINTENANCE REMINDERS ==========
+  let reminders = JSON.parse(localStorage.getItem('reminders')) || [];
 
-  // Robot diag simulation
-  document.getElementById('triggerRobotDiag').addEventListener('click', () => {
-    let status = ["Servo OK ✅", "Encoder drift detected ⚠️", "J2 axis recalibrated 🔧", "All axes nominal"][Math.floor(Math.random()*4)];
-    document.getElementById('robotDiagMsg').innerHTML = `🧠 Diagnostic: ${status}. Refer to zero-point correction procedure.`;
-  });
+  function addReminder() {
+    let text = document.getElementById('reminderText').value;
+    let time = document.getElementById('reminderTime').value;
+    if (!text || !time) return;
+    reminders.push({ text, time, id: Date.now() });
+    localStorage.setItem('reminders', JSON.stringify(reminders));
+    renderReminders();
+    document.getElementById('reminderText').value = '';
+  }
 
-  // MTTR/MTBF improvement
-  document.getElementById('improveMetrics').addEventListener('click', () => {
-    let curMttr = parseFloat(document.getElementById('mttrValue').innerText);
-    let curMtbf = parseFloat(document.getElementById('mtbfValue').innerText);
-    let newMttr = Math.max(25, curMttr * 0.85);
-    let newMtbf = curMtbf * 1.18;
+  function renderReminders() {
+    let div = document.getElementById('reminderList');
+    if (reminders.length === 0) {
+      div.innerHTML = '<i>No active reminders</i>';
+      return;
+    }
+    div.innerHTML = reminders.map(r => `
+      <div class="reminder-item">
+        <span>📌 ${r.text}</span>
+        <span>⏰ ${new Date(r.time).toLocaleString()}</span>
+        <button onclick="deleteReminder(${r.id})">❌</button>
+      </div>
+    `).join('');
+  }
+
+  function deleteReminder(id) {
+    reminders = reminders.filter(r => r.id !== id);
+    localStorage.setItem('reminders', JSON.stringify(reminders));
+    renderReminders();
+  }
+
+  // ========== SPARE PARTS ==========
+  let parts = JSON.parse(localStorage.getItem('parts')) || {};
+
+  function addPart() {
+    let name = document.getElementById('partName').value.trim();
+    let qty = parseInt(document.getElementById('partQty').value);
+    if (!name || isNaN(qty)) return;
+    parts[name] = (parts[name] || 0) + qty;
+    localStorage.setItem('parts', JSON.stringify(parts));
+    renderParts();
+    document.getElementById('partName').value = '';
+    document.getElementById('partQty').value = '';
+  }
+
+  function renderParts() {
+    let div = document.getElementById('partsList');
+    let items = Object.entries(parts);
+    if (items.length === 0) {
+      div.innerHTML = '<i>No spare parts tracked</i>';
+      return;
+    }
+    div.innerHTML = items.map(([name, qty]) => `
+      <div class="reminder-item">
+        <span>🔧 ${name}</span>
+        <span>📦 ${qty} units ${qty < 5 ? '⚠️ Low stock!' : '✅'}</span>
+        <button onclick="consumePart('${name}')">Use 1</button>
+      </div>
+    `).join('');
+  }
+
+  function consumePart(name) {
+    if (parts[name] > 0) parts[name]--;
+    if (parts[name] === 0) delete parts[name];
+    localStorage.setItem('parts', JSON.stringify(parts));
+    renderParts();
+  }
+
+  // ========== SHIFT HANDOVER ==========
+  let handoverNotes = localStorage.getItem('handover') || '';
+
+  function saveHandover() {
+    let note = document.getElementById('handoverNote').value;
+    handoverNotes = note;
+    localStorage.setItem('handover', note);
+    document.getElementById('handoverDisplay').innerHTML = `<strong>Last handover:</strong><br>${note || 'No notes saved'}`;
+  }
+
+  function loadHandover() {
+    if (handoverNotes) {
+      document.getElementById('handoverDisplay').innerHTML = `<strong>Last handover:</strong><br>${handoverNotes}`;
+      document.getElementById('handoverNote').value = handoverNotes;
+    }
+  }
+
+  // ========== ALARM SIMULATOR ==========
+  function triggerAlarm() {
+    let type = document.getElementById('alarmType').value;
+    let alarmDiv = document.getElementById('alarmDisplay');
+    let actions = {
+      'plasma': '🚨 PLASMA ARC FAILURE → Check RF generator, gas flow, nozzle gap. Reset controller.',
+      'robot': '🤖 SERVO ALARM → Check encoder, brakes, overload. Perform zero-point calibration.',
+      'vfd': '⚡ VFD OVERLOAD → Check motor current, parameter settings, cooling fan.',
+      'ccd': '📸 CCD VISION ERROR → Clean lens, check lighting, recalibrate inspection parameters.'
+    };
+    alarmDiv.innerHTML = `<div class="alarm-active" style="padding:10px; border-radius:12px;">${actions[type]}</div>`;
+    setTimeout(() => alarmDiv.innerHTML = '', 5000);
+  }
+
+  // ========== MTTR/MTBF IMPROVEMENT ==========
+  function improveMetrics() {
+    let mttr = parseFloat(document.getElementById('mttrValue').innerText);
+    let mtbf = parseFloat(document.getElementById('mtbfValue').innerText);
+    let newMttr = Math.max(25, mttr * 0.85);
+    let newMtbf = mtbf * 1.18;
     document.getElementById('mttrValue').innerText = newMttr.toFixed(1);
     document.getElementById('mtbfValue').innerText = newMtbf.toFixed(0);
-    document.getElementById('kaizenMsg').innerHTML = "✅ After PCA & team training: MTTR reduced by 15%, MTBF increased by 18%. RCA implemented on breakdown trends.";
-  });
+    document.getElementById('kaizenMsg').innerHTML = "✅ RCA & PCA implemented: MTTR ↓15%, MTBF ↑18%";
+  }
 
-  // Download resume simulation (actual file could be linked, but create dynamic trigger)
-  document.getElementById('downloadResumeBtn').addEventListener('click', () => {
-    alert("📄 Resume (Nikhil Jangir) would be downloaded. In full version, actual PDF is linked. Pro Tip: The detailed CV includes all DBG, Sensetek, WearResist achievements.");
-    // simulate anchor
-    const a = document.createElement('a');
-    a.href = "#"; // placeholder; actual file can be attached
-    a.download = "Nikhil_Jangir_Resume.pdf";
-    document.body.appendChild(a);
+  // ========== RF IMPROVEMENT ==========
+  function improveFPY() {
+    let newFpy = 92 + Math.floor(Math.random() * 7);
+    newFpy = Math.min(99, newFpy);
+    document.getElementById('fpyValue').innerHTML = newFpy + "%";
+    document.getElementById('fpyFill').style.width = newFpy + "%";
+  }
+
+  // ========== EXPORT DATA ==========
+  function exportData() {
+    let data = {
+      oeeHistory,
+      reminders,
+      parts,
+      handoverNotes,
+      customEquipment,
+      mtbf: document.getElementById('mtbfValue').innerText,
+      mttr: document.getElementById('mttrValue').innerText
+    };
+    let blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    let a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `engineering_data_${new Date().toISOString().slice(0,19)}.json`;
     a.click();
-    document.body.removeChild(a);
-  });
+    alert("✅ Data exported as JSON!");
+  }
+
+  // ========== OPTIONS PANEL TOGGLE ==========
+  function showOptionsPanel() {
+    let panel = document.getElementById('optionsPanel');
+    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  }
+
+  // ========== DOWNLOAD RESUME ==========
+  document.getElementById('downloadResumeBtn').onclick = () => alert("📄 Resume PDF would download. Full CV includes DBG, WearResist, Sensetek experience.");
+
+  // ========== INITIALIZATION ==========
+  function init() {
+    initChart();
+    computeOEE();
+    renderReminders();
+    renderParts();
+    updateKnowledgeBase();
+    loadHandover();
+  }
+  init();
 </script>
 </body>
 </html>
