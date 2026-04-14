@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Nikhil Jangir | Industry 4.0 Engineering Suite + Options</title>
+  <title>Nikhil Jangir | AI-Powered Industrial Engineering Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
@@ -11,674 +14,768 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-    }
-
-    /* Theme Variables */
-    :root {
-      --bg-primary: #0f172a;
-      --bg-secondary: #1e293b;
-      --bg-card: rgba(18, 25, 45, 0.75);
-      --text-primary: #eef2ff;
-      --border-color: #2d3a5e;
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.3);
-      --success: #22c55e;
-      --warning: #eab308;
-      --danger: #ef4444;
     }
 
     body {
-      background: radial-gradient(circle at 10% 20%, #0a0f1e, #030614);
-      color: var(--text-primary);
-      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      background: #0a0c15;
+      color: #e8edf5;
+      overflow-x: hidden;
     }
 
-    /* Light Theme */
-    body.light {
-      --bg-primary: #f1f5f9;
-      --bg-secondary: #e2e8f0;
-      --bg-card: rgba(255, 255, 255, 0.9);
-      --text-primary: #0f172a;
-      --border-color: #cbd5e1;
-      --accent: #0284c7;
-    }
-
-    /* Neon Theme */
-    body.neon {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #1a1a2e;
-      --bg-card: rgba(0, 255, 255, 0.1);
-      --text-primary: #00ffcc;
-      --border-color: #00ffcc;
-      --accent: #ff00ff;
-    }
-
-    body.neon .card {
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-      border: 1px solid #00ffcc;
-    }
-
-    body.light .card {
-      backdrop-filter: none;
-      background: white;
-    }
-
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg-secondary);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--accent);
-      border-radius: 10px;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: rgba(2, 6, 23, 0.85);
+    /* Premium Glassmorphism */
+    .glass {
+      background: rgba(15, 25, 45, 0.65);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      flex-wrap: wrap;
-      gap: 10px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
     }
 
-    .logo {
-      font-weight: 700;
-      font-size: 1.4rem;
-      background: linear-gradient(135deg, #90e0ff, #0284c7);
+    /* Gradient Accents */
+    .gradient-text {
+      background: linear-gradient(135deg, #38bdf8, #a855f7, #22c55e);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
-    .nav-controls {
+    /* Custom Scroll */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #1a1f2e; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #38bdf8, #a855f7); border-radius: 10px; }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      background: rgba(5, 10, 25, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+      z-index: 1000;
       display: flex;
-      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
       align-items: center;
       flex-wrap: wrap;
     }
 
-    .theme-btn, .option-btn {
-      background: var(--bg-secondary);
-      border: 1px solid var(--accent);
-      padding: 6px 12px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      color: var(--text-primary);
-      transition: 0.2s;
-    }
-
-    .theme-btn:hover, .option-btn:hover {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .clock-panel {
-      background: #0f212e;
-      padding: 6px 14px;
+    .nav-btn {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 8px 18px;
       border-radius: 40px;
-      font-family: monospace;
-      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 500;
     }
 
+    .nav-btn:hover {
+      background: #38bdf8;
+      color: #0a0c15;
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
     .hero {
+      margin-top: 90px;
+      padding: 3rem 2rem;
       text-align: center;
-      padding: 2rem 1rem 1.5rem;
+      background: linear-gradient(135deg, #0a0c15 0%, #12182a 100%);
     }
 
     .avatar {
-      width: 130px;
-      height: 130px;
-      background: linear-gradient(145deg, #0f2b3b, #05161f);
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1.5rem;
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 1rem;
-      border: 3px solid var(--accent);
+      box-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
     }
 
     .avatar i {
-      font-size: 4.5rem;
-      color: var(--accent);
+      font-size: 3.5rem;
+      color: white;
     }
 
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.2);
+      padding: 6px 20px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+
+    /* Main Container */
     .container {
-      max-width: 1400px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 1rem 1.8rem 3rem;
+      padding: 2rem;
     }
 
-    .dashboard-grid {
+    /* Grid System */
+    .grid-2col {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
       gap: 1.8rem;
-      margin-top: 2rem;
+      margin-bottom: 2rem;
     }
 
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Cards */
     .card {
-      background: var(--bg-card);
-      backdrop-filter: blur(4px);
+      background: rgba(18, 28, 45, 0.7);
+      backdrop-filter: blur(10px);
       border-radius: 28px;
-      padding: 1.4rem 1.6rem;
-      border: 1px solid var(--border-color);
-      transition: all 0.2s ease;
+      padding: 1.6rem;
+      border: 1px solid rgba(56, 189, 248, 0.15);
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     }
 
     .card:hover {
-      transform: translateY(-3px);
-      border-color: var(--accent);
+      border-color: rgba(56, 189, 248, 0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
-    .card h2 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
+    .card-header {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      border-left: 4px solid var(--accent);
-      padding-left: 0.8rem;
+      gap: 12px;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid rgba(56, 189, 248, 0.3);
     }
 
-    input, select, textarea {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      padding: 10px 14px;
-      border-radius: 12px;
-      color: var(--text-primary);
-      width: 100%;
-      margin: 8px 0;
-      outline: none;
+    .card-header i {
+      font-size: 1.8rem;
+      color: #38bdf8;
     }
 
-    button {
-      background: var(--accent);
-      border: none;
-      padding: 8px 16px;
-      border-radius: 12px;
+    .card-header h2 {
+      font-size: 1.4rem;
       font-weight: 600;
-      color: #fff;
-      cursor: pointer;
-      transition: 0.2s;
     }
 
-    button:hover {
-      opacity: 0.85;
-      transform: scale(0.98);
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .skill-tag {
-      background: var(--bg-secondary);
-      padding: 4px 12px;
+    /* AI Chat Interface */
+    .ai-chat-container {
+      background: rgba(10, 14, 25, 0.9);
       border-radius: 20px;
-      font-size: 0.75rem;
-    }
-
-    .progress-bar-bg {
-      background: var(--bg-secondary);
-      border-radius: 20px;
-      height: 12px;
       overflow: hidden;
-      margin: 10px 0;
     }
 
-    .progress-fill {
-      width: 0%;
-      height: 100%;
-      background: var(--success);
-      border-radius: 20px;
-      transition: width 0.3s;
-    }
-
-    .alarm-active {
-      animation: pulse 1s infinite;
-      background: var(--danger);
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    .reminder-item {
-      background: var(--bg-secondary);
-      padding: 8px;
-      border-radius: 12px;
-      margin: 8px 0;
+    .chat-messages {
+      height: 350px;
+      overflow-y: auto;
+      padding: 1rem;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .message {
+      padding: 12px 16px;
+      border-radius: 18px;
+      max-width: 85%;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .user-message {
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      align-self: flex-end;
+      color: white;
+    }
+
+    .ai-message {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      align-self: flex-start;
+    }
+
+    .typing-indicator {
+      display: none;
+      padding: 12px 16px;
+      background: rgba(56, 189, 248, 0.1);
+      border-radius: 18px;
+      align-self: flex-start;
+    }
+
+    .typing-indicator span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #38bdf8;
+      margin: 0 2px;
+      animation: typing 1.4s infinite;
+    }
+
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-10px); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chat-input-area {
+      display: flex;
+      gap: 10px;
+      padding: 1rem;
+      border-top: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .chat-input-area input {
+      flex: 1;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 12px 16px;
+      border-radius: 40px;
+      color: white;
+      font-size: 0.95rem;
+    }
+
+    .chat-input-area input:focus {
+      outline: none;
+      border-color: #38bdf8;
+    }
+
+    .chat-input-area button {
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      border: none;
+      padding: 0 24px;
+      border-radius: 40px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    /* Machine Gallery */
+    .machine-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+      margin-top: 1rem;
+    }
+
+    .machine-card {
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 16px;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .machine-card:hover {
+      transform: translateY(-5px);
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+    }
+
+    .machine-card i {
+      font-size: 2.5rem;
+      color: #38bdf8;
+      margin-bottom: 8px;
+    }
+
+    .machine-card h4 {
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+    }
+
+    .machine-card button {
+      background: rgba(56, 189, 248, 0.2);
+      border: none;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      margin-top: 8px;
+      cursor: pointer;
+      color: white;
+    }
+
+    /* Modal for Machine Details */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 2000;
+      justify-content: center;
       align-items: center;
     }
 
-    @media (max-width: 680px) {
-      .container { padding: 0.8rem; }
-      .card { padding: 1rem; }
-      nav { flex-direction: column; }
+    .modal-content {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      border-radius: 28px;
+      max-width: 600px;
+      width: 90%;
+      padding: 2rem;
+      border: 1px solid #38bdf8;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #38bdf8;
+    }
+
+    .machine-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+
+    .machine-image i {
+      font-size: 5rem;
+      color: #38bdf8;
+    }
+
+    .download-btn {
+      background: #22c55e;
+      margin-top: 1rem;
+      width: 100%;
+      padding: 12px;
+    }
+
+    /* OEE Dashboard */
+    .oee-stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 1rem 0;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 0.8rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-2col, .grid-3col {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 { font-size: 1.8rem; }
+      nav { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo"><i class="fas fa-microchip"></i> NIKHIL · INDUSTRY 4.0</div>
-  <div class="nav-controls">
-    <button class="theme-btn" onclick="setTheme('dark')">🌙 Dark</button>
-    <button class="theme-btn" onclick="setTheme('light')">☀️ Light</button>
-    <button class="theme-btn" onclick="setTheme('neon')">🌈 Neon</button>
-    <button class="option-btn" onclick="exportData()"><i class="fas fa-download"></i> Export</button>
-    <button class="option-btn" onclick="showOptionsPanel()"><i class="fas fa-sliders-h"></i> More Options</button>
+  <div class="logo"><span class="gradient-text">⚡ NIKHIL · INDUSTRY 4.0 AI</span></div>
+  <div class="nav-links">
+    <div class="nav-btn" onclick="scrollToSection('aiChat')"><i class="fas fa-robot"></i> AI Assistant</div>
+    <div class="nav-btn" onclick="scrollToSection('machines')"><i class="fas fa-microchip"></i> Machine Library</div>
+    <div class="nav-btn" onclick="exportSession()"><i class="fas fa-download"></i> Export Data</div>
+    <div class="nav-btn" id="themeToggle"><i class="fas fa-palette"></i> Theme</div>
   </div>
-  <div class="clock-panel" id="liveClock"><i class="far fa-clock"></i> Loading...</div>
 </nav>
 
 <div class="hero">
-  <div class="avatar"><i class="fas fa-user-astronaut"></i></div>
+  <div class="avatar">
+    <i class="fas fa-user-astronaut"></i>
+  </div>
   <h1>Nikhil Jangir</h1>
-  <p>Sr. Automation & Machine Repair Engineer | Team Leader (L4.2)</p>
-  <button id="downloadResumeBtn"><i class="fas fa-file-pdf"></i> Download Resume</button>
+  <p class="hero-badge"><i class="fas fa-certificate"></i> Sr. Automation & Machine Repair Engineer | 7+ Years | Team Leader L4.2</p>
+  <p>📍 Narnaul, Haryana | 📞 +91 84471 07097 | ✉️ nikhiljangirharyana@gmail.com</p>
+  <div style="margin-top: 1.5rem;">
+    <button class="nav-btn" onclick="downloadResume()" style="background:#38bdf8; color:#0a0c15;"><i class="fas fa-file-pdf"></i> Download Full Resume</button>
+  </div>
 </div>
 
 <div class="container">
-  <!-- Options Panel (hidden by default) -->
-  <div id="optionsPanel" style="display:none; margin-bottom: 20px;">
-    <div class="dashboard-grid">
-      <!-- Add Custom Equipment -->
-      <div class="card">
-        <h2><i class="fas fa-plus-circle"></i> Add Custom Equipment</h2>
-        <input type="text" id="newEqName" placeholder="Equipment name (e.g., CNC Router)">
-        <textarea id="newEqSop" rows="2" placeholder="Troubleshooting SOP / notes"></textarea>
-        <button onclick="addEquipment()"><i class="fas fa-save"></i> Save to Knowledge Base</button>
-        <div id="eqAddMsg" style="margin-top: 8px; font-size:0.8rem;"></div>
+  <!-- OEE Dashboard -->
+  <div class="grid-2col">
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-chart-line"></i>
+        <h2>Real-Time OEE Monitor</h2>
       </div>
-
-      <!-- Maintenance Reminder -->
-      <div class="card">
-        <h2><i class="fas fa-bell"></i> Maintenance Reminders</h2>
-        <input type="text" id="reminderText" placeholder="e.g., Plasma cleaning PM">
-        <input type="datetime-local" id="reminderTime">
-        <button onclick="addReminder()">Set Reminder</button>
-        <div id="reminderList"></div>
+      <div class="oee-stats">
+        <div class="stat-card"><div class="stat-value" id="oeePercent">--</div><div>OEE</div></div>
+        <div class="stat-card"><div class="stat-value" id="availability">--</div><div>Availability</div></div>
+        <div class="stat-card"><div class="stat-value" id="performance">--</div><div>Performance</div></div>
+        <div class="stat-card"><div class="stat-value" id="quality">--</div><div>Quality</div></div>
       </div>
-
-      <!-- Spare Parts Tracker -->
-      <div class="card">
-        <h2><i class="fas fa-boxes"></i> Spare Parts Inventory</h2>
-        <input type="text" id="partName" placeholder="Part name">
-        <input type="number" id="partQty" placeholder="Quantity">
-        <button onclick="addPart()">Add / Update Stock</button>
-        <div id="partsList"></div>
+      <div class="progress-bar-bg" style="background:#1e293b; border-radius:20px; height:12px;"><div id="oeeBar" style="width:0%; height:100%; background:#38bdf8; border-radius:20px;"></div></div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem;">
+        <input type="number" id="prodInput" placeholder="Produced Units" value="950" style="background:#1e293b; border:none; padding:10px; border-radius:12px;">
+        <input type="number" id="goodInput" placeholder="Good Parts" value="910" style="background:#1e293b; border:none; padding:10px; border-radius:12px;">
+        <input type="number" id="availInput" placeholder="Available Mins" value="480" style="background:#1e293b; border:none; padding:10px; border-radius:12px;">
+        <input type="number" id="idealInput" placeholder="Ideal Cycle (sec)" value="28" style="background:#1e293b; border:none; padding:10px; border-radius:12px;">
       </div>
+      <button onclick="updateOEE()" style="margin-top:1rem; width:100%; background:linear-gradient(135deg,#38bdf8,#2563eb);"><i class="fas fa-sync-alt"></i> Calculate OEE</button>
     </div>
 
-    <!-- Shift Handover Log -->
-    <div class="card" style="margin-top: 1rem;">
-      <h2><i class="fas fa-exchange-alt"></i> Shift Handover Log</h2>
-      <textarea id="handoverNote" rows="2" placeholder="Write handover notes for next shift..."></textarea>
-      <button onclick="saveHandover()">Save Handover Note</button>
-      <div id="handoverDisplay" style="margin-top: 10px; padding: 8px; background: var(--bg-secondary); border-radius: 12px;"></div>
+    <!-- AI Assistant Card -->
+    <div class="card" id="aiChat">
+      <div class="card-header">
+        <i class="fas fa-brain"></i>
+        <h2>AI Engineering Assistant <span style="font-size:0.7rem; background:#22c55e33; padding:2px 8px; border-radius:20px;">Powered by Advanced Knowledge</span></h2>
+      </div>
+      <div class="ai-chat-container">
+        <div class="chat-messages" id="chatMessages">
+          <div class="message ai-message">
+            👋 Hi! I'm your AI Engineering Assistant. Ask me anything about:<br>
+            • Machine troubleshooting (Plasma, Robots, VFD, CCD, RF Testing)<br>
+            • PLC programming, HMI modification<br>
+            • OEE improvement, MTTR/MTBF reduction<br>
+            • Spare parts, maintenance procedures<br>
+            <strong>Ask me anything, I'll respond instantly with accurate technical info!</strong>
+          </div>
+        </div>
+        <div class="typing-indicator" id="typingIndicator">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="chatInput" placeholder="Ask about any machine, process, or issue..." onkeypress="if(event.key==='Enter') askAI()">
+          <button onclick="askAI()"><i class="fas fa-paper-plane"></i> Send</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Main Dashboard Grid -->
-  <div class="dashboard-grid">
-    <!-- OEE Calculator -->
-    <div class="card">
-      <h2><i class="fas fa-chart-line"></i> OEE Tracker</h2>
-      <div class="flex-between"><span>🎯 Target OEE:</span><input type="number" id="oeeTarget" value="85" style="width:80px; display:inline-block;"></div>
-      <input type="number" id="availTime" placeholder="Available Time (min)" value="480">
-      <input type="number" id="producedQty" placeholder="Produced" value="920">
-      <input type="number" id="goodParts" placeholder="Good Parts" value="880">
-      <input type="number" id="idealCycle" placeholder="Ideal Cycle (sec)" value="28">
-      <div class="flex-between"><span>📊 Current OEE:</span><strong id="oeeValue">--</strong></div>
-      <div class="progress-bar-bg"><div class="progress-fill" id="oeeFill"></div></div>
-      <div id="oeeGap" style="font-size:0.8rem;"></div>
-      <canvas id="oeeChart" height="120"></canvas>
-      <button onclick="computeOEE()">Update OEE</button>
+  <!-- Machine Library with Images & Manuals -->
+  <div class="card" id="machines">
+    <div class="card-header">
+      <i class="fas fa-microchip"></i>
+      <h2>Machine Library <span style="font-size:0.7rem;">(Click any machine for details, image & manual download)</span></h2>
     </div>
+    <div class="machine-gallery" id="machineGallery"></div>
+  </div>
 
-    <!-- AI Troubleshooting -->
+  <!-- MTTR/MTBF & RF Stats -->
+  <div class="grid-3col">
     <div class="card">
-      <h2><i class="fas fa-robot"></i> AI Diagnostics</h2>
-      <input type="text" id="aiQuery" placeholder="Describe issue (motor, plasma, robot, sensor)">
-      <button onclick="solveIssue()">Diagnose</button>
-      <div id="aiAnswer" style="margin-top: 12px; padding: 10px; background: var(--bg-secondary); border-radius: 12px;"></div>
+      <div class="card-header"><i class="fas fa-chart-simple"></i><h2>MTTR / MTBF Tracker</h2></div>
+      <div><i class="fas fa-tachometer-alt"></i> Current MTTR: <strong id="mttrDisplay">42</strong> mins</div>
+      <div><i class="fas fa-calendar-check"></i> Current MTBF: <strong id="mtbfDisplay">128</strong> hours</div>
+      <button onclick="improveMTTR()" style="margin-top:1rem;">Apply RCA Improvement →</button>
     </div>
+    <div class="card">
+      <div class="card-header"><i class="fas fa-wifi"></i><h2>RF Testing (4G/5G)</h2></div>
+      <div>📡 CMW100/CMW500 | Eragon/HQ Software</div>
+      <div class="progress-bar-bg mt-2"><div id="rfBar" style="width:94%; height:8px; background:#22c55e;"></div></div>
+      <div>First Pass Yield: <strong id="fpyValue">94%</strong></div>
+      <button onclick="optimizeRF()">Optimize RF Calibration</button>
+    </div>
+    <div class="card">
+      <div class="card-header"><i class="fas fa-clipboard-list"></i><h2>Quick Actions</h2></div>
+      <button onclick="generateReport()"><i class="fas fa-file-alt"></i> Generate Shift Report</button>
+      <button onclick="exportSession()"><i class="fas fa-database"></i> Export All Data</button>
+    </div>
+  </div>
+</div>
 
-    <!-- Machine Knowledge Base -->
-    <div class="card">
-      <h2><i class="fas fa-database"></i> Knowledge Base</h2>
-      <input type="text" id="machineSearch" placeholder="Search equipment...">
-      <div id="searchResult" style="margin-top: 12px;"></div>
-      <div id="customEqList" style="margin-top: 12px; font-size:0.8rem;"></div>
-    </div>
-
-    <!-- Alarm Simulator -->
-    <div class="card">
-      <h2><i class="fas fa-exclamation-triangle"></i> Alarm Simulator</h2>
-      <select id="alarmType">
-        <option value="plasma">Plasma Arc Failure</option>
-        <option value="robot">Servo Alarm</option>
-        <option value="vfd">VFD Overload</option>
-        <option value="ccd">CCD Vision Error</option>
-      </select>
-      <button onclick="triggerAlarm()">Simulate Alarm</button>
-      <div id="alarmDisplay" style="margin-top: 12px; padding: 10px; border-radius: 12px;"></div>
-    </div>
-
-    <!-- MTTR/MTBF -->
-    <div class="card">
-      <h2><i class="fas fa-chart-simple"></i> MTTR / MTBF</h2>
-      <div class="flex-between"><span>⚙️ MTTR (min):</span><span id="mttrValue">42</span></div>
-      <div class="flex-between"><span>📆 MTBF (hrs):</span><span id="mtbfValue">128</span></div>
-      <button onclick="improveMetrics()">Apply Continuous Improvement</button>
-      <div id="kaizenMsg" style="margin-top: 8px;"></div>
-    </div>
-
-    <!-- RF Testing -->
-    <div class="card">
-      <h2><i class="fas fa-wifi"></i> RF Testing (4G/5G)</h2>
-      <div class="flex-between"><span>📶 FPY:</span><span id="fpyValue">92%</span></div>
-      <div class="progress-bar-bg"><div class="progress-fill" id="fpyFill" style="width:92%"></div></div>
-      <button onclick="improveFPY()">Optimize RF Calibration</button>
-    </div>
+<!-- Modal -->
+<div id="machineModal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <div class="machine-image" id="modalImage"></div>
+    <p id="modalDesc"></p>
+    <p><strong>Specifications & Troubleshooting:</strong></p>
+    <p id="modalSpecs"></p>
+    <button class="download-btn" id="modalDownloadBtn" onclick="downloadManual()"><i class="fas fa-download"></i> Download Manual (PDF)</button>
   </div>
 </div>
 
 <script>
-  // ========== THEME MANAGEMENT ==========
-  function setTheme(theme) {
-    document.body.className = theme;
-    localStorage.setItem('theme', theme);
-  }
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) setTheme(savedTheme);
+  // Machine Database with Images and Manuals
+  const machineDatabase = {
+    'Plasma Cleaning (SDP-3200)': {
+      icon: 'fa-fire',
+      desc: 'Plasma surface treatment machine for cleaning and activation.',
+      specs: 'Model: SDP-3200, SDP-5200F, SDP-5200PRO. Controller board-level repair, arc ignition troubleshooting, RF power supply 13.56MHz.',
+      manual: 'Plasma_Cleaning_SDP_Manual.pdf',
+      troubleshooting: 'Check gas flow, nozzle gap, RF generator. Reprogram intensity via controller.'
+    },
+    'Battery Rolling Machine (BRT)': {
+      icon: 'fa-battery-full',
+      desc: 'High-precision battery rolling and calibration system.',
+      specs: 'Online repair capability, roller gap calibration, pressure sensors. Used for mobile battery assembly.',
+      manual: 'BRT_Machine_Manual.pdf',
+      troubleshooting: 'Check roller alignment, pressure sensors, motor drives.'
+    },
+    'BTB Pressing Machine': {
+      icon: 'fa-compress',
+      desc: 'Board-to-Board precision pressing for PCB assembly.',
+      specs: 'Force calibration 50-500N, positioning accuracy ±0.01mm. Fixture alignment required.',
+      manual: 'BTB_Pressing_Manual.pdf',
+      troubleshooting: 'Verify alignment fixtures, force sensor calibration, pneumatic pressure.'
+    },
+    'CCD Vision Inspection': {
+      icon: 'fa-camera',
+      desc: 'Automated optical inspection using CCD cameras.',
+      specs: 'LokS & Innovision software. Resolution 5MP, inspection speed 0.5s/unit.',
+      manual: 'CCD_Vision_Manual.pdf',
+      troubleshooting: 'Clean lens, check lighting, recalibrate inspection parameters for new models.'
+    },
+    'Industrial Robotic Arm (6-Axis)': {
+      icon: 'fa-robot',
+      desc: '6-axis articulated robot for assembly and pick-place.',
+      specs: 'J1-J6 axes, payload 5kg, repeatability ±0.02mm. Servo drives, encoder feedback.',
+      manual: 'Robotic_Arm_6Axis_Manual.pdf',
+      troubleshooting: 'Zero-point calibration, encoder battery, servo alarm reset, path deviation correction.'
+    },
+    'RF Cable Buckling Machine': {
+      icon: 'fa-tower-cell',
+      desc: '4G/5G RF cable buckling and antenna alignment.',
+      specs: 'CMW100/CMW500 compatible, frequency range 600MHz-6GHz.',
+      manual: 'RF_Cable_Buckling_Manual.pdf',
+      troubleshooting: 'Antenna plate alignment, network band failure analysis, Eragon software calibration.'
+    },
+    'Glue Dispensing Machine': {
+      icon: 'fa-fill-drip',
+      desc: 'Precision adhesive dispensing for mobile assembly.',
+      specs: 'Programmable pressure 0-0.6MPa, nozzle size 0.2-1.0mm.',
+      manual: 'Glue_Dispensing_Manual.pdf',
+      troubleshooting: 'Nozzle clog, program recalibration, pressure regulator issues.'
+    },
+    'Back Cover Press (YH1-YH4)': {
+      icon: 'fa-cogs',
+      desc: 'Back cover assembly, touch panel pressing, camera deco.',
+      specs: 'Force range 100-1000N, LabVision software integration.',
+      manual: 'Back_Cover_Press_Manual.pdf',
+      troubleshooting: 'Force calibration, positioning accuracy, mold alignment.'
+    }
+  };
 
-  // ========== CLOCK ==========
-  function updateClock() {
-    document.getElementById('liveClock').innerHTML = `<i class="far fa-clock"></i> ${new Date().toLocaleString()}`;
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
-
-  // ========== OEE CALCULATION ==========
-  let oeeHistory = [];
-  let oeeChart = null;
-
-  function initChart() {
-    const ctx = document.getElementById('oeeChart').getContext('2d');
-    oeeChart = new Chart(ctx, {
-      type: 'line',
-      data: { labels: [], datasets: [{ label: 'OEE %', data: [], borderColor: '#38bdf8', fill: true }] },
-      options: { responsive: true, maintainAspectRatio: true, scales: { y: { beginAtZero: true, max: 100 } } }
+  // Render Machine Gallery
+  function renderMachines() {
+    const gallery = document.getElementById('machineGallery');
+    gallery.innerHTML = '';
+    Object.entries(machineDatabase).forEach(([name, data]) => {
+      const card = document.createElement('div');
+      card.className = 'machine-card';
+      card.innerHTML = `
+        <i class="fas ${data.icon}"></i>
+        <h4>${name}</h4>
+        <button onclick="showMachineModal('${name}')"><i class="fas fa-info-circle"></i> View Details</button>
+      `;
+      gallery.appendChild(card);
     });
   }
 
-  function computeOEE() {
-    let avail = parseFloat(document.getElementById('availTime').value) || 1;
-    let produced = parseFloat(document.getElementById('producedQty').value) || 0;
-    let good = parseFloat(document.getElementById('goodParts').value) || 0;
-    let ideal = parseFloat(document.getElementById('idealCycle').value) || 1;
-    let target = parseFloat(document.getElementById('oeeTarget').value) || 85;
+  // Modal Functions
+  let currentMachine = null;
 
-    if (produced === 0) return;
-    let availability = (produced * ideal / 60) / avail;
-    let quality = good / produced;
-    let performance = (ideal * produced) / (avail * 60);
-    let oee = Math.min(100, Math.max(0, availability * quality * performance * 100));
+  function showMachineModal(machineName) {
+    currentMachine = machineName;
+    const data = machineDatabase[machineName];
+    document.getElementById('modalTitle').innerText = machineName;
+    document.getElementById('modalImage').innerHTML = `<i class="fas ${data.icon}" style="font-size:5rem; color:#38bdf8;"></i>`;
+    document.getElementById('modalDesc').innerHTML = `<strong>Description:</strong> ${data.desc}`;
+    document.getElementById('modalSpecs').innerHTML = `${data.specs}<br><strong>Troubleshooting:</strong> ${data.troubleshooting}`;
+    document.getElementById('machineModal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('machineModal').style.display = 'none';
+  }
+
+  function downloadManual() {
+    if (currentMachine && machineDatabase[currentMachine]) {
+      const manualName = machineDatabase[currentMachine].manual;
+      alert(`📄 Downloading: ${manualName}\n\n(Simulated - In production, actual PDF would download)\n\nManual contains: Full maintenance schedule, wiring diagrams, PLC parameters, and troubleshooting guide.`);
+    }
+  }
+
+  // AI Assistant - Instant, Accurate Responses
+  async function askAI() {
+    const input = document.getElementById('chatInput');
+    const question = input.value.trim();
+    if (!question) return;
+
+    addMessage(question, 'user');
+    input.value = '';
+
+    showTyping(true);
+
+    setTimeout(() => {
+      const answer = getAIResponse(question);
+      addMessage(answer, 'ai');
+      showTyping(false);
+    }, 300);
+  }
+
+  function getAIResponse(question) {
+    const q = question.toLowerCase();
     
-    document.getElementById('oeeValue').innerHTML = oee.toFixed(1) + "%";
-    let fill = document.getElementById('oeeFill');
-    fill.style.width = oee + "%";
-    fill.style.background = oee >= target ? '#22c55e' : (oee >= target-15 ? '#eab308' : '#ef4444');
+    // Comprehensive knowledge base covering all resume machines
+    const responses = {
+      'plasma': '🔧 PLASMA CLEANING MACHINE (SDP-3200/5200):\n• Common issues: Arc ignition failure → Check HF board, gas pressure, nozzle gap\n• Controller repair: Reprogram intensity (100-1000W), treatment time (1-60s)\n• RF power supply: 13.56MHz, check matching network\n• Gas flow: Argon/O2 mix, 5-20 LPM\n• Pro tip: Clean electrode weekly for consistent treatment',
+      
+      'robot': '🤖 INDUSTRIAL ROBOTIC ARM (6-Axis J1-J6):\n• Zero-point calibration: Home all axes, set reference positions\n• Servo alarms: Check encoder battery (replace every 2 years), overload, braking resistor\n• Path deviation: Recalibrate end-effector, check backlash\n• Maintenance: Grease joints every 2000 hours, backup parameters\n• Quick fix: Power cycle + rehome often resolves encoder errors',
+      
+      'vfd': '⚡ VFD DRIVES & MOTORS:\n• Common faults: Overcurrent, overvoltage, ground fault\n• Diagnosis: Check input voltage (380-480V), motor insulation (megger test)\n• Parameter backup essential before any changes\n• Cooling fan failure = 50% of VFD issues\n• Pro tip: Install line reactors for harmonic reduction',
+      
+      'ccd': '📸 CCD VISION INSPECTION:\n• Software: LokS / Innovision\n• Calibration: Use master gauge, set tolerance thresholds (±0.1mm)\n• Common failures: Lighting fluctuation, lens contamination, vibration\n• Fix: Clean lens with microfiber, recalibrate using standard reference\n• For new models: Retrain inspection parameters, adjust ROI',
+      
+      'rf': '📡 RF TESTING (4G/5G):\n• Instruments: CMW100, CMW500, Eragon/HQ software\n• Antenna alignment: VSWR <1.5, return loss >14dB\n• Common failures: TX power low, EVM high, sensitivity poor\n• Fix: Calibrate cable buckling machine, verify antenna contact\n• FPY improvement: Clean RF connectors, use gold-plated pogo pins',
+      
+      'glue': '💧 GLUE DISPENSING:\n• Nozzle clog: Ultrasonic cleaning or replace (0.2-0.5mm)\n• Program recalibration: Adjust pressure curve, dwell time\n• Issues: Inconsistent bead → check pump, temperature, viscosity\n• Maintenance: Purge daily, clean nozzle tip every shift',
+      
+      'oee': '📊 OEE IMPROVEMENT STRATEGIES:\n• Availability: Reduce changeover time (SMED), prevent breakdowns\n• Performance: Eliminate micro-stops, optimize cycle time\n• Quality: Implement poka-yoke, SPC monitoring\n• Target: 85% OEE (World Class)\n• Your resume shows MTTR reduction success → Apply same RCA methodology',
+      
+      'mttr': '⏱️ MTTR REDUCTION TACTICS:\n• Standardize troubleshooting flowcharts\n• Maintain critical spare parts (80/20 rule)\n• Train technicians on specific machine categories\n• Document recurring failures with 8D reports\n• Your achievement: Reduced MTTR by implementing PCA → Scale that!',
+      
+      'default': '🔍 I can help with:\n• Plasma, Robot, VFD, CCD, RF Testing troubleshooting\n• OEE, MTTR, MTBF improvement strategies\n• PLC programming (Panasonic FPWIN GR7, Wienview HMI)\n• Preventive maintenance schedules\n• Specific machine manuals & specifications\n\nPlease ask a specific technical question about any machine in your resume!'
+    };
     
-    let gap = target - oee;
-    document.getElementById('oeeGap').innerHTML = gap > 0 ? `⚠️ Gap to target: ${gap.toFixed(1)}%` : "🎯 Target achieved!";
+    for (let [key, resp] of Object.entries(responses)) {
+      if (q.includes(key)) return resp;
+    }
+    return responses.default;
+  }
+
+  function addMessage(text, sender) {
+    const container = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = `message ${sender === 'user' ? 'user-message' : 'ai-message'}`;
+    div.innerHTML = text.replace(/\n/g, '<br>');
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function showTyping(show) {
+    document.getElementById('typingIndicator').style.display = show ? 'flex' : 'none';
+  }
+
+  // OEE Calculation
+  function updateOEE() {
+    const produced = parseFloat(document.getElementById('prodInput').value) || 0;
+    const good = parseFloat(document.getElementById('goodInput').value) || 0;
+    const availableMins = parseFloat(document.getElementById('availInput').value) || 1;
+    const idealSec = parseFloat(document.getElementById('idealInput').value) || 1;
     
-    oeeHistory.push(oee);
-    if (oeeHistory.length > 10) oeeHistory.shift();
-    if (oeeChart) {
-      oeeChart.data.labels = oeeHistory.map((_, i) => i+1);
-      oeeChart.data.datasets[0].data = [...oeeHistory];
-      oeeChart.update();
-    }
+    const availability = (produced * idealSec / 60) / availableMins;
+    const performance = (idealSec * produced) / (availableMins * 60);
+    const quality = good / produced;
+    const oee = availability * performance * quality * 100;
+    
+    document.getElementById('oeePercent').innerText = oee.toFixed(1) + '%';
+    document.getElementById('availability').innerText = (availability*100).toFixed(1) + '%';
+    document.getElementById('performance').innerText = (performance*100).toFixed(1) + '%';
+    document.getElementById('quality').innerText = (quality*100).toFixed(1) + '%';
+    document.getElementById('oeeBar').style.width = Math.min(100, oee) + '%';
   }
 
-  // ========== AI DIAGNOSTICS ==========
-  function solveIssue() {
-    let q = document.getElementById('aiQuery').value.toLowerCase();
-    let answers = {
-      'plasma': '🔧 Check RF power supply, gas flow, nozzle gap. Reprogram SDP controller.',
-      'motor': '⚡ Verify VFD parameters, check bearings, insulation resistance test.',
-      'robot': '🤖 Perform zero-point calibration, check encoder battery, servo drive status.',
-      'sensor': '📡 Clean lens, verify wiring, check power supply, recalibrate threshold.',
-      'vfd': '🔌 Check overload settings, input voltage, braking resistor, cooling fan.'
-    };
-    let ans = "🔍 General: Perform RCA, check electrical & mechanical systems.";
-    for (let [key, val] of Object.entries(answers)) {
-      if (q.includes(key)) ans = val;
-    }
-    document.getElementById('aiAnswer').innerHTML = `<i class="fas fa-microchip"></i> ${ans}`;
+  function improveMTTR() {
+    let mttr = parseInt(document.getElementById('mttrDisplay').innerText);
+    let mtbf = parseInt(document.getElementById('mtbfDisplay').innerText);
+    mttr = Math.max(25, mttr * 0.85);
+    mtbf = mtbf * 1.18;
+    document.getElementById('mttrDisplay').innerText = Math.round(mttr);
+    document.getElementById('mtbfDisplay').innerText = Math.round(mtbf);
+    addMessage(`✅ RCA implemented: MTTR reduced to ${Math.round(mttr)} mins, MTBF improved to ${Math.round(mtbf)} hours`, 'ai');
   }
 
-  // ========== KNOWLEDGE BASE WITH CUSTOM EQUIPMENT ==========
-  let customEquipment = JSON.parse(localStorage.getItem('customEq')) || {};
-
-  function addEquipment() {
-    let name = document.getElementById('newEqName').value.trim();
-    let sop = document.getElementById('newEqSop').value.trim();
-    if (!name) return;
-    customEquipment[name.toLowerCase()] = sop;
-    localStorage.setItem('customEq', JSON.stringify(customEquipment));
-    document.getElementById('eqAddMsg').innerHTML = `✅ Added: ${name}`;
-    document.getElementById('newEqName').value = '';
-    document.getElementById('newEqSop').value = '';
-    updateKnowledgeBase();
-  }
-
-  function updateKnowledgeBase() {
-    let listDiv = document.getElementById('customEqList');
-    let items = Object.keys(customEquipment);
-    if (items.length === 0) {
-      listDiv.innerHTML = '<i>No custom equipment added yet.</i>';
-      return;
-    }
-    listDiv.innerHTML = '<strong>📦 Custom:</strong> ' + items.map(i => `<span class="skill-tag">${i}</span>`).join(' ');
-  }
-
-  document.getElementById('machineSearch').addEventListener('input', (e) => {
-    let term = e.target.value.toLowerCase();
-    let result = customEquipment[term] || getBuiltinKnowledge(term);
-    document.getElementById('searchResult').innerHTML = `<i class="fas fa-info-circle"></i> ${result || "No data found. Add custom equipment!"}`;
-  });
-
-  function getBuiltinKnowledge(term) {
-    const builtin = {
-      'plasma': 'SDP-5200: Check HF ignition, gas pressure, controller board.',
-      'compressor': 'Oil level, air filter, pressure switch, drain moisture.',
-      'robot': 'J1-J6 calibration, encoder check, path accuracy test.',
-      'vfd': 'Parameter backup, thermal check, I/O signals.'
-    };
-    for (let [k, v] of Object.entries(builtin)) {
-      if (term.includes(k)) return v;
-    }
-    return "Enter equipment name (plasma, robot, vfd, compressor) for SOP.";
-  }
-
-  // ========== MAINTENANCE REMINDERS ==========
-  let reminders = JSON.parse(localStorage.getItem('reminders')) || [];
-
-  function addReminder() {
-    let text = document.getElementById('reminderText').value;
-    let time = document.getElementById('reminderTime').value;
-    if (!text || !time) return;
-    reminders.push({ text, time, id: Date.now() });
-    localStorage.setItem('reminders', JSON.stringify(reminders));
-    renderReminders();
-    document.getElementById('reminderText').value = '';
-  }
-
-  function renderReminders() {
-    let div = document.getElementById('reminderList');
-    if (reminders.length === 0) {
-      div.innerHTML = '<i>No active reminders</i>';
-      return;
-    }
-    div.innerHTML = reminders.map(r => `
-      <div class="reminder-item">
-        <span>📌 ${r.text}</span>
-        <span>⏰ ${new Date(r.time).toLocaleString()}</span>
-        <button onclick="deleteReminder(${r.id})">❌</button>
-      </div>
-    `).join('');
-  }
-
-  function deleteReminder(id) {
-    reminders = reminders.filter(r => r.id !== id);
-    localStorage.setItem('reminders', JSON.stringify(reminders));
-    renderReminders();
-  }
-
-  // ========== SPARE PARTS ==========
-  let parts = JSON.parse(localStorage.getItem('parts')) || {};
-
-  function addPart() {
-    let name = document.getElementById('partName').value.trim();
-    let qty = parseInt(document.getElementById('partQty').value);
-    if (!name || isNaN(qty)) return;
-    parts[name] = (parts[name] || 0) + qty;
-    localStorage.setItem('parts', JSON.stringify(parts));
-    renderParts();
-    document.getElementById('partName').value = '';
-    document.getElementById('partQty').value = '';
-  }
-
-  function renderParts() {
-    let div = document.getElementById('partsList');
-    let items = Object.entries(parts);
-    if (items.length === 0) {
-      div.innerHTML = '<i>No spare parts tracked</i>';
-      return;
-    }
-    div.innerHTML = items.map(([name, qty]) => `
-      <div class="reminder-item">
-        <span>🔧 ${name}</span>
-        <span>📦 ${qty} units ${qty < 5 ? '⚠️ Low stock!' : '✅'}</span>
-        <button onclick="consumePart('${name}')">Use 1</button>
-      </div>
-    `).join('');
-  }
-
-  function consumePart(name) {
-    if (parts[name] > 0) parts[name]--;
-    if (parts[name] === 0) delete parts[name];
-    localStorage.setItem('parts', JSON.stringify(parts));
-    renderParts();
-  }
-
-  // ========== SHIFT HANDOVER ==========
-  let handoverNotes = localStorage.getItem('handover') || '';
-
-  function saveHandover() {
-    let note = document.getElementById('handoverNote').value;
-    handoverNotes = note;
-    localStorage.setItem('handover', note);
-    document.getElementById('handoverDisplay').innerHTML = `<strong>Last handover:</strong><br>${note || 'No notes saved'}`;
-  }
-
-  function loadHandover() {
-    if (handoverNotes) {
-      document.getElementById('handoverDisplay').innerHTML = `<strong>Last handover:</strong><br>${handoverNotes}`;
-      document.getElementById('handoverNote').value = handoverNotes;
-    }
-  }
-
-  // ========== ALARM SIMULATOR ==========
-  function triggerAlarm() {
-    let type = document.getElementById('alarmType').value;
-    let alarmDiv = document.getElementById('alarmDisplay');
-    let actions = {
-      'plasma': '🚨 PLASMA ARC FAILURE → Check RF generator, gas flow, nozzle gap. Reset controller.',
-      'robot': '🤖 SERVO ALARM → Check encoder, brakes, overload. Perform zero-point calibration.',
-      'vfd': '⚡ VFD OVERLOAD → Check motor current, parameter settings, cooling fan.',
-      'ccd': '📸 CCD VISION ERROR → Clean lens, check lighting, recalibrate inspection parameters.'
-    };
-    alarmDiv.innerHTML = `<div class="alarm-active" style="padding:10px; border-radius:12px;">${actions[type]}</div>`;
-    setTimeout(() => alarmDiv.innerHTML = '', 5000);
-  }
-
-  // ========== MTTR/MTBF IMPROVEMENT ==========
-  function improveMetrics() {
-    let mttr = parseFloat(document.getElementById('mttrValue').innerText);
-    let mtbf = parseFloat(document.getElementById('mtbfValue').innerText);
-    let newMttr = Math.max(25, mttr * 0.85);
-    let newMtbf = mtbf * 1.18;
-    document.getElementById('mttrValue').innerText = newMttr.toFixed(1);
-    document.getElementById('mtbfValue').innerText = newMtbf.toFixed(0);
-    document.getElementById('kaizenMsg').innerHTML = "✅ RCA & PCA implemented: MTTR ↓15%, MTBF ↑18%";
-  }
-
-  // ========== RF IMPROVEMENT ==========
-  function improveFPY() {
-    let newFpy = 92 + Math.floor(Math.random() * 7);
+  function optimizeRF() {
+    let newFpy = 94 + Math.floor(Math.random() * 5);
     newFpy = Math.min(99, newFpy);
-    document.getElementById('fpyValue').innerHTML = newFpy + "%";
-    document.getElementById('fpyFill').style.width = newFpy + "%";
+    document.getElementById('fpyValue').innerText = newFpy + '%';
+    document.getElementById('rfBar').style.width = newFpy + '%';
+    addMessage(`📡 RF calibration optimized! First Pass Yield now ${newFpy}%. Antenna alignment and CMW500 parameters fine-tuned.`, 'ai');
   }
 
-  // ========== EXPORT DATA ==========
-  function exportData() {
-    let data = {
-      oeeHistory,
-      reminders,
-      parts,
-      handoverNotes,
-      customEquipment,
-      mtbf: document.getElementById('mtbfValue').innerText,
-      mttr: document.getElementById('mttrValue').innerText
+  function generateReport() {
+    const oee = document.getElementById('oeePercent').innerText;
+    const mttr = document.getElementById('mttrDisplay').innerText;
+    const mtbf = document.getElementById('mtbfDisplay').innerText;
+    const report = `📋 SHIFT REPORT\n━━━━━━━━━━━━━━━━━━━\n📊 OEE: ${oee}\n⏱️ MTTR: ${mttr} mins\n📆 MTBF: ${mtbf} hrs\n📡 RF FPY: ${document.getElementById('fpyValue').innerText}\n✅ Recommendations: Continue PM compliance, monitor robot encoders\n━━━━━━━━━━━━━━━━━━━\nReport generated: ${new Date().toLocaleString()}`;
+    addMessage(report, 'ai');
+  }
+
+  function exportSession() {
+    const data = {
+      oee: document.getElementById('oeePercent').innerText,
+      mttr: document.getElementById('mttrDisplay').innerText,
+      mtbf: document.getElementById('mtbfDisplay').innerText,
+      fpy: document.getElementById('fpyValue').innerText,
+      timestamp: new Date().toISOString()
     };
-    let blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    let a = document.createElement('a');
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `engineering_data_${new Date().toISOString().slice(0,19)}.json`;
+    a.download = `engineering_report_${Date.now()}.json`;
     a.click();
-    alert("✅ Data exported as JSON!");
+    alert('✅ Data exported successfully!');
   }
 
-  // ========== OPTIONS PANEL TOGGLE ==========
-  function showOptionsPanel() {
-    let panel = document.getElementById('optionsPanel');
-    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  function downloadResume() {
+    alert('📄 Full Resume PDF\n\nNikhil Jangir - Sr. Automation & Machine Repair Engineer\n7+ years experience\nTeam Leader at DBG Technology (Xiaomi/OPPO/Vivo)\nExpert in: PLC, Robotics, RF Testing, Plasma Machines\n\n(Full PDF would download in production)');
   }
 
-  // ========== DOWNLOAD RESUME ==========
-  document.getElementById('downloadResumeBtn').onclick = () => alert("📄 Resume PDF would download. Full CV includes DBG, WearResist, Sensetek experience.");
-
-  // ========== INITIALIZATION ==========
-  function init() {
-    initChart();
-    computeOEE();
-    renderReminders();
-    renderParts();
-    updateKnowledgeBase();
-    loadHandover();
+  function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
   }
-  init();
+
+  // Theme Toggle
+  let darkMode = true;
+  document.getElementById('themeToggle').onclick = () => {
+    darkMode = !darkMode;
+    document.body.style.background = darkMode ? '#0a0c15' : '#f0f4f8';
+    document.body.style.color = darkMode ? '#e8edf5' : '#1a1a2e';
+  };
+
+  // Initialize
+  renderMachines();
+  updateOEE();
 </script>
 </body>
 </html>
