@@ -8,12 +8,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- TensorFlow.js + MobileNet -->
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js"></script>
-  <!-- SheetJS for import -->
   <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
-  <!-- ExcelJS for advanced charts -->
   <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
   <style>
@@ -34,11 +31,12 @@
     .grid-2col { display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 1.8rem; margin-bottom: 2rem; }
     .grid-3col { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.8rem; margin-bottom: 2rem; }
     .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.5rem; }
-    input, select, textarea { background: var(--bg-primary); border: 1px solid var(--border-color); padding: 10px; border-radius: 12px; color: var(--text-primary); width: 100%; margin: 6px 0; }
+    input, select, textarea { background: var(--bg-primary); border: 1px solid var(--border-color); padding: 10px; border-radius: 12px; color: var(--text-primary); width: 100%; margin: 6px 0; font-family: inherit; }
     button { background: var(--accent); color: white; border: none; padding: 10px 16px; border-radius: 40px; cursor: pointer; font-weight: 500; transition: 0.2s; }
     button:hover { opacity: 0.85; transform: translateY(-1px); }
     .history-item { background: var(--bg-secondary); border-left: 4px solid var(--accent); padding: 0.8rem; margin: 0.5rem 0; border-radius: 16px; }
     .photo-preview { max-width: 100%; max-height: 200px; border-radius: 12px; margin-top: 8px; }
+    .history-photo { max-width: 150px; max-height: 150px; border-radius: 8px; margin-top: 8px; border: 1px solid var(--border-color); }
     .badge { background: var(--accent-glow); color: var(--accent); padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; }
     .chat-messages { height: 300px; overflow-y: auto; background: var(--bg-secondary); border-radius: 20px; padding: 1rem; display: flex; flex-direction: column; gap: 10px; }
     .message { padding: 8px 14px; border-radius: 20px; max-width: 85%; }
@@ -69,7 +67,6 @@
   <p>📍 Narnaul, Haryana | 📞 +91 84471 07097 | ✉️ nikhiljangirharyana@gmail.com</p>
 </div>
 <div class="container">
-  <!-- OEE Card -->
   <div class="grid-2col">
     <div class="card"><div class="card-header"><i class="fas fa-chart-line"></i><h2>OEE Monitor</h2></div>
       <div style="display:flex; justify-content:space-around;"><div><div id="oeePercent">--</div><div>OEE</div></div><div><div id="availability">--</div><div>Availability</div></div><div><div id="performance">--</div><div>Performance</div></div><div><div id="quality">--</div><div>Quality</div></div></div>
@@ -84,7 +81,6 @@
     </div>
   </div>
 
-  <!-- Maintenance Entry -->
   <div class="card" id="maintenanceEntry"><div class="card-header"><i class="fas fa-upload"></i><h2>📸 Maintenance Entry (Problem/Solution/RootCause/Preventive)</h2></div>
     <div class="grid-2col" style="margin-bottom:0;">
       <div>
@@ -102,19 +98,17 @@
         <label>📷 Photo (Gallery or Camera)</label>
         <input type="file" id="photoUploadEntry" accept="image/*">
         <div id="photoPreviewEntry"></div>
-        <button onclick="submitMaintenanceRecord()" style="margin-top:20px; width:100%;">💾 Save to Cloud (Google Sheet)</button>
+        <button onclick="submitMaintenanceRecord()" style="margin-top:20px; width:100%;">💾 Save to Cloud (Google Sheet + Drive)</button>
         <div id="saveStatus"></div>
       </div>
     </div>
   </div>
 
-  <!-- Machine History Card -->
   <div class="card" id="historyCard"><div class="card-header"><i class="fas fa-history"></i><h2>📋 Machine History Card (All records from cloud)</h2></div>
     <select id="machineHistorySelect"></select> <button onclick="loadMachineHistory()">Show History</button>
     <div id="historyDisplay" style="max-height:400px; overflow-y:auto; margin-top:1rem;"></div>
   </div>
 
-  <!-- MTTR / RF / Machine Library -->
   <div class="grid-3col">
     <div class="card"><div class="card-header"><i class="fas fa-chart-line"></i><h2>MTTR / MTBF</h2><div>MTTR: <strong id="mttrDisplay">42</strong> min &nbsp; MTBF: <strong id="mtbfDisplay">128</strong> hr</div><button onclick="improveMTTR()">Apply RCA</button><div id="kaizenMsg"></div></div></div>
     <div class="card"><div class="card-header"><i class="fas fa-wifi"></i><h2>RF Testing</h2><div>FPY: <strong id="fpyValue">94%</strong></div><div class="progress-bar-bg"><div id="rfBar" class="progress-fill" style="width:94%"></div></div><button onclick="optimizeRF()">Optimize</button><div id="rfMessage"></div></div></div>
@@ -126,8 +120,8 @@
 
 <script>
   // ======================== CONFIG ========================
-  // REPLACE WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+  // Your Web App URL (already set)
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjk1oLSMgMwB7iPJGgdMw2TN-mJQ5H19Pyv6uRM6uJ7jee_k_dJw0hA_YRs5hFyZmQGg/exec";
 
   // ======================== API CALLS ========================
   async function apiCall(action, method = 'GET', body = null) {
@@ -148,6 +142,7 @@
   async function addMachineToCloud(name, location) { return await apiCall('addMachine', 'POST', { action: 'addMachine', name, location }); }
   async function deleteMachineFromCloud(name) { return await apiCall('deleteMachine', 'POST', { action: 'deleteMachine', name }); }
   async function addMaintenanceToCloud(record) { return await apiCall('addMaintenance', 'POST', { action: 'addMaintenance', ...record }); }
+  async function uploadPhotoToDrive(base64, filename) { return await apiCall('uploadPhoto', 'POST', { action: 'uploadPhoto', base64, filename }); }
   async function getMaintenanceFromCloud(machineName) { const res = await apiCall(`getMaintenance&machine=${encodeURIComponent(machineName)}`); return res.records || []; }
   async function getAllMaintenanceFromCloud() { const res = await apiCall('getAllMaintenance'); return res.records || []; }
 
@@ -163,6 +158,7 @@
   async function deleteMachineConfirm(name) { if(confirm(`Delete machine "${name}"?`)) { await deleteMachineFromCloud(name); refreshMachineDropdowns(); loadMachineHistory(); } }
   function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
 
+  // फोटो अपलोड (Drive) + मेंटेनेंस सेव
   async function submitMaintenanceRecord() {
     const machineName = document.getElementById("machineSelectEntry").value;
     if(!machineName) { alert("Select machine"); return; }
@@ -174,7 +170,12 @@
     const technician = document.getElementById("technicianEntry").value || "Unknown";
     let photoURL = "";
     const file = document.getElementById("photoUploadEntry").files[0];
-    if(file) photoURL = "Photo: " + file.name;
+    if(file) {
+      document.getElementById("saveStatus").innerHTML = "📤 Uploading photo...";
+      const base64 = await new Promise(r => { const rd = new FileReader(); rd.onload = () => r(rd.result); rd.readAsDataURL(file); });
+      const uploadRes = await uploadPhotoToDrive(base64, file.name);
+      if(uploadRes.photoUrl) photoURL = uploadRes.photoUrl;
+    }
     await addMaintenanceToCloud({ machineName, problem, solution, rootCause, preventive, status, technician, photoURL, shift: 'Day' });
     document.getElementById("saveStatus").innerHTML = "✅ Saved!";
     setTimeout(() => document.getElementById("saveStatus").innerHTML = "", 2000);
@@ -186,13 +187,24 @@
     document.getElementById("photoPreviewEntry").innerHTML = "";
     if(document.getElementById("machineHistorySelect").value === machineName) loadMachineHistory();
   }
+
   async function loadMachineHistory() {
     const machine = document.getElementById("machineHistorySelect").value;
     if(!machine) return;
     const records = await getMaintenanceFromCloud(machine);
     const displayDiv = document.getElementById("historyDisplay");
     if(records.length===0) { displayDiv.innerHTML = "<p>No records.</p>"; return; }
-    displayDiv.innerHTML = records.map(rec => `<div class="history-item"><strong>📅 ${new Date(rec.date).toLocaleString()}</strong> <span class="badge">${rec.status}</span><br><strong>⚙️ Problem:</strong> ${escapeHtml(rec.problem)}<br><strong>🔧 Solution:</strong> ${escapeHtml(rec.solution)}<br><strong>🌿 Root Cause:</strong> ${escapeHtml(rec.rootCause)}<br><strong>🛡️ Preventive:</strong> ${escapeHtml(rec.preventive)}<br><strong>👤 Technician:</strong> ${escapeHtml(rec.technician)}<br>${rec.photoURL ? `<p>📸 ${escapeHtml(rec.photoURL)}</p>` : ''}</div>`).join('');
+    displayDiv.innerHTML = records.map(rec => `
+      <div class="history-item">
+        <strong>📅 ${new Date(rec.date).toLocaleString()}</strong> <span class="badge">${rec.status}</span><br>
+        <strong>⚙️ Problem:</strong> ${escapeHtml(rec.problem)}<br>
+        <strong>🔧 Solution:</strong> ${escapeHtml(rec.solution)}<br>
+        <strong>🌿 Root Cause:</strong> ${escapeHtml(rec.rootCause)}<br>
+        <strong>🛡️ Preventive:</strong> ${escapeHtml(rec.preventive)}<br>
+        <strong>👤 Technician:</strong> ${escapeHtml(rec.technician)}<br>
+        ${rec.photoURL ? `<a href="${rec.photoURL}" target="_blank"><img src="${rec.photoURL}" class="history-photo" alt="Photo"></a>` : ''}
+      </div>
+    `).join('');
   }
   async function loadMachineHistoryForName(name) { document.getElementById("machineHistorySelect").value = name; await loadMachineHistory(); scrollToSection('historyCard'); }
   document.getElementById("photoUploadEntry").addEventListener("change", e => { const preview = document.getElementById("photoPreviewEntry"); if(e.target.files.length) preview.innerHTML = `<img src="${URL.createObjectURL(e.target.files[0])}" class="photo-preview">`; else preview.innerHTML = ""; });
@@ -238,7 +250,7 @@
   });
   function askAIDetected(component) { document.getElementById("chatInput").value = component + " troubleshooting"; askAI(); }
 
-  // ======================== EXCEL EXPORT WITH 6 DIFFERENT CHARTS ========================
+  // ======================== EXCEL EXPORT (फोटो लिंक सहित) ========================
   async function exportFullExcelWithCharts() {
     const machines = await getMachinesFromCloud();
     const allRecords = await getAllMaintenanceFromCloud();
@@ -247,7 +259,6 @@
     workbook.creator = "Nikhil Jangir";
     workbook.created = new Date();
 
-    // Dashboard sheet with multiple charts
     const dashboard = workbook.addWorksheet("Dashboard", { pageSetup: { orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 0 } });
     dashboard.getCell('A1').value = "MAINTENANCE DASHBOARD - ALL CHARTS";
     dashboard.getCell('A1').font = { size: 18, bold: true };
@@ -258,87 +269,60 @@
     dashboard.addRow(["NG Records", allRecords.filter(r=>r.status==="NG").length]);
     dashboard.addRow(["Last Updated", new Date().toLocaleString()]);
 
-    // Prepare data for charts
-    // 1. Bar chart: machine vs record count
     const machineCounts = machines.map(m => ({ name: m.name, count: allRecords.filter(r=>r.machine===m.name).length }));
-    // 2. Histogram: records per month
     const monthCounts = {};
-    allRecords.forEach(rec => {
-      const month = new Date(rec.date).toLocaleString('default', { month: 'short', year: 'numeric' });
-      monthCounts[month] = (monthCounts[month] || 0) + 1;
-    });
+    allRecords.forEach(rec => { const month = new Date(rec.date).toLocaleString('default', { month: 'short', year: 'numeric' }); monthCounts[month] = (monthCounts[month] || 0) + 1; });
     const histogramData = Object.entries(monthCounts).map(([month, count]) => ({ month, count }));
-    // 3. Pareto: problem frequencies
     const problemFreq = {};
     allRecords.forEach(rec => { const p = rec.problem || "Unknown"; problemFreq[p] = (problemFreq[p] || 0) + 1; });
     const paretoData = Object.entries(problemFreq).sort((a,b)=>b[1]-a[1]).slice(0,10);
-    // 4. Scatter: MTTR vs MTBF per machine (simulated from records)
     const scatterData = machines.map(m => {
       const recs = allRecords.filter(r=>r.machine===m.name);
       const mttr = recs.length ? recs.reduce((sum,rec)=> sum + (rec.solution ? 30 : 45), 0)/recs.length : 50;
       const mtbf = recs.length ? 200 / recs.length : 100;
       return { machine: m.name, mttr, mtbf };
     });
-    // 5. Line chart: OEE trend (simulated by month)
     const oeeTrend = histogramData.map((h, idx) => ({ month: h.month, oee: 70 + Math.random() * 20 }));
-    // 6. Pie chart: OK vs NG
     const okCount = allRecords.filter(r=>r.status==="OK").length;
     const ngCount = allRecords.filter(r=>r.status==="NG").length;
 
-    // Helper to add data table and chart
     function addChartData(sheet, startRow, title, headers, data, chartType, xCol, yCol, xLabel, yLabel) {
       sheet.addRow([]);
       sheet.getCell(`A${startRow}`).value = title;
       sheet.getCell(`A${startRow}`).font = { bold: true, size: 12 };
       sheet.getRow(startRow+1).values = headers;
       sheet.getRow(startRow+1).font = { bold: true };
-      data.forEach((row, i) => {
-        sheet.getRow(startRow+2+i).values = Object.values(row);
-      });
+      data.forEach((row, i) => { sheet.getRow(startRow+2+i).values = Object.values(row); });
       const chart = sheet.addChart(chartType, {
         title: { name: title, font: { size: 12 } },
         xAxis: { label: xLabel },
         yAxis: { label: yLabel },
-        data: {
-          labels: data.map(d => d[xCol]),
-          datasets: [{ data: data.map(d => d[yCol]), fill: true, borderColor: "FF38BDF8", backgroundColor: "FF38BDF8" }]
-        }
+        data: { labels: data.map(d => d[xCol]), datasets: [{ data: data.map(d => d[yCol]), fill: true, borderColor: "FF38BDF8", backgroundColor: "FF38BDF8" }] }
       });
       chart.addTo(sheet, `E${startRow}`, `Q${startRow+15}`);
     }
 
     let currentRow = 8;
-    // Bar chart
     addChartData(dashboard, currentRow, "Bar Chart: Records per Machine", ["Machine", "Count"], machineCounts, ExcelJS.ChartType.Bar, "name", "count", "Machine", "Number of Records");
     currentRow += 20;
-    // Histogram
     addChartData(dashboard, currentRow, "Histogram: Records per Month", ["Month", "Count"], histogramData, ExcelJS.ChartType.Column, "month", "count", "Month", "Count");
     currentRow += 20;
-    // Pareto (using bar)
     addChartData(dashboard, currentRow, "Pareto Chart: Top 10 Problems", ["Problem", "Frequency"], paretoData, ExcelJS.ChartType.Bar, "problem", "frequency", "Problem", "Occurrences");
     currentRow += 20;
-    // Scatter (ExcelJS supports scatter)
     const scatterStart = currentRow;
     dashboard.addRow([]);
     dashboard.getCell(`A${scatterStart}`).value = "Scatter Diagram: MTTR vs MTBF";
     dashboard.getRow(scatterStart+1).values = ["Machine", "MTTR (min)", "MTBF (hrs)"];
-    scatterData.forEach((item, i) => {
-      dashboard.getRow(scatterStart+2+i).values = [item.machine, item.mttr, item.mtbf];
-    });
+    scatterData.forEach((item, i) => { dashboard.getRow(scatterStart+2+i).values = [item.machine, item.mttr, item.mtbf]; });
     const scatterChart = dashboard.addChart(ExcelJS.ChartType.Scatter, {
       title: { name: "MTTR vs MTBF", font: { size: 12 } },
-      xAxis: { label: "MTTR (min)" },
-      yAxis: { label: "MTBF (hrs)" },
-      data: {
-        datasets: [{ data: scatterData.map(d => ({ x: d.mttr, y: d.mtbf })), borderColor: "FF38BDF8" }]
-      }
+      xAxis: { label: "MTTR (min)" }, yAxis: { label: "MTBF (hrs)" },
+      data: { datasets: [{ data: scatterData.map(d => ({ x: d.mttr, y: d.mtbf })), borderColor: "FF38BDF8" }] }
     });
     scatterChart.addTo(dashboard, `E${scatterStart}`, `Q${scatterStart+15}`);
     currentRow += 20;
-    // Line chart
     addChartData(dashboard, currentRow, "Line Chart: OEE Trend (Simulated)", ["Month", "OEE (%)"], oeeTrend, ExcelJS.ChartType.Line, "month", "oee", "Month", "OEE %");
     currentRow += 20;
-    // Pie chart
     const pieStart = currentRow;
     dashboard.addRow([]);
     dashboard.getCell(`A${pieStart}`).value = "Pie Chart: OK vs NG Records";
@@ -347,36 +331,62 @@
     dashboard.getRow(pieStart+3).values = ["NG", ngCount];
     const pieChart = dashboard.addChart(ExcelJS.ChartType.Pie, {
       title: { name: "OK / NG Ratio", font: { size: 12 } },
-      data: {
-        labels: ["OK", "NG"],
-        datasets: [{ data: [okCount, ngCount], fill: true }]
-      }
+      data: { labels: ["OK", "NG"], datasets: [{ data: [okCount, ngCount], fill: true }] }
     });
     pieChart.addTo(dashboard, `E${pieStart}`, `Q${pieStart+15}`);
-
     dashboard.getColumns().forEach(col => col.width = 20);
     dashboard.pageSetup = { orientation: "landscape", fitToPage: true };
 
-    // Machines sheet
     const machinesSheet = workbook.addWorksheet("Machines");
     machinesSheet.columns = [{ header: "Name", key: "name", width: 30 }, { header: "Location", key: "location", width: 25 }, { header: "Created", key: "created", width: 25 }];
     machinesSheet.getRow(1).font = { bold: true, fill: { type: "pattern", pattern: "solid", fgColor: { argb: "FF22C55E" } } };
     machines.forEach(m => machinesSheet.addRow({ name: m.name, location: m.location, created: new Date(m.created).toLocaleString() }));
 
-    // All Records sheet
     const allSheet = workbook.addWorksheet("All_Records");
-    allSheet.columns = [{ header: "Date", key: "date", width: 20 }, { header: "Machine", key: "machine", width: 25 }, { header: "Problem", key: "problem", width: 40 }, { header: "Solution", key: "solution", width: 40 }, { header: "Root Cause", key: "rootCause", width: 40 }, { header: "Preventive", key: "preventive", width: 40 }, { header: "Status", key: "status", width: 10 }, { header: "Technician", key: "technician", width: 20 }];
+    allSheet.columns = [
+      { header: "Date", key: "date", width: 20 }, { header: "Machine", key: "machine", width: 25 },
+      { header: "Problem", key: "problem", width: 40 }, { header: "Solution", key: "solution", width: 40 },
+      { header: "Root Cause", key: "rootCause", width: 40 }, { header: "Preventive", key: "preventive", width: 40 },
+      { header: "Status", key: "status", width: 10 }, { header: "Technician", key: "technician", width: 20 },
+      { header: "Photo", key: "photo", width: 30 }
+    ];
     allSheet.getRow(1).font = { bold: true, fill: { type: "pattern", pattern: "solid", fgColor: { argb: "FFA855F7" } } };
-    allRecords.forEach(rec => allSheet.addRow({ date: new Date(rec.date).toLocaleString(), machine: rec.machine, problem: rec.problem, solution: rec.solution, rootCause: rec.rootCause, preventive: rec.preventive, status: rec.status, technician: rec.technician }));
+    allRecords.forEach(rec => {
+      const row = allSheet.addRow({
+        date: new Date(rec.date).toLocaleString(), machine: rec.machine, problem: rec.problem, solution: rec.solution,
+        rootCause: rec.rootCause, preventive: rec.preventive, status: rec.status, technician: rec.technician,
+        photo: rec.photoURL ? "View Photo" : ""
+      });
+      if (rec.photoURL) {
+        const cell = row.getCell('photo');
+        cell.value = { text: "View Photo", hyperlink: rec.photoURL };
+        cell.font = { color: { argb: "FF0000FF" }, underline: true };
+      }
+    });
 
-    // Per machine history sheets
     for (const machine of machines) {
       const records = allRecords.filter(r => r.machine === machine.name);
       if (!records.length) continue;
       const sheet = workbook.addWorksheet(`History_${machine.name.substring(0,28)}`);
-      sheet.columns = [{ header: "Date", key: "date", width: 20 }, { header: "Problem", key: "problem", width: 45 }, { header: "Solution", key: "solution", width: 45 }, { header: "Root Cause", key: "rootCause", width: 45 }, { header: "Preventive", key: "preventive", width: 45 }, { header: "Status", key: "status", width: 10 }, { header: "Technician", key: "technician", width: 20 }];
+      sheet.columns = [
+        { header: "Date", key: "date", width: 20 }, { header: "Problem", key: "problem", width: 45 },
+        { header: "Solution", key: "solution", width: 45 }, { header: "Root Cause", key: "rootCause", width: 45 },
+        { header: "Preventive", key: "preventive", width: 45 }, { header: "Status", key: "status", width: 10 },
+        { header: "Technician", key: "technician", width: 20 }, { header: "Photo", key: "photo", width: 25 }
+      ];
       sheet.getRow(1).font = { bold: true, fill: { type: "pattern", pattern: "solid", fgColor: { argb: "FF38BDF8" } } };
-      records.forEach(rec => sheet.addRow({ date: new Date(rec.date).toLocaleString(), problem: rec.problem, solution: rec.solution, rootCause: rec.rootCause, preventive: rec.preventive, status: rec.status, technician: rec.technician }));
+      records.forEach(rec => {
+        const row = sheet.addRow({
+          date: new Date(rec.date).toLocaleString(), problem: rec.problem, solution: rec.solution,
+          rootCause: rec.rootCause, preventive: rec.preventive, status: rec.status, technician: rec.technician,
+          photo: rec.photoURL ? "View Photo" : ""
+        });
+        if (rec.photoURL) {
+          const cell = row.getCell('photo');
+          cell.value = { text: "View Photo", hyperlink: rec.photoURL };
+          cell.font = { color: { argb: "FF0000FF" }, underline: true };
+        }
+      });
       for (let i = 2; i <= records.length+1; i++) sheet.getRow(i).fill = (i%2===0) ? { type: "pattern", pattern: "solid", fgColor: { argb: "FFEFF6FF" } } : { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFFFFF" } };
       sheet.getColumns().forEach(col => col.width = 30);
       sheet.pageSetup = { orientation: "landscape", fitToPage: true };
@@ -386,7 +396,6 @@
     saveAs(new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), `Full_Maintenance_Report_${new Date().toISOString().slice(0,19)}.xlsx`);
   }
 
-  // ======================== IMPORT EXCEL ========================
   async function importExcelToSheet() {
     const input = document.createElement('input');
     input.type = 'file'; input.accept = '.xlsx, .xls';
@@ -406,7 +415,7 @@
           preventive: row.Preventive,
           status: row.Status,
           technician: row.Technician,
-          photoURL: "",
+          photoURL: row.Photo || "",
           shift: "Day"
         });
       }
@@ -416,7 +425,6 @@
     input.click();
   }
 
-  // ======================== OEE & OTHER UTILITIES ========================
   function updateOEE() {
     const prod = +document.getElementById('prodInput').value, good = +document.getElementById('goodInput').value, avail = +document.getElementById('availInput').value, ideal = +document.getElementById('idealInput').value;
     if(prod===0) return;
@@ -443,3 +451,4 @@
 </script>
 </body>
 </html>
+```
