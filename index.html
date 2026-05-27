@@ -59,7 +59,7 @@
 <body class="dark">
 <nav>
   <div class="logo"><span class="gradient-text">⚡ NIKHIL · AI MAINTENANCE</span></div>
-  <div class="nav-links" style="display: flex; gap: 10px; flex-wrap: wrap;">
+  <div class="nav-links" style="display:flex; gap:10px; flex-wrap:wrap;">
     <div class="nav-btn" onclick="scrollToSection('maintenanceEntry')"><i class="fas fa-tools"></i> Entry</div>
     <div class="nav-btn" onclick="scrollToSection('historyCard')"><i class="fas fa-history"></i> History Card</div>
     <div class="nav-btn" onclick="exportFullExcelWithCharts()"><i class="fas fa-file-excel"></i> Download Excel</div>
@@ -69,7 +69,7 @@
 </nav>
 <div class="hero">
   <div class="avatar">
-    <img src="profile.jpg.png" alt="Profile Photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <img src="profile.jpg.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
     <i class="fas fa-user-astronaut fallback-icon"></i>
   </div>
   <h1>Nikhil Jangir</h1>
@@ -77,7 +77,6 @@
   <p>📍 Narnaul, Haryana | 📞 +91 84471 07097 | ✉️ nikhiljangirharyana@gmail.com</p>
 </div>
 <div class="container">
-  <!-- Row 1: OEE + AI Chat -->
   <div class="grid-2col">
     <div class="card"><div class="card-header"><i class="fas fa-chart-line"></i><h2>OEE Monitor</h2></div>
       <div style="display:flex; justify-content:space-around;"><div><div id="oeePercent">--</div><div>OEE</div></div><div><div id="availability">--</div><div>Availability</div></div><div><div id="performance">--</div><div>Performance</div></div><div><div id="quality">--</div><div>Quality</div></div></div>
@@ -86,14 +85,12 @@
       <button onclick="updateOEE()">Calculate OEE</button>
     </div>
     <div class="card"><div class="card-header"><i class="fas fa-brain"></i><h2>AI Assistant (Auto Search)</h2></div>
-      <div class="chat-messages" id="chatMessages"><div class="message ai-message">🤖 Ask me anything about machines, components, or upload a photo! I'll search Wikipedia/Google.</div></div>
+      <div class="chat-messages" id="chatMessages"><div class="message ai-message">🤖 Ask me anything about machines, components, or upload a photo!</div></div>
       <div style="display:flex; gap:8px;"><input type="text" id="chatInput" placeholder="e.g., relay working principle" onkeypress="if(event.key==='Enter') askAI()"><button onclick="askAI()">Send</button></div>
       <div style="margin-top:10px;"><label>📸 Upload photo for AI detection:</label><input type="file" id="photoForAI" accept="image/*"><div id="detectionResult"></div></div>
     </div>
   </div>
-
-  <!-- Advanced Metrics Card -->
-  <div class="card"><div class="card-header"><i class="fas fa-microchip"></i><h2>Advanced Condition Monitoring (Simulated)</h2></div>
+  <div class="card"><div class="card-header"><i class="fas fa-microchip"></i><h2>Advanced Condition Monitoring</h2></div>
     <div class="advanced-metrics" id="advancedMetrics">
       <div class="metric-card"><div>Vibration (mm/s)</div><div class="metric-value" id="vibrationVal">--</div></div>
       <div class="metric-card"><div>Thermal (°C)</div><div class="metric-value" id="thermalVal">--</div></div>
@@ -103,54 +100,42 @@
     </div>
     <button onclick="refreshAdvancedMetrics()" style="margin-top:0.5rem;">↻ Refresh</button>
   </div>
-
-  <!-- Maintenance Entry Form -->
   <div class="card" id="maintenanceEntry"><div class="card-header"><i class="fas fa-upload"></i><h2>📸 Maintenance Entry</h2></div>
-    <div class="grid-2col" style="margin-bottom:0;">
+    <div class="grid-2col">
       <div>
-        <label>Machine</label>
-        <select id="machineSelectEntry"></select>
+        <label>Machine</label><select id="machineSelectEntry"></select>
         <button onclick="openAddMachineModal()" style="background:#22c55e;">+ Add Machine</button>
         <label>Problem</label><textarea id="problemEntry" rows="2" placeholder="e.g., Relay chattering"></textarea>
         <label>Solution</label><textarea id="solutionEntry" rows="2" placeholder="e.g., Replaced relay"></textarea>
         <label>Root Cause</label><textarea id="rootCauseEntry" rows="2" placeholder="Why? e.g., Dust, coil burnout"></textarea>
-        <label>Preventive Action</label><textarea id="preventiveEntry" rows="2" placeholder="e.g., Clean monthly, add filter"></textarea>
+        <label>Preventive Action</label><textarea id="preventiveEntry" rows="2" placeholder="e.g., Clean monthly"></textarea>
       </div>
       <div>
         <label>Status</label><select id="statusEntry"><option value="OK">OK - Resolved</option><option value="NG">NG - Pending</option></select>
         <label>Technician</label><input type="text" id="technicianEntry" placeholder="Name">
-        <label>📷 Photo (Gallery or Camera)</label>
-        <input type="file" id="photoUploadEntry" accept="image/*">
-        <div id="photoPreviewEntry"></div>
+        <label>📷 Photo</label><input type="file" id="photoUploadEntry" accept="image/*"><div id="photoPreviewEntry"></div>
         <label>Date/Time: <input type="checkbox" id="manualDateTimeCheckbox"> Manual</label>
         <input type="datetime-local" id="manualDateTimeInput" style="display:none;">
-        <button onclick="submitMaintenanceRecord()" style="margin-top:20px; width:100%;">💾 Save to Cloud (Sheet + Drive)</button>
+        <button onclick="submitMaintenanceRecord()" style="margin-top:20px; width:100%;">💾 Save to Cloud</button>
         <div id="saveStatus"></div>
       </div>
     </div>
   </div>
-
-  <!-- Machine History Card -->
   <div class="card" id="historyCard"><div class="card-header"><i class="fas fa-history"></i><h2>📋 Machine History Card</h2></div>
     <select id="machineHistorySelect"></select> <button onclick="loadMachineHistory()">Show History</button>
     <div id="historyDisplay" style="max-height:400px; overflow-y:auto; margin-top:1rem;"></div>
   </div>
-
-  <!-- MTTR / RF / Library -->
   <div class="grid-3col">
     <div class="card"><div class="card-header"><i class="fas fa-chart-line"></i><h2>MTTR / MTBF</h2><div>MTTR: <strong id="mttrDisplay">42</strong> min &nbsp; MTBF: <strong id="mtbfDisplay">128</strong> hr</div><button onclick="improveMTTR()">Apply RCA</button><div id="kaizenMsg"></div></div></div>
     <div class="card"><div class="card-header"><i class="fas fa-wifi"></i><h2>RF Testing</h2><div>FPY: <strong id="fpyValue">94%</strong></div><div class="progress-bar-bg"><div id="rfBar" class="progress-fill" style="width:94%"></div></div><button onclick="optimizeRF()">Optimize</button><div id="rfMessage"></div></div></div>
     <div class="card"><div class="card-header"><i class="fas fa-microchip"></i><h2>Machine Library</h2><div id="machineGallery" style="display:flex; flex-wrap:wrap; gap:10px;"></div></div></div>
   </div>
 </div>
-
-<div id="addMachineModal" class="modal"><div class="modal-content"><span class="modal-close" onclick="closeAddMachineModal()">&times;</span><h2>Add New Machine</h2><input type="text" id="newMachineName" placeholder="Machine Name"><input type="text" id="newMachineLocation" placeholder="Location"><button onclick="addNewMachine()">Save</button></div></div>
-
+<div id="addMachineModal" class="modal"><div class="modal-content"><span class="modal-close" onclick="closeAddMachineModal()">&times;</span><h2>Add Machine</h2><input type="text" id="newMachineName" placeholder="Name"><input type="text" id="newMachineLocation" placeholder="Location"><button onclick="addNewMachine()">Save</button></div></div>
 <script>
   // ======================== CONFIG ========================
-  // Your Web App URL (provided)
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwEXSE5oz1LoOGT80Xjoy-ox82GVEKFbdzj1Z8nSV_jYQEAVvTy2IcbRnmnMNjfizg5Ng/exec";
-
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyM6lIndiE3AMIRjD_RBMmr8qq85KLJ-IAIw1ZHhc4l5f3dDsV8tb25LBxOvQqBRa4e/exec";
+  
   // ======================== API CALLS ========================
   async function apiCall(action, method = 'GET', body = null) {
     const url = method === 'GET' ? `${APPS_SCRIPT_URL}?action=${action}` : APPS_SCRIPT_URL;
@@ -163,9 +148,8 @@
     try {
       const response = await fetch(url, options);
       return await response.json();
-    } catch(e) { console.error(e); return { status: 'error', message: e.message }; }
+    } catch(e) { console.error(e); return { status: 'error' }; }
   }
-
   async function getMachinesFromCloud() { const res = await apiCall('getMachines'); return res.machines || []; }
   async function addMachineToCloud(name, location) { return await apiCall('addMachine', 'POST', { action: 'addMachine', name, location }); }
   async function deleteMachineFromCloud(name) { return await apiCall('deleteMachine', 'POST', { action: 'deleteMachine', name }); }
@@ -178,65 +162,58 @@
   async function refreshMachineDropdowns() {
     const machines = await getMachinesFromCloud();
     const opts = machines.map(m => `<option value="${escapeHtml(m.name)}">${escapeHtml(m.name)}</option>`).join('');
-    document.getElementById("machineSelectEntry").innerHTML = '<option value="">--Select--</option>' + opts;
-    document.getElementById("machineHistorySelect").innerHTML = '<option value="">--Select--</option>' + opts;
-    const galleryDiv = document.getElementById("machineGallery");
-    galleryDiv.innerHTML = machines.map(m => `<div style="background:var(--bg-secondary); border-radius:16px; padding:0.8rem; width:160px; text-align:center;"><i class="fas fa-microchip"></i><h4>${escapeHtml(m.name)}</h4><button onclick="loadMachineHistoryForName('${escapeHtml(m.name)}')">History</button> <button onclick="deleteMachineConfirm('${escapeHtml(m.name)}')" style="background:#dc2626; margin-top:5px;">Del</button></div>`).join('');
+    document.getElementById('machineSelectEntry').innerHTML = '<option value="">--Select--</option>' + opts;
+    document.getElementById('machineHistorySelect').innerHTML = '<option value="">--Select--</option>' + opts;
+    document.getElementById('machineGallery').innerHTML = machines.map(m => `<div style="background:var(--bg-secondary);border-radius:16px;padding:0.8rem;width:160px;text-align:center;"><i class="fas fa-microchip"></i><h4>${escapeHtml(m.name)}</h4><button onclick="loadMachineHistoryForName('${escapeHtml(m.name)}')">History</button> <button onclick="deleteMachineConfirm('${escapeHtml(m.name)}')" style="background:#dc2626;margin-top:5px;">Del</button></div>`).join('');
   }
   async function deleteMachineConfirm(name) { if(confirm(`Delete machine "${name}"?`)) { await deleteMachineFromCloud(name); refreshMachineDropdowns(); loadMachineHistory(); } }
-  function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
-
-  // Manual datetime handling
-  document.getElementById("manualDateTimeCheckbox").addEventListener("change", function(e) {
-    const dtInput = document.getElementById("manualDateTimeInput");
-    dtInput.style.display = e.target.checked ? "block" : "none";
-    if (e.target.checked && !dtInput.value) {
-      dtInput.value = new Date().toISOString().slice(0,16);
-    }
+  function escapeHtml(s) { if(!s) return ''; return s.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
+  document.getElementById('manualDateTimeCheckbox').addEventListener('change', function(e) {
+    const inp = document.getElementById('manualDateTimeInput');
+    inp.style.display = e.target.checked ? 'block' : 'none';
+    if (e.target.checked && !inp.value) inp.value = new Date().toISOString().slice(0,16);
   });
-
   async function submitMaintenanceRecord() {
-    const machineName = document.getElementById("machineSelectEntry").value;
-    if(!machineName) { alert("Select machine"); return; }
-    const problem = document.getElementById("problemEntry").value;
-    const solution = document.getElementById("solutionEntry").value;
-    const rootCause = document.getElementById("rootCauseEntry").value;
-    const preventive = document.getElementById("preventiveEntry").value;
-    const status = document.getElementById("statusEntry").value;
-    const technician = document.getElementById("technicianEntry").value || "Unknown";
-    let photoURL = "";
-    const file = document.getElementById("photoUploadEntry").files[0];
+    const machine = document.getElementById('machineSelectEntry').value;
+    if(!machine) { alert('Select machine'); return; }
+    const problem = document.getElementById('problemEntry').value;
+    const solution = document.getElementById('solutionEntry').value;
+    const rootCause = document.getElementById('rootCauseEntry').value;
+    const preventive = document.getElementById('preventiveEntry').value;
+    const status = document.getElementById('statusEntry').value;
+    const technician = document.getElementById('technicianEntry').value || 'Unknown';
+    let photoURL = '';
+    const file = document.getElementById('photoUploadEntry').files[0];
     if(file) {
-      document.getElementById("saveStatus").innerHTML = "📤 Uploading photo...";
+      document.getElementById('saveStatus').innerHTML = '📤 Uploading...';
       const base64 = await new Promise(r => { const rd = new FileReader(); rd.onload = () => r(rd.result); rd.readAsDataURL(file); });
-      const uploadRes = await uploadPhotoToDrive(base64, file.name);
-      if(uploadRes.photoUrl) photoURL = uploadRes.photoUrl;
+      const up = await uploadPhotoToDrive(base64, file.name);
+      if(up.photoUrl) photoURL = up.photoUrl;
     }
     let customTimestamp = null;
-    if (document.getElementById("manualDateTimeCheckbox").checked) {
-      customTimestamp = document.getElementById("manualDateTimeInput").value;
-      if (customTimestamp) customTimestamp = new Date(customTimestamp).toISOString();
+    if(document.getElementById('manualDateTimeCheckbox').checked) {
+      customTimestamp = document.getElementById('manualDateTimeInput').value;
+      if(customTimestamp) customTimestamp = new Date(customTimestamp).toISOString();
     }
-    await addMaintenanceToCloud({ machineName, problem, solution, rootCause, preventive, status, technician, photoURL, shift: 'Day', customTimestamp });
-    document.getElementById("saveStatus").innerHTML = "✅ Saved!";
-    setTimeout(() => document.getElementById("saveStatus").innerHTML = "", 2000);
-    document.getElementById("problemEntry").value = "";
-    document.getElementById("solutionEntry").value = "";
-    document.getElementById("rootCauseEntry").value = "";
-    document.getElementById("preventiveEntry").value = "";
-    document.getElementById("photoUploadEntry").value = "";
-    document.getElementById("photoPreviewEntry").innerHTML = "";
-    if(document.getElementById("machineHistorySelect").value === machineName) loadMachineHistory();
-    refreshAdvancedMetrics(); // update predictive alert
+    await addMaintenanceToCloud({ machineName: machine, problem, solution, rootCause, preventive, status, technician, photoURL, shift: 'Day', customTimestamp });
+    document.getElementById('saveStatus').innerHTML = '✅ Saved!';
+    setTimeout(() => document.getElementById('saveStatus').innerHTML = '', 2000);
+    document.getElementById('problemEntry').value = '';
+    document.getElementById('solutionEntry').value = '';
+    document.getElementById('rootCauseEntry').value = '';
+    document.getElementById('preventiveEntry').value = '';
+    document.getElementById('photoUploadEntry').value = '';
+    document.getElementById('photoPreviewEntry').innerHTML = '';
+    if(document.getElementById('machineHistorySelect').value === machine) loadMachineHistory();
+    refreshAdvancedMetrics();
   }
-
   async function loadMachineHistory() {
-    const machine = document.getElementById("machineHistorySelect").value;
+    const machine = document.getElementById('machineHistorySelect').value;
     if(!machine) return;
     const records = await getMaintenanceFromCloud(machine);
-    const displayDiv = document.getElementById("historyDisplay");
-    if(records.length===0) { displayDiv.innerHTML = "<p>No records.</p>"; return; }
-    displayDiv.innerHTML = records.map(rec => `
+    const div = document.getElementById('historyDisplay');
+    if(records.length === 0) { div.innerHTML = '<p>No records.</p>'; return; }
+    div.innerHTML = records.map(rec => `
       <div class="history-item">
         <strong>📅 ${new Date(rec.date).toLocaleString()}</strong> <span class="badge">${rec.status}</span><br>
         <strong>⚙️ Problem:</strong> ${escapeHtml(rec.problem)}<br>
@@ -248,73 +225,52 @@
       </div>
     `).join('');
   }
-  async function loadMachineHistoryForName(name) { document.getElementById("machineHistorySelect").value = name; await loadMachineHistory(); scrollToSection('historyCard'); }
-  document.getElementById("photoUploadEntry").addEventListener("change", e => { const preview = document.getElementById("photoPreviewEntry"); if(e.target.files.length) preview.innerHTML = `<img src="${URL.createObjectURL(e.target.files[0])}" class="photo-preview">`; else preview.innerHTML = ""; });
-
-  // ======================== AI CHAT ========================
+  async function loadMachineHistoryForName(name) { document.getElementById('machineHistorySelect').value = name; await loadMachineHistory(); scrollToSection('historyCard'); }
+  document.getElementById('photoUploadEntry').addEventListener('change', e => { const p = document.getElementById('photoPreviewEntry'); if(e.target.files.length) p.innerHTML = `<img src="${URL.createObjectURL(e.target.files[0])}" class="photo-preview">`; else p.innerHTML = ''; });
   async function askAI() {
-    const query = document.getElementById("chatInput").value.trim();
-    if(!query) return;
-    addMessage(query, 'user');
-    document.getElementById("chatInput").value = "";
-    addMessage("🔍 Searching...", 'ai');
+    const q = document.getElementById('chatInput').value.trim();
+    if(!q) return;
+    addMessage(q, 'user');
+    document.getElementById('chatInput').value = '';
+    addMessage('🔍 Searching...', 'ai');
     try {
-      const searchTerm = encodeURIComponent(query);
-      const wikiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${searchTerm}`;
-      const res = await fetch(wikiUrl);
-      if(res.ok) {
-        const data = await res.json();
-        if(data.extract) {
-          addMessage(`📖 <strong>${data.title}</strong><br>${data.extract.substring(0,800)}${data.extract.length>800?'...':''}<br><a href="${data.content_urls?.desktop?.page}" target="_blank">Read full article</a>`, 'ai');
-          return;
-        }
-      }
-      addMessage(`🔗 No Wikipedia article. <a href="https://www.google.com/search?q=${encodeURIComponent(query)}" target="_blank">Search Google</a> | <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(query)}" target="_blank">Search YouTube</a>`, 'ai');
-    } catch(e) { addMessage(`⚠️ Error. <a href="https://www.google.com/search?q=${encodeURIComponent(query)}" target="_blank">Search Google manually</a>`, 'ai'); }
+      const wiki = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(q)}`);
+      if(wiki.ok) { const data = await wiki.json(); if(data.extract) { addMessage(`📖 <strong>${data.title}</strong><br>${data.extract.substring(0,800)}...<br><a href="${data.content_urls?.desktop?.page}" target="_blank">Read more</a>`, 'ai'); return; } }
+      addMessage(`🔗 <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank">Search Google</a> | <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(q)}" target="_blank">YouTube</a>`, 'ai');
+    } catch(e) { addMessage(`⚠️ <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank">Search manually</a>`, 'ai'); }
   }
-  function addMessage(text, sender) { const c = document.getElementById('chatMessages'); const d = document.createElement('div'); d.className = `message ${sender==='user'?'user-message':'ai-message'}`; d.innerHTML = text; c.appendChild(d); c.scrollTop = c.scrollHeight; }
-
-  // ======================== PHOTO DETECTION ========================
+  function addMessage(t, s) { const c = document.getElementById('chatMessages'); const d = document.createElement('div'); d.className = `message ${s === 'user' ? 'user-message' : 'ai-message'}`; d.innerHTML = t; c.appendChild(d); c.scrollTop = c.scrollHeight; }
   let mobilenetModel = null;
-  async function loadMobileNet() { if(!mobilenetModel) { addMessage("Loading AI vision...", 'ai'); mobilenetModel = await mobilenet.load(); addMessage("✅ AI vision ready!", 'ai'); } return mobilenetModel; }
-  document.getElementById("photoForAI").addEventListener("change", async (e) => {
-    const file = e.target.files[0];
-    if(!file) return;
-    const img = new Image();
-    img.src = URL.createObjectURL(file);
+  async function loadMobileNet() { if(!mobilenetModel) { addMessage('Loading AI vision...', 'ai'); mobilenetModel = await mobilenet.load(); addMessage('✅ AI vision ready!', 'ai'); } return mobilenetModel; }
+  document.getElementById('photoForAI').addEventListener('change', async e => {
+    const file = e.target.files[0]; if(!file) return;
+    const img = new Image(); img.src = URL.createObjectURL(file);
     img.onload = async () => {
       const model = await loadMobileNet();
-      const predictions = await model.classify(img);
-      const top3 = predictions.slice(0,3).map(p => `${p.className} (${Math.round(p.probability*100)}%)`).join(', ');
-      document.getElementById("detectionResult").innerHTML = `<strong>🔍 Detected:</strong> ${top3}<br><button onclick="askAIDetected('${predictions[0].className}')">Ask AI about ${predictions[0].className}</button>`;
+      const preds = await model.classify(img);
+      const top3 = preds.slice(0,3).map(p => `${p.className} (${Math.round(p.probability*100)}%)`).join(', ');
+      document.getElementById('detectionResult').innerHTML = `<strong>🔍 Detected:</strong> ${top3}<br><button onclick="askAIDetected('${preds[0].className}')">Ask AI about ${preds[0].className}</button>`;
       URL.revokeObjectURL(img.src);
     };
   });
-  function askAIDetected(component) { document.getElementById("chatInput").value = component + " troubleshooting"; askAI(); }
-
-  // ======================== ADVANCED METRICS (Simulated) ========================
+  function askAIDetected(c) { document.getElementById('chatInput').value = c + ' troubleshooting'; askAI(); }
   async function refreshAdvancedMetrics() {
-    const records = await getAllMaintenanceFromCloud();
-    const totalRecords = records.length;
-    document.getElementById("vibrationVal").innerText = (Math.random() * 11.5 + 0.5).toFixed(1);
-    document.getElementById("thermalVal").innerText = Math.floor(Math.random() * 60 + 35);
-    document.getElementById("thdVal").innerText = (Math.random() * 14.5 + 0.5).toFixed(1);
-    document.getElementById("predictAlert").innerHTML = totalRecords > 10 ? "⚠️ Needs Inspection" : "✅ OK";
-    const suggestions = ["Clean air filters", "Lubricate bearings", "Check belt tension", "Inspect wiring", "Calibrate sensors"];
-    document.getElementById("pmSuggestion").innerHTML = suggestions[Math.floor(Math.random() * suggestions.length)];
+    const recs = await getAllMaintenanceFromCloud();
+    document.getElementById('vibrationVal').innerText = (Math.random() * 11.5 + 0.5).toFixed(1);
+    document.getElementById('thermalVal').innerText = Math.floor(Math.random() * 60 + 35);
+    document.getElementById('thdVal').innerText = (Math.random() * 14.5 + 0.5).toFixed(1);
+    document.getElementById('predictAlert').innerHTML = recs.length > 10 ? '⚠️ Needs Inspection' : '✅ OK';
+    const suggestions = ['Clean air filters', 'Lubricate bearings', 'Check belt tension', 'Inspect wiring', 'Calibrate sensors'];
+    document.getElementById('pmSuggestion').innerHTML = suggestions[Math.floor(Math.random() * suggestions.length)];
   }
   setInterval(refreshAdvancedMetrics, 30000);
   refreshAdvancedMetrics();
-
-  // ======================== EXCEL EXPORT (with MTTR/MTBF median) ========================
   async function exportFullExcelWithCharts() {
     const machines = await getMachinesFromCloud();
     const allRecords = await getAllMaintenanceFromCloud();
     const workbook = new ExcelJS.Workbook();
     workbook.creator = "Nikhil Jangir";
     workbook.created = new Date();
-
-    // Helper to calculate MTTR, MTBF per machine
     function calcMTTR_MTBF(recs) {
       if (!recs.length) return { mttr: 0, mtbf: 0 };
       let totalRepairTime = recs.reduce((s,rec) => s + (rec.solution ? 30 : 45), 0);
@@ -328,15 +284,13 @@
       let { mttr, mtbf } = calcMTTR_MTBF(recs);
       machineStats.push({ machine: m.name, mttr, mtbf, count: recs.length });
     }
-    let mttrValues = machineStats.map(s => s.mttr).filter(v => v>0);
-    let mtbfValues = machineStats.map(s => s.mtbf).filter(v => v>0);
+    let mttrVals = machineStats.map(s => s.mttr).filter(v => v>0);
+    let mtbfVals = machineStats.map(s => s.mtbf).filter(v => v>0);
     let median = (arr) => { if(!arr.length) return 0; arr.sort((a,b)=>a-b); let mid=Math.floor(arr.length/2); return arr.length%2===0 ? (arr[mid-1]+arr[mid])/2 : arr[mid]; };
-    let overallMTTRmean = mttrValues.reduce((a,b)=>a+b,0)/mttrValues.length || 0;
-    let overallMTBFmean = mtbfValues.reduce((a,b)=>a+b,0)/mtbfValues.length || 0;
-    let overallMTTRmedian = median(mttrValues);
-    let overallMTBFmedian = median(mtbfValues);
-
-    // Dashboard sheet
+    let overallMTTRmean = mttrVals.reduce((a,b)=>a+b,0)/mttrVals.length || 0;
+    let overallMTBFmean = mtbfVals.reduce((a,b)=>a+b,0)/mtbfVals.length || 0;
+    let overallMTTRmedian = median(mttrVals);
+    let overallMTBFmedian = median(mtbfVals);
     const dashboard = workbook.addWorksheet("Dashboard", { pageSetup: { orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 0 } });
     dashboard.getCell('A1').value = "MAINTENANCE DASHBOARD - ALL CHARTS & MTTR/MTBF";
     dashboard.getCell('A1').font = { size: 18, bold: true };
@@ -346,8 +300,6 @@
     dashboard.addRow(["OK Records", allRecords.filter(r=>r.status==="OK").length]);
     dashboard.addRow(["NG Records", allRecords.filter(r=>r.status==="NG").length]);
     dashboard.addRow(["Last Updated", new Date().toLocaleString()]);
-
-    // MTTR/MTBF Table
     dashboard.addRow([]);
     dashboard.addRow(["MTTR/MTBF Summary (per machine)"]);
     dashboard.getRow(dashboard.rowCount).font = { bold: true };
@@ -356,8 +308,6 @@
     dashboard.addRow([]);
     dashboard.addRow(["Overall Mean MTTR", overallMTTRmean.toFixed(1), "Overall Mean MTBF", overallMTBFmean.toFixed(1)]);
     dashboard.addRow(["Overall Median MTTR", overallMTTRmedian.toFixed(1), "Overall Median MTBF", overallMTBFmedian.toFixed(1)]);
-
-    // Charts data
     const machineCounts = machines.map(m => ({ name: m.name, count: allRecords.filter(r=>r.machine===m.name).length }));
     const monthCounts = {};
     allRecords.forEach(rec => { const month = new Date(rec.date).toLocaleString('default', { month: 'short', year: 'numeric' }); monthCounts[month] = (monthCounts[month] || 0) + 1; });
@@ -369,7 +319,6 @@
     const oeeTrend = histogramData.map((h, idx) => ({ month: h.month, oee: 70 + Math.random() * 20 }));
     const okCount = allRecords.filter(r=>r.status==="OK").length;
     const ngCount = allRecords.filter(r=>r.status==="NG").length;
-
     function addChartData(sheet, startRow, title, headers, data, chartType, xCol, yCol, xLabel, yLabel) {
       sheet.addRow([]);
       sheet.getCell(`A${startRow}`).value = title;
@@ -385,7 +334,6 @@
       });
       chart.addTo(sheet, `E${startRow}`, `Q${startRow+15}`);
     }
-
     let currentRow = dashboard.rowCount + 3;
     addChartData(dashboard, currentRow, "Bar Chart: Records per Machine", ["Machine", "Count"], machineCounts, ExcelJS.ChartType.Bar, "name", "count", "Machine", "Count");
     currentRow += 20;
@@ -420,14 +368,10 @@
     pieChart.addTo(dashboard, `E${pieStart}`, `Q${pieStart+15}`);
     dashboard.getColumns().forEach(col => col.width = 20);
     dashboard.pageSetup = { orientation: "landscape", fitToPage: true };
-
-    // Machines sheet
     const machinesSheet = workbook.addWorksheet("Machines");
     machinesSheet.columns = [{ header: "Name", key: "name", width: 30 }, { header: "Location", key: "location", width: 25 }, { header: "Created", key: "created", width: 25 }];
     machinesSheet.getRow(1).font = { bold: true, fill: { type: "pattern", pattern: "solid", fgColor: { argb: "FF22C55E" } } };
     machines.forEach(m => machinesSheet.addRow({ name: m.name, location: m.location, created: new Date(m.created).toLocaleString() }));
-
-    // All Records sheet
     const allSheet = workbook.addWorksheet("All_Records");
     allSheet.columns = [
       { header: "Date", key: "date", width: 20 }, { header: "Machine", key: "machine", width: 25 },
@@ -445,7 +389,6 @@
       });
       if (rec.photoURL) { const cell = row.getCell('photo'); cell.value = { text: "View Photo", hyperlink: rec.photoURL }; cell.font = { color: { argb: "FF0000FF" }, underline: true }; }
     });
-    // Per machine history sheets
     for (const machine of machines) {
       const records = allRecords.filter(r => r.machine === machine.name);
       if (!records.length) continue;
@@ -470,9 +413,8 @@
       sheet.pageSetup = { orientation: "landscape", fitToPage: true };
     }
     const buffer = await workbook.xlsx.writeBuffer();
-    saveAs(new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), `Full_Maintenance_Report_${new Date().toISOString().slice(0,19)}.xlsx`);
+    saveAs(new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), `Maintenance_Report_${new Date().toISOString().slice(0,19)}.xlsx`);
   }
-
   async function importExcelToSheet() {
     const input = document.createElement('input');
     input.type = 'file'; input.accept = '.xlsx, .xls';
@@ -502,8 +444,6 @@
     };
     input.click();
   }
-
-  // ======================== OEE & UTILITIES ========================
   function updateOEE() {
     const prod = +document.getElementById('prodInput').value, good = +document.getElementById('goodInput').value, avail = +document.getElementById('availInput').value, ideal = +document.getElementById('idealInput').value;
     if(prod===0) return;
@@ -517,18 +457,16 @@
     document.getElementById('quality').innerText = (q*100).toFixed(1)+'%';
     document.getElementById('oeeBar').style.width = Math.min(100,o)+'%';
   }
-  function improveMTTR() { let m=+document.getElementById('mttrDisplay').innerText; let mt=+document.getElementById('mtbfDisplay').innerText; document.getElementById('mttrDisplay').innerText = Math.max(25, Math.round(m*0.85)); document.getElementById('mtbfDisplay').innerText = Math.round(mt*1.18); document.getElementById('kaizenMsg').innerHTML = '✅ RCA Applied'; }
-  function optimizeRF() { let f=+document.getElementById('fpyValue').innerText; let nf=Math.min(99, f+Math.floor(Math.random()*5)+1); document.getElementById('fpyValue').innerText = nf+'%'; document.getElementById('rfBar').style.width = nf+'%'; document.getElementById('rfMessage').innerHTML = `📈 FPY ${nf}%`; }
+  function improveMTTR() { let m=+document.getElementById('mttrDisplay').innerText, mt=+document.getElementById('mtbfDisplay').innerText; document.getElementById('mttrDisplay').innerText = Math.max(25, Math.round(m*0.85)); document.getElementById('mtbfDisplay').innerText = Math.round(mt*1.18); document.getElementById('kaizenMsg').innerHTML = '✅ RCA Applied'; }
+  function optimizeRF() { let f=+document.getElementById('fpyValue').innerText, nf=Math.min(99, f+Math.floor(Math.random()*5)+1); document.getElementById('fpyValue').innerText = nf+'%'; document.getElementById('rfBar').style.width = nf+'%'; document.getElementById('rfMessage').innerHTML = `📈 FPY ${nf}%`; }
   function scrollToSection(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
   function openAddMachineModal() { document.getElementById('addMachineModal').style.display = 'flex'; }
   function closeAddMachineModal() { document.getElementById('addMachineModal').style.display = 'none'; }
   async function addNewMachine() { const name = document.getElementById('newMachineName').value.trim(); if(!name) return; await addMachineToCloud(name, document.getElementById('newMachineLocation').value); closeAddMachineModal(); await refreshMachineDropdowns(); }
-
-  let isDark=true; document.getElementById('themeToggle').onclick = () => { isDark=!isDark; document.body.className = isDark ? 'dark' : 'light'; };
+  let isDark = true; document.getElementById('themeToggle').onclick = () => { isDark = !isDark; document.body.className = isDark ? 'dark' : 'light'; };
   window.onload = async () => { await refreshMachineDropdowns(); updateOEE(); loadMobileNet(); refreshAdvancedMetrics(); };
   window.onclick = (e) => { if(e.target === document.getElementById('addMachineModal')) closeAddMachineModal(); };
 </script>
 </body>
 </html>
 ```
-       
