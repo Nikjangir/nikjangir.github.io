@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WRT Maintenance Dashboard | Nikhil Jangir</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060a0f;--bg2:#090e15;--panel:#0c1420;--panel2:#0f1927;
+  --border:#1a2a3a;--border2:#243444;
+  --orange:#ff6b1a;--cyan:#00d4ff;--green:#00ff88;
+  --red:#ff2244;--yellow:#ffd700;--purple:#a855f7;
+  --text:#c8d8e8;--text2:#7a9ab8;--heading:#e8f4ff;--dim:#2a3a4a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);font-family:'Exo 2',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);background-size:40px 40px;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes scan{to{top:110%;}}
+@keyframes pulse{0%,100%{box-shadow:0 0 8px currentColor}50%{box-shadow:0 0 20px currentColor}}
+body::after{content:'';position:fixed;top:-100%;left:0;right:0;height:200px;pointer-events:none;z-index:0;background:linear-gradient(transparent,rgba(0,212,255,.012),transparent);animation:scan 8s linear infinite;}
+
+/* LOADER */
+#loader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
+.ld-logo{font-family:'Orbitron',monospace;font-size:22px;font-weight:900;color:var(--orange);letter-spacing:4px;text-shadow:0 0 30px rgba(255,107,26,.6);animation:blink 1s infinite;}
+.ld-bar{width:260px;height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
+.ld-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--cyan));border-radius:2px;animation:ldfill 2s ease forwards;}
+@keyframes ldfill{from{width:0}to{width:100%}}
+.ld-status{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:3px;animation:blink .8s infinite;}
+
+/* HEADER */
+.hdr{background:linear-gradient(180deg,#0a1520,#060a0f);border-bottom:1px solid var(--border2);padding:0 16px;position:sticky;top:0;z-index:200;display:flex;align-items:center;height:54px;gap:12px;}
+.hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--orange),transparent);opacity:.4;}
+.back{display:flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid var(--border2);border-radius:4px;background:transparent;color:var(--text2);font-family:'Share Tech Mono',monospace;font-size:10px;cursor:pointer;text-decoration:none;transition:all .2s;}
+.back:hover{color:var(--cyan);border-color:rgba(0,212,255,.4);}
+.logo{display:flex;flex-direction:column;line-height:1;}
+.logo-t{font-family:'Orbitron',monospace;font-size:15px;font-weight:900;color:var(--orange);letter-spacing:3px;text-shadow:0 0 20px rgba(255,107,26,.5);}
+.logo-s{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--text2);letter-spacing:4px;margin-top:2px;}
+.hnav{display:flex;gap:3px;margin-left:10px;}
+.nb{padding:5px 12px;border-radius:4px;border:1px solid transparent;background:transparent;color:var(--text2);font-family:'Share Tech Mono',monospace;font-size:10px;cursor:pointer;transition:all .2s;text-transform:uppercase;}
+.nb:hover{color:var(--text);border-color:var(--border2);}
+.nb.active{color:var(--cyan);border-color:rgba(0,212,255,.3);background:rgba(0,212,255,.05);}
+.hright{margin-left:auto;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.sync-btn{display:flex;align-items:center;gap:5px;padding:5px 12px;border:1px solid rgba(0,212,255,.3);border-radius:4px;background:rgba(0,212,255,.05);color:var(--cyan);font-family:'Share Tech Mono',monospace;font-size:10px;cursor:pointer;transition:all .2s;}
+.sync-btn:hover{background:rgba(0,212,255,.15);}
+.dl-btn{display:flex;align-items:center;gap:5px;padding:5px 12px;border:1px solid rgba(0,255,136,.3);border-radius:4px;background:rgba(0,255,136,.05);color:var(--green);font-family:'Share Tech Mono',monospace;font-size:10px;cursor:pointer;transition:all .2s;}
+.dl-btn:hover{background:rgba(0,255,136,.15);}
+.live-b{display:flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid rgba(0,255,136,.3);border-radius:3px;background:rgba(0,255,136,.05);}
+.ldot{width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:blink 2s infinite;}
+.ltxt{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--green);letter-spacing:2px;}
+.clk{font-family:'Orbitron',monospace;font-size:14px;font-weight:600;color:var(--cyan);letter-spacing:2px;}
+.dt{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--text2);letter-spacing:2px;}
+
+/* MAIN */
+.main{padding:14px;position:relative;z-index:1;}
+
+/* ERROR BANNER */
+.err-banner{background:rgba(255,34,68,.1);border:1px solid rgba(255,34,68,.3);border-radius:6px;padding:10px 16px;margin-bottom:12px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--red);display:none;align-items:center;gap:10px;}
+
+/* KPI STRIP */
+.kstrip{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:14px;}
+.kc{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:12px 14px;position:relative;overflow:hidden;transition:transform .2s;}
+.kc:hover{transform:translateY(-2px);}
+.kc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.kc.oc::before{background:linear-gradient(90deg,var(--orange),transparent);}
+.kc.cy::before{background:linear-gradient(90deg,var(--cyan),transparent);}
+.kc.gr::before{background:linear-gradient(90deg,var(--green),transparent);}
+.kc.rd::before{background:linear-gradient(90deg,var(--red),transparent);}
+.kc.yw::before{background:linear-gradient(90deg,var(--yellow),transparent);}
+.kc.pu::before{background:linear-gradient(90deg,var(--purple),transparent);}
+.klbl{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:5px;}
+.kval{font-family:'Orbitron',monospace;font-size:22px;font-weight:700;line-height:1;margin-bottom:3px;}
+.kc.oc .kval{color:var(--orange);}
+.kc.cy .kval{color:var(--cyan);}
+.kc.gr .kval{color:var(--green);}
+.kc.rd .kval{color:var(--red);}
+.kc.yw .kval{color:var(--yellow);}
+.kc.pu .kval{color:var(--purple);}
+.ksub{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text2);}
+
+/* GRID */
+.dg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.pnl{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:14px;position:relative;overflow:hidden;}
+.sp2{grid-column:span 2;}.sp3{grid-column:span 3;}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.pt{font-family:'Orbitron',monospace;font-size:11px;font-weight:600;letter-spacing:2px;color:var(--heading);display:flex;align-items:center;gap:8px;text-transform:uppercase;}
+.ptd{width:6px;height:6px;border-radius:50%;}
+.doc{background:var(--orange);box-shadow:0 0 6px var(--orange);}
+.dcy{background:var(--cyan);box-shadow:0 0 6px var(--cyan);}
+.dgr{background:var(--green);box-shadow:0 0 6px var(--green);}
+.dyw{background:var(--yellow);box-shadow:0 0 6px var(--yellow);}
+.drd{background:var(--red);box-shadow:0 0 6px var(--red);}
+.dpu{background:var(--purple);box-shadow:0 0 6px var(--purple);}
+.ptag{font-family:'Share Tech Mono',monospace;font-size:9px;padding:2px 8px;border-radius:3px;letter-spacing:1px;}
+.tlive{color:var(--green);border:1px solid rgba(0,255,136,.3);background:rgba(0,255,136,.05);}
+.trd{color:var(--red);border:1px solid rgba(255,34,68,.3);background:rgba(255,34,68,.05);}
+
+/* MACHINES */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.mitem{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;}
+.mtop{display:flex;align-items:center;justify-content:space-between;}
+.mname{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text);}
+.ms{font-family:'Share Tech Mono',monospace;font-size:8px;padding:2px 7px;border-radius:2px;letter-spacing:1px;text-transform:uppercase;}
+.srun{background:rgba(0,255,136,.15);color:var(--green);border:1px solid rgba(0,255,136,.3);}
+.sbd{background:rgba(255,34,68,.15);color:var(--red);border:1px solid rgba(255,34,68,.3);animation:blink 1s infinite;}
+.spm{background:rgba(255,215,0,.15);color:var(--yellow);border:1px solid rgba(255,215,0,.3);}
+.sidle{background:rgba(122,154,184,.1);color:var(--text2);border:1px solid var(--border);}
+.mbar{display:flex;align-items:center;gap:8px;}
+.mbg{flex:1;height:4px;background:var(--dim);border-radius:2px;overflow:hidden;}
+.mfill{height:100%;border-radius:2px;transition:width 1s ease;}
+.bgr{background:linear-gradient(90deg,var(--green),#39ffaa);}
+.brd{background:linear-gradient(90deg,var(--red),#ff5566);}
+.byw{background:linear-gradient(90deg,var(--yellow),#ffe44d);}
+.bcy{background:linear-gradient(90deg,var(--cyan),#4de8ff);}
+.mpct{font-family:'Orbitron',monospace;font-size:10px;width:36px;text-align:right;}
+
+/* LOG TABLE */
+.log-wrap{max-height:280px;overflow-y:auto;}
+.log-wrap::-webkit-scrollbar{width:3px;}
+.log-wrap::-webkit-scrollbar-thumb{background:var(--border2);}
+table{width:100%;border-collapse:collapse;font-size:11px;}
+th{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text2);padding:6px 8px;text-align:left;border-bottom:1px solid var(--border);letter-spacing:1px;text-transform:uppercase;position:sticky;top:0;background:var(--panel);}
+td{padding:6px 8px;border-bottom:1px solid rgba(26,42,58,.5);color:var(--text);vertical-align:middle;}
+tr:hover td{background:rgba(0,212,255,.03);}
+.badge{font-family:'Share Tech Mono',monospace;font-size:8px;padding:2px 7px;border-radius:2px;letter-spacing:1px;white-space:nowrap;}
+.b-bd{background:rgba(255,34,68,.15);color:var(--red);border:1px solid rgba(255,34,68,.3);}
+.b-pm{background:rgba(168,85,247,.15);color:var(--purple);border:1px solid rgba(168,85,247,.3);}
+.b-sp{background:rgba(0,212,255,.15);color:var(--cyan);border:1px solid rgba(0,212,255,.3);}
+.b-ob{background:rgba(255,215,0,.15);color:var(--yellow);border:1px solid rgba(255,215,0,.3);}
+.b-res{background:rgba(0,255,136,.15);color:var(--green);border:1px solid rgba(0,255,136,.3);}
+.b-ip{background:rgba(255,215,0,.15);color:var(--yellow);border:1px solid rgba(255,215,0,.3);}
+.b-pend{background:rgba(255,34,68,.15);color:var(--red);border:1px solid rgba(255,34,68,.3);}
+
+/* SPARES */
+.slist{display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto;}
+.sitem{display:flex;align-items:center;gap:10px;padding:7px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:4px;}
+.sname{flex:1;font-size:11px;color:var(--text);}
+.scnt{font-family:'Orbitron',monospace;font-size:13px;font-weight:600;}
+.sok{color:var(--green);}.slow{color:var(--yellow);}.scrit{color:var(--red);animation:blink 1s infinite;}
+.sbw{width:70px;}
+.sbb{height:4px;background:var(--dim);border-radius:2px;overflow:hidden;}
+.sbf{height:100%;border-radius:2px;}
+
+/* ALERTS */
+.alist{display:flex;flex-direction:column;gap:6px;max-height:200px;overflow-y:auto;}
+.aitem{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:5px;font-size:11px;}
+.aitem.crit{background:rgba(255,34,68,.08);border:1px solid rgba(255,34,68,.25);}
+.aitem.warn{background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);}
+.aitem.info{background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.2);}
+.atxt{flex:1;color:var(--text);line-height:1.4;}
+.atm{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text2);flex-shrink:0;}
+
+/* PHOTO GALLERY */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:280px;overflow-y:auto;}
+.gthumb{background:var(--bg2);border:1px solid var(--border);border-radius:6px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;transition:border-color .2s;}
+.gthumb:hover{border-color:var(--cyan);}
+.gthumb img{width:100%;height:100%;object-fit:cover;}
+.gno-photo{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text2);text-align:center;padding:20px;}
+
+/* FOOTER */
+.footer{margin-top:14px;padding:8px 14px;border:1px solid var(--border);border-radius:6px;background:var(--panel);display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.fi{display:flex;align-items:center;gap:6px;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text2);}
+.fdot{width:5px;height:5px;border-radius:50%;}
+.flink{color:var(--cyan);text-decoration:none;}
+.flink:hover{opacity:.7;}
+
+canvas{max-width:100%;}
+.cwrap{position:relative;width:100%;}
+.tc{display:none;}.tc.active{display:block;}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.kstrip{grid-template-columns:repeat(3,1fr);}.dg{grid-template-columns:1fr 1fr;}.sp2{grid-column:span 1;}.sp3{grid-column:span 2;}}
+@media(max-width:700px){.kstrip{grid-template-columns:repeat(2,1fr);}.dg{grid-template-columns:1fr;}.sp2,.sp3{grid-column:span 1;}.hnav{display:none;}.mgrid{grid-template-columns:1fr;}}
+@media print{#loader,.hnav,.back,.sync-btn,.dl-btn{display:none!important;}body{background:#fff!important;color:#000!important;}.pnl,.kc{border:1px solid #ccc!important;background:#f8f8f8!important;}.hdr{position:static;}}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="ld-logo">⚙ WRT MAINTENANCE</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+  <div class="ld-status" id="ldStatus">CONNECTING TO GOOGLE SHEETS...</div>
+</div>
+
+<div class="hdr">
+  <a class="back" href="https://nikjangir.github.io">← PORTFOLIO</a>
+  <div class="logo">
+    <div class="logo-t">WRT ⚙ MAINTENANCE</div>
+    <div class="logo-s">LIVE COMMAND CENTER v3.0</div>
+  </div>
+  <div class="hnav">
+    <button class="nb active" onclick="showTab('overview',this)">OVERVIEW</button>
+    <button class="nb" onclick="showTab('log',this)">LIVE LOG</button>
+    <button class="nb" onclick="showTab('spares',this)">SPARES</button>
+    <button class="nb" onclick="showTab('photos',this)">NG PHOTOS</button>
+  </div>
+  <div class="hright">
+    <button class="sync-btn" onclick="fetchAll()">↻ SYNC</button>
+    <button class="dl-btn" onclick="downloadExcel()">↓ EXCEL</button>
+    <div class="live-b"><div class="ldot"></div><div class="ltxt">LIVE</div></div>
+    <div>
+      <div class="clk" id="clk">--:--:--</div>
+      <div class="dt" id="dt">---</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="err-banner" id="errBanner">
+    ⚠ Google Sheets se connect nahi ho pa raha. CORS issue ya network problem. Data demo mode mein dikh raha hai.
+  </div>
+
+  <!-- KPI STRIP -->
+  <div class="kstrip">
+    <div class="kc oc"><div class="klbl">Total Entries</div><div class="kval" id="k1">—</div><div class="ksub">All time</div></div>
+    <div class="kc rd"><div class="klbl">Breakdowns</div><div class="kval" id="k2">—</div><div class="ksub">This month</div></div>
+    <div class="kc gr"><div class="klbl">PM Done</div><div class="kval" id="k3">—</div><div class="ksub">This month</div></div>
+    <div class="kc yw"><div class="klbl">Downtime</div><div class="kval" id="k4">—</div><div class="ksub">Hours this month</div></div>
+    <div class="kc cy"><div class="klbl">MTTR</div><div class="kval" id="k5">—</div><div class="ksub">Avg hours</div></div>
+    <div class="kc pu"><div class="klbl">Critical Spares</div><div class="kval" id="k6">—</div><div class="ksub">Low stock items</div></div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div id="tab-overview" class="tc active">
+    <div class="dg">
+
+      <div class="pnl">
+        <div class="ph"><div class="pt"><div class="ptd dgr"></div>MACHINE STATUS</div><div class="ptag tlive">● LIVE</div></div>
+        <div class="mgrid" id="machineGrid">
+          <div style="grid-column:span 2;text-align:center;padding:20px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text2);">Loading machines...</div>
+        </div>
+      </div>
+
+      <div class="pnl">
+        <div class="ph"><div class="pt"><div class="ptd doc"></div>BREAKDOWN TREND</div></div>
+        <div class="cwrap" style="height:200px"><canvas id="bdChart"></canvas></div>
+      </div>
+
+      <div class="pnl">
+        <div class="ph"><div class="pt"><div class="ptd drd"></div>LIVE ALERTS</div><div class="ptag trd" id="alertCount">0 ACTIVE</div></div>
+        <div class="alist" id="alertList">
+          <div style="text-align:center;padding:20px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text2);">Loading alerts...</div>
+        </div>
+      </div>
+
+      <div class="pnl sp2">
+        <div class="ph"><div class="pt"><div class="ptd dcy"></div>ENTRY TYPE DISTRIBUTION</div></div>
+        <div class="cwrap" style="height:180px"><canvas id="pieChart"></canvas></div>
+      </div>
+
+      <div class="pnl">
+        <div class="ph"><div class="pt"><div class="ptd dyw"></div>MONTHLY SUMMARY</div></div>
+        <div id="monthlySummary" style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text2);">Loading...</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LIVE LOG -->
+  <div id="tab-log" class="tc">
+    <div class="pnl sp3">
+      <div class="ph">
+        <div class="pt"><div class="ptd dcy"></div>MAINTENANCE LOG — REAL DATA</div>
+        <div style="display:flex;gap:8px;">
+          <select id="filterMachine" onchange="renderLog()" style="background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:'Share Tech Mono',monospace;font-size:10px;padding:3px 8px;border-radius:4px;">
+            <option value="">ALL MACHINES</option>
+          </select>
+          <select id="filterType" onchange="renderLog()" style="background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:'Share Tech Mono',monospace;font-size:10px;padding:3px 8px;border-radius:4px;">
+            <option value="">ALL TYPES</option>
+            <option value="Breakdown">BREAKDOWN</option>
+            <option value="PM Done">PM DONE</option>
+            <option value="Spare Update">SPARE UPDATE</option>
+            <option value="Observation">OBSERVATION</option>
+          </select>
+        </div>
+      </div>
+      <div class="log-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Shift</th>
+              <th>Machine</th>
+              <th>Type</th>
+              <th>Fault / Details</th>
+              <th>Downtime</th>
+              <th>Reporter</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="logBody">
+            <tr><td colspan="8" style="text-align:center;padding:20px;color:var(--text2);">Loading data...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPARES -->
+  <div id="tab-spares" class="tc">
+    <div class="dg">
+      <div class="pnl sp2">
+        <div class="ph"><div class="pt"><div class="ptd dcy"></div>SPARE PARTS INVENTORY</div></div>
+        <div class="slist" id="spareList">
+          <div style="text-align:center;padding:20px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text2);">Loading spares...</div>
+        </div>
+      </div>
+      <div class="pnl">
+        <div class="ph"><div class="pt"><div class="ptd doc"></div>STOCK STATUS</div></div>
+        <div class="cwrap" style="height:260px"><canvas id="spareChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NG PHOTOS -->
+  <div id="tab-photos" class="tc">
+    <div class="pnl sp3">
+      <div class="ph"><div class="pt"><div class="ptd drd"></div>NG PHOTOS — FROM FIELD</div><div class="ptag tlive">GOOGLE DRIVE</div></div>
+      <div class="gallery" id="photoGallery">
+        <div class="gno-photo" style="grid-column:span 3">
+          📷 Photos Google Drive mein save hoti hain.<br><br>
+          Form mein jo photos upload ki hain wo directly Google Drive mein hain.<br>
+          Drive link: <a href="https://drive.google.com" target="_blank" style="color:var(--cyan)">drive.google.com</a><br><br>
+          "WRT Maintenance System" folder mein dekho.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="fi"><div class="fdot" style="background:var(--green)"></div>GOOGLE SHEETS: CONNECTED</div>
+    <div class="fi"><div class="fdot" style="background:var(--cyan)"></div>LAST SYNC: <span id="lastSync">--:--</span></div>
+    <div class="fi"><div class="fdot" style="background:var(--orange)"></div>WEARRESIST TECHNOLOGY PVT. LTD.</div>
+    <div style="margin-left:auto;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text2);">
+      BUILT BY <a class="flink" href="https://nikjangir.github.io">NIKHIL JANGIR</a> · INDUSTRY 4.0
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+// ── CONFIG ──
+const API = 'https://script.google.com/macros/s/AKfycbwNiDVSKr0ZzjYHp87m1mWrJ7PEf48gv59l1Pa4H70QBxfCPXIxMtA9RSESwK1JhBzv/exec';
+
+// ── STATE ──
+let allData = { machines: [], spares: [], log: [] };
+let charts = {};
+
+// ── LOADER ──
+window.addEventListener('load', () => {
+  fetchAll();
+});
+
+function hideLoader() {
+  const l = document.getElementById('loader');
+  l.style.opacity = '0';
+  l.style.transition = 'opacity .6s';
+  setTimeout(() => l.style.display = 'none', 600);
+}
+
+// ── CLOCK ──
+function tick() {
+  const n = new Date();
+  document.getElementById('clk').textContent = n.toLocaleTimeString('en-IN', {hour12: false});
+  document.getElementById('dt').textContent = n.toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'}).toUpperCase();
+}
+tick(); setInterval(tick, 1000);
+
+// ── FETCH DATA FROM GOOGLE SHEETS ──
+async function fetchAll() {
+  document.getElementById('ldStatus').textContent = 'FETCHING LIVE DATA...';
+  try {
+    const res = await fetch(API + '?action=all', {method: 'GET'});
+    const data = await res.json();
+
+    // Parse machines
+    if (data.machines && data.machines.rows) {
+      allData.machines = data.machines.rows;
+    }
+
+    // Parse spares
+    if (data.spares && data.spares.rows) {
+      allData.spares = data.spares.rows;
+    }
+
+    // Parse log
+    if (data.log && data.log.rows) {
+      allData.log = data.log.rows.map(r => ({
+        date: r[0] || '',
+        shift: r[1] || '',
+        machine: r[2] || '',
+        reporter: r[3] || '',
+        entryType: r[4] || '',
+        fault: r[5] || '',
+        downtime: r[6] || 0,
+        action: r[7] || '',
+        spares: r[8] || '',
+        status: r[9] || '',
+        photo: r[10] || ''
+      }));
+    }
+
+    document.getElementById('lastSync').textContent = new Date().toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit', hour12:false});
+    document.getElementById('errBanner').style.display = 'none';
+    renderAll();
+
+  } catch(err) {
+    console.log('Fetch error:', err);
+    document.getElementById('errBanner').style.display = 'flex';
+    loadDemoData();
+    renderAll();
+  }
+  hideLoader();
+}
+
+// ── DEMO DATA (jab API na chale) ──
+function loadDemoData() {
+  allData.machines = [
+    {MachineName:'Plasma Cutting CUT-160', Status:'RUNNING', 'Availability%':94},
+    {MachineName:'Plasma Cutting CUT-100H', Status:'BREAKDOWN', 'Availability%':0},
+    {MachineName:'Wire Drawing 9-Head', Status:'RUNNING', 'Availability%':87},
+    {MachineName:'Wire Drawing 8-Head', Status:'PM', 'Availability%':60},
+  ];
+  allData.spares = [
+    {PartName:'Plasma Torch Tips', MinStock:10, CurrentStock:4, Unit:'Pcs'},
+    {PartName:'Shield Cap', MinStock:15, CurrentStock:12, Unit:'Pcs'},
+    {PartName:'Electrode', MinStock:20, CurrentStock:8, Unit:'Pcs'},
+    {PartName:'Nozzle CUT-160', MinStock:10, CurrentStock:6, Unit:'Pcs'},
+    {PartName:'Wire Drawing Die', MinStock:5, CurrentStock:3, Unit:'Set'},
+    {PartName:'IGBT Module', MinStock:2, CurrentStock:1, Unit:'Pcs'},
+  ];
+  allData.log = [
+    {date:'17/05/2025', shift:'Shift A', machine:'Plasma Cutting CUT-100H', reporter:'Nikhil', entryType:'Breakdown', fault:'Torch short circuit', downtime:2.5, action:'Torch replaced', spares:'Torch tip', status:'Resolved'},
+    {date:'17/05/2025', shift:'Shift B', machine:'Wire Drawing 8-Head', reporter:'Ramesh', entryType:'PM Done', fault:'', downtime:0, action:'Monthly PM', spares:'Lubricant', status:''},
+    {date:'16/05/2025', shift:'Shift A', machine:'Plasma Cutting CUT-160', reporter:'Suresh', entryType:'Spare Update', fault:'', downtime:0, action:'', spares:'Nozzle x5', status:''},
+    {date:'16/05/2025', shift:'Shift C', machine:'Wire Drawing 9-Head', reporter:'Nikhil', entryType:'Breakdown', fault:'Wire break - die wear', downtime:1.5, action:'Die replaced', spares:'Die set', status:'Resolved'},
+    {date:'15/05/2025', shift:'Shift A', machine:'Plasma Cutting CUT-100H', reporter:'Ramesh', entryType:'PM Done', fault:'', downtime:0, action:'Weekly PM done', spares:'', status:''},
+  ];
+}
+
+// ── RENDER ALL ──
+function renderAll() {
+  renderKPIs();
+  renderMachines();
+  renderAlerts();
+  renderLog();
+  renderSpares();
+  renderCharts();
+}
+
+// ── KPIs ──
+function renderKPIs() {
+  const now = new Date();
+  const thisMonth = now.getMonth();
+  const thisYear = now.getFullYear();
+
+  const monthLog = allData.log.filter(r => {
+    const d = new Date(r.date);
+    return d.getMonth() === thisMonth && d.getFullYear() === thisYear;
+  });
+
+  const bds = monthLog.filter(r => r.entryType === 'Breakdown');
+  const pms = monthLog.filter(r => r.entryType === 'PM Done');
+  const totalDT = bds.reduce((s,r) => s + (parseFloat(r.downtime)||0), 0);
+  const mttr = bds.length > 0 ? (totalDT / bds.length).toFixed(1) : '—';
+  const critSpares = allData.spares.filter(s => parseInt(s.CurrentStock) <= parseInt(s.MinStock)).length;
+
+  document.getElementById('k1').textContent = allData.log.length;
+  document.getElementById('k2').textContent = bds.length;
+  document.getElementById('k3').textContent = pms.length;
+  document.getElementById('k4').textContent = totalDT.toFixed(1) + 'h';
+  document.getElementById('k5').textContent = mttr === '—' ? '—' : mttr + 'h';
+  document.getElementById('k6').textContent = critSpares;
+
+  // Monthly summary
+  document.getElementById('monthlySummary').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;justify-content:space-between;padding:8px;background:var(--bg2);border-radius:4px;border:1px solid var(--border);">
+        <span>Total Breakdowns</span><span style="color:var(--red);font-family:'Orbitron',monospace;">${bds.length}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:8px;background:var(--bg2);border-radius:4px;border:1px solid var(--border);">
+        <span>PM Completed</span><span style="color:var(--green);font-family:'Orbitron',monospace;">${pms.length}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:8px;background:var(--bg2);border-radius:4px;border:1px solid var(--border);">
+        <span>Total Downtime</span><span style="color:var(--yellow);font-family:'Orbitron',monospace;">${totalDT.toFixed(1)}h</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:8px;background:var(--bg2);border-radius:4px;border:1px solid var(--border);">
+        <span>Avg MTTR</span><span style="color:var(--cyan);font-family:'Orbitron',monospace;">${mttr}h</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:8px;background:var(--bg2);border-radius:4px;border:1px solid var(--border);">
+        <span>Low Stock Spares</span><span style="color:var(--red);font-family:'Orbitron',monospace;">${critSpares}</span>
+      </div>
+    </div>
+  `;
+}
+
+// ── MACHINES ──
+function renderMachines() {
+  const grid = document.getElementById('machineGrid');
+  if (!allData.machines.length) {
+    grid.innerHTML = '<div style="grid-column:span 2;text-align:center;padding:20px;font-family:\'Share Tech Mono\',monospace;font-size:11px;color:var(--text2);">MachineStatus sheet mein data add karo</div>';
+    return;
+  }
+  grid.innerHTML = allData.machines.map(m => {
+    const st = (m.Status || 'RUNNING').toUpperCase();
+    const avail = parseFloat(m['Availability%']) || 100;
+    const stClass = st==='BREAKDOWN' ? 'sbd' : st==='PM' ? 'spm' : st==='IDLE' ? 'sidle' : 'srun';
+    const barClass = st==='BREAKDOWN' ? 'brd' : st==='PM' ? 'byw' : 'bgr';
+    const pctColor = st==='BREAKDOWN' ? 'var(--red)' : st==='PM' ? 'var(--yellow)' : 'var(--green)';
+    return `
+      <div class="mitem">
+        <div class="mtop">
+          <div class="mname">${m.MachineName||'Unknown'}</div>
+          <div class="ms ${stClass}">${st}</div>
+        </div>
+        <div class="mbar">
+          <div class="mbg"><div class="mfill ${barClass}" style="width:${st==='BREAKDOWN'?0:avail}%"></div></div>
+          <div class="mpct" style="color:${pctColor}">${st==='BREAKDOWN'?'0':avail}%</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── ALERTS ──
+function renderAlerts() {
+  const list = document.getElementById('alertList');
+  let alerts = [];
+
+  // Breakdowns
+  const activeBD = allData.machines.filter(m => m.Status==='BREAKDOWN');
+  activeBD.forEach(m => alerts.push({type:'crit', icon:'🔴', text: m.MachineName + ' — BREAKDOWN ACTIVE', time:'NOW'}));
+
+  // Low spares
+  allData.spares.filter(s => parseInt(s.CurrentStock) <= parseInt(s.MinStock)).forEach(s => {
+    alerts.push({type:'warn', icon:'🟡', text: s.PartName + ' — Stock: ' + s.CurrentStock + ' (Min: ' + s.MinStock + ')', time:'AUTO'});
+  });
+
+  // Recent entries info
+  if (allData.log.length > 0) {
+    const last = allData.log[allData.log.length-1];
+    alerts.push({type:'info', icon:'🔵', text: 'Last entry: ' + last.machine + ' — ' + last.entryType, time: last.date});
+  }
+
+  document.getElementById('alertCount').textContent = activeBD.length + ' ACTIVE';
+  list.innerHTML = alerts.length ? alerts.map(a =>
+    `<div class="aitem ${a.type}"><span style="font-size:14px">${a.icon}</span><div class="atxt">${a.text}</div><div class="atm">${a.time}</div></div>`
+  ).join('') : '<div style="text-align:center;padding:20px;font-family:\'Share Tech Mono\',monospace;font-size:11px;color:var(--text2);">✓ No active alerts</div>';
+}
+
+// ── LOG TABLE ──
+function renderLog() {
+  const machFilter = document.getElementById('filterMachine').value;
+  const typeFilter = document.getElementById('filterType').value;
+
+  // Populate machine filter
+  const machines = [...new Set(allData.log.map(r => r.machine).filter(Boolean))];
+  const sel = document.getElementById('filterMachine');
+  if (sel.options.length === 1) {
+    machines.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; sel.appendChild(o); });
+  }
+
+  let filtered = allData.log.filter(r => {
+    if (machFilter && r.machine !== machFilter) return false;
+    if (typeFilter && r.entryType !== typeFilter) return false;
+    return true;
+  }).slice().reverse();
+
+  const tbody = document.getElementById('logBody');
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:20px;color:var(--text2);">Koi data nahi — pehle Google Form se entry karo</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(r => {
+    const typeClass = r.entryType==='Breakdown'?'b-bd':r.entryType==='PM Done'?'b-pm':r.entryType==='Spare Update'?'b-sp':'b-ob';
+    const stClass = r.status==='Resolved'?'b-res':r.status==='In Progress'?'b-ip':r.status==='Pending'?'b-pend':'';
+    return `<tr>
+      <td>${r.date}</td>
+      <td>${r.shift}</td>
+      <td style="font-family:'Share Tech Mono',monospace;font-size:10px;">${r.machine}</td>
+      <td><span class="badge ${typeClass}">${r.entryType}</span></td>
+      <td>${r.fault || r.action || '—'}</td>
+      <td style="color:var(--yellow);font-family:'Orbitron',monospace;font-size:11px;">${r.downtime?r.downtime+'h':'—'}</td>
+      <td>${r.reporter}</td>
+      <td>${r.status?`<span class="badge ${stClass}">${r.status}</span>`:'—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── SPARES ──
+function renderSpares() {
+  const list = document.getElementById('spareList');
+  if (!allData.spares.length) {
+    list.innerHTML = '<div style="text-align:center;padding:20px;font-family:\'Share Tech Mono\',monospace;font-size:11px;color:var(--text2);">SpareParts sheet mein data add karo</div>';
+    return;
+  }
+  list.innerHTML = allData.spares.map(s => {
+    const cur = parseInt(s.CurrentStock) || 0;
+    const min = parseInt(s.MinStock) || 1;
+    const pct = Math.min(100, Math.round(cur/min*50));
+    const cls = cur <= min ? 'scrit' : cur <= min*1.5 ? 'slow' : 'sok';
+    const barCls = cur <= min ? 'brd' : cur <= min*1.5 ? 'byw' : 'bgr';
+    return `
+      <div class="sitem">
+        <div class="sname">${s.PartName}</div>
+        <div class="scnt ${cls}">${cur}</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text2);width:30px;">${s.Unit||''}</div>
+        <div class="sbw"><div class="sbb"><div class="sbf ${barCls}" style="width:${pct}%"></div></div></div>
+        ${cur <= min ? '<span style="font-size:10px;color:var(--red);">⚠</span>' : ''}
+      </div>`;
+  }).join('');
+
+  renderSpareChart();
+}
+
+// ── CHARTS ──
+function renderCharts() {
+  renderBDChart();
+  renderPieChart();
+}
+
+function renderBDChart() {
+  if (charts.bd) { charts.bd.destroy(); }
+  const ctx = document.getElementById('bdChart').getContext('2d');
+  const months = [];
+  const bdCounts = [];
+  const pmCounts = [];
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date();
+    d.setMonth(d.getMonth() - i);
+    months.push(d.toLocaleString('default',{month:'short'}).toUpperCase());
+    const m = d.getMonth(), y = d.getFullYear();
+    bdCounts.push(allData.log.filter(r => {
+      const rd = new Date(r.date); return rd.getMonth()===m && rd.getFullYear()===y && r.entryType==='Breakdown';
+    }).length);
+    pmCounts.push(allData.log.filter(r => {
+      const rd = new Date(r.date); return rd.getMonth()===m && rd.getFullYear()===y && r.entryType==='PM Done';
+    }).length);
+  }
+  charts.bd = new Chart(ctx, {
+    type:'bar',
+    data:{labels:months,datasets:[
+      {label:'Breakdowns',data:bdCounts,backgroundColor:'rgba(255,34,68,.6)',borderColor:'rgba(255,34,68,.9)',borderWidth:1,borderRadius:3},
+      {label:'PM Done',data:pmCounts,backgroundColor:'rgba(168,85,247,.5)',borderColor:'rgba(168,85,247,.8)',borderWidth:1,borderRadius:3}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:10,color:'#7a9ab8',font:{family:"'Share Tech Mono'"} }}},scales:{x:{grid:{color:'rgba(26,42,58,.8)'},ticks:{color:'#4a6a8a'}},y:{grid:{color:'rgba(26,42,58,.8)'},ticks:{color:'#4a6a8a',stepSize:1}}}}
+  });
+}
+
+function renderPieChart() {
+  if (charts.pie) { charts.pie.destroy(); }
+  const ctx = document.getElementById('pieChart').getContext('2d');
+  const types = ['Breakdown','PM Done','Spare Update','Observation'];
+  const counts = types.map(t => allData.log.filter(r=>r.entryType===t).length);
+  charts.pie = new Chart(ctx, {
+    type:'doughnut',
+    data:{labels:types,datasets:[{data:counts,backgroundColor:['rgba(255,34,68,.7)','rgba(0,255,136,.6)','rgba(0,212,255,.6)','rgba(255,215,0,.6)'],borderColor:['var(--red)','var(--green)','var(--cyan)','var(--yellow)'],borderWidth:1}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:10,color:'#7a9ab8',padding:10,font:{family:"'Share Tech Mono'",size:10}}}}}
+  });
+}
+
+function renderSpareChart() {
+  if (charts.sp) { charts.sp.destroy(); }
+  const ctx = document.getElementById('spareChart');
+  if (!ctx) return;
+  const names = allData.spares.map(s => s.PartName.length>15 ? s.PartName.substring(0,15)+'...' : s.PartName);
+  const stocks = allData.spares.map(s => parseInt(s.CurrentStock)||0);
+  const mins = allData.spares.map(s => parseInt(s.MinStock)||0);
+  charts.sp = new Chart(ctx.getContext('2d'), {
+    type:'bar',
+    data:{labels:names,datasets:[
+      {label:'Current Stock',data:stocks,backgroundColor:stocks.map((s,i)=>s<=mins[i]?'rgba(255,34,68,.6)':s<=mins[i]*1.5?'rgba(255,215,0,.6)':'rgba(0,212,255,.5)'),borderRadius:3},
+      {label:'Min Required',data:mins,backgroundColor:'rgba(255,107,26,.2)',borderColor:'rgba(255,107,26,.6)',borderWidth:1,borderRadius:3}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{labels:{boxWidth:10,color:'#7a9ab8'}}},scales:{x:{grid:{color:'rgba(26,42,58,.8)'},ticks:{color:'#4a6a8a'}},y:{grid:{color:'rgba(26,42,58,.8)'},ticks:{color:'#4a6a8a',font:{size:9}}}}}
+  });
+}
+
+// ── TABS ──
+function showTab(tab, btn) {
+  document.querySelectorAll('.tc').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  if (btn) btn.classList.add('active');
+  if (tab==='spares') renderSpares();
+}
+
+// ── EXCEL DOWNLOAD ──
+function downloadExcel() {
+  if (!allData.log.length) { alert('Pehle koi data hona chahiye!'); return; }
+  const wb = XLSX.utils.book_new();
+
+  // Log sheet
+  const logData = [['Date','Shift','Machine','Reporter','Entry Type','Fault','Downtime(h)','Action','Spares','Status']];
+  allData.log.forEach(r => logData.push([r.date,r.shift,r.machine,r.reporter,r.entryType,r.fault,r.downtime,r.action,r.spares,r.status]));
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(logData), 'Maintenance Log');
+
+  // Machine sheet
+  const mData = [['Machine','Status','Availability%','Last Updated','Next PM']];
+  allData.machines.forEach(m => mData.push([m.MachineName,m.Status,m['Availability%'],m.LastUpdated,m.NextPMDue]));
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(mData), 'Machine Status');
+
+  // Spares sheet
+  const sData = [['Part Name','Min Stock','Current Stock','Unit','Last Updated']];
+  allData.spares.forEach(s => sData.push([s.PartName,s.MinStock,s.CurrentStock,s.Unit,s.LastUpdated]));
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sData), 'Spare Parts');
+
+  const now = new Date();
+  XLSX.writeFile(wb, 'WRT_Maintenance_' + now.getDate() + '_' + (now.getMonth()+1) + '_' + now.getFullYear() + '.xlsx');
+}
+
+// Auto refresh every 5 minutes
+setInterval(fetchAll, 5 * 60 * 1000);
+</script>
+</body>
+</html>
