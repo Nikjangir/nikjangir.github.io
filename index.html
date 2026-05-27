@@ -85,7 +85,7 @@
       <button onclick="updateOEE()">Calculate OEE</button>
     </div>
     <div class="card"><div class="card-header"><i class="fas fa-brain"></i><h2>AI Assistant (Auto Search)</h2></div>
-      <div class="chat-messages" id="chatMessages"><div class="message ai-message">🤖 Ask me anything about machines, components, or upload a photo!</div></div>
+      <div class="chat-messages" id="chatMessages"><div class="message ai-message">🤖 Ask me anything about machines, components, or upload a photo! I'll search Wikipedia/Google.</div></div>
       <div style="display:flex; gap:8px;"><input type="text" id="chatInput" placeholder="e.g., relay working principle" onkeypress="if(event.key==='Enter') askAI()"><button onclick="askAI()">Send</button></div>
       <div style="margin-top:10px;"><label>📸 Upload photo for AI detection:</label><input type="file" id="photoForAI" accept="image/*"><div id="detectionResult"></div></div>
     </div>
@@ -134,8 +134,8 @@
 <div id="addMachineModal" class="modal"><div class="modal-content"><span class="modal-close" onclick="closeAddMachineModal()">&times;</span><h2>Add Machine</h2><input type="text" id="newMachineName" placeholder="Name"><input type="text" id="newMachineLocation" placeholder="Location"><button onclick="addNewMachine()">Save</button></div></div>
 <script>
   // ======================== CONFIG ========================
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyM6lIndiE3AMIRjD_RBMmr8qq85KLJ-IAIw1ZHhc4l5f3dDsV8tb25LBxOvQqBRa4e/exec";
-  
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzoM6jc4fG3FKa4l_km-NFKyF7qgD4wRxdMg3A-y2Vdt8yAGcPP2R0HlzuFUqjalOto/exec";
+
   // ======================== API CALLS ========================
   async function apiCall(action, method = 'GET', body = null) {
     const url = method === 'GET' ? `${APPS_SCRIPT_URL}?action=${action}` : APPS_SCRIPT_URL;
