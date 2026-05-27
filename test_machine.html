@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fix Machine Add</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+        input, button { padding: 10px; margin: 5px; width: 100%; }
+        .machine-list { margin-top: 20px; border-top: 1px solid #ccc; }
+        .machine-item { background: #f0f0f0; margin: 5px 0; padding: 8px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h2>➕ Add Machine</h2>
+    <input type="text" id="machineName" placeholder="Machine Name">
+    <input type="text" id="machineLocation" placeholder="Location">
+    <button onclick="addMachine()">Save Machine</button>
+    <div id="msg"></div>
+
+    <h2>📋 Machine List</h2>
+    <button onclick="loadMachines()">Refresh List</button>
+    <div id="machineList" class="machine-list"></div>
+
+    <script>
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzoM6jc4fG3FKa4l_km-NFKyF7qgD4wRxdMg3A-y2Vdt8yAGcPP2R0HlzuFUqjalOto/exec";
+
+        async function loadMachines() {
+            try {
+                const res = await fetch(`${APPS_SCRIPT_URL}?action=getMachines`);
+                const data = await res.json();
+                if (data.machines && data.machines.length) {
+                    const listDiv = document.getElementById('machineList');
+                    listDiv.innerHTML = data.machines.map(m => `<div class="machine-item"><strong>${m.name}</strong> (${m.location || 'No location'})</div>`).join('');
+                } else {
+                    document.getElementById('machineList').innerHTML = '<div>No machines found. Add one above.</div>';
+                }
+            } catch(err) {
+                document.getElementById('machineList').innerHTML = `<div style="color:red;">Error loading: ${err.message}</div>`;
+            }
+        }
+
+        async function addMachine() {
+            const name = document.getElementById('machineName').value.trim();
+            const location = document.getElementById('machineLocation').value.trim();
+            if (!name) {
+                document.getElementById('msg').innerHTML = '❌ Please enter machine name';
+                return;
+            }
+            document.getElementById('msg').innerHTML = '⏳ Adding...';
+            try {
+                const res = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'addMachine', name, location })
+                });
+                const data = await res.json();
+                if (data.status === 'ok') {
+                    document.getElementById('msg').innerHTML = '✅ Machine added! Refreshing list...';
+                    document.getElementById('machineName').value = '';
+                    document.getElementById('machineLocation').value = '';
+                    await loadMachines();  // तुरंत लिस्ट रिफ्रेश
+                } else {
+                    document.getElementById('msg').innerHTML = '❌ Server error: ' + JSON.stringify(data);
+                }
+            } catch(err) {
+                document.getElementById('msg').innerHTML = '❌ Network error: ' + err.message;
+            }
+        }
+
+        // पेज खुलते ही मशीनें लोड करें
+        loadMachines();
+    </script>
+</body>
+</html>
